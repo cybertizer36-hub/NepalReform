@@ -7,9 +7,76 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "NepalReforms",
-  description: "A platform for democratic participation in Nepal's constitutional reform process",
-  generator: "v0.app",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nepalreforms.com'),
+  title: {
+    default: "Nepal Reforms - 27 Comprehensive Reform Proposals for Democratic Transformation",
+    template: "%s | Nepal Reforms",
+  },
+  description: "Explore 27 evidence-based reform proposals for Nepal's democratic transformation. Vote, discuss, and contribute to shaping Nepal's future through transparency, anti-corruption, and governance reforms.",
+  keywords: [
+    "Nepal reforms",
+    "democratic transformation",
+    "anti-corruption Nepal",
+    "governance Nepal",
+    "transparency Nepal",
+    "CIAA reform",
+    "electoral reform Nepal",
+    "federalism Nepal",
+    "digital governance",
+    "Nepal manifesto",
+    "Nepal youth movement",
+  ],
+  authors: [
+    {
+      name: "Nepal Reforms Platform",
+      url: "https://nepalreforms.com",
+    },
+  ],
+  creator: "Nexalaris Tech Company",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://nepalreforms.com",
+    title: "Nepal Reforms - 27 Reform Proposals",
+    description: "Comprehensive reform proposals for Nepal's democratic transformation",
+    siteName: "Nepal Reforms Platform",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nepal Reforms Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nepal Reforms Platform",
+    description: "27 comprehensive reform proposals for Nepal's democratic transformation",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+  },
+  alternates: {
+    canonical: "https://nepalreforms.com",
+  },
 }
 
 export default function RootLayout({
