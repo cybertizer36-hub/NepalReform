@@ -10,7 +10,9 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "env:pull": "npx vercel env pull .env.local --yes"
+    "env:pull": "npx vercel env pull .env.local --yes",
+    "sitemap:generate": "node scripts/generate-sitemap.js",
+    "seo:check": "next build && next start"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
