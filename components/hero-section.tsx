@@ -37,11 +37,7 @@ export function HeroSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center space-y-8">
           {/* Badge */}
-          <div className="flex justify-center">
-            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
-              🇳🇵 Made for Nepal's Future
-            </Badge>
-          </div>
+          
 
           {/* Main Heading */}
           <div className="space-y-4">

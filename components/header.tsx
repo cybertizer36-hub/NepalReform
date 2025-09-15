@@ -63,8 +63,7 @@ export function Header() {
                 <Image
                   src="/nepal-flag-logo.png"
                   alt="NepalReforms Logo"
-                  width={40}
-                  height={40}
+                  fill
                   className="object-contain rounded-none"
                 />
               </div>
