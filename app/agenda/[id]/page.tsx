@@ -91,7 +91,8 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
             Reform #{item.id}: {item.title}
           </h1>
 
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mb-1 mb-0 mb-1 mb-0">{item.description} <br /></p>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl">{item.description}</p>
+        </div>
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Content */}
