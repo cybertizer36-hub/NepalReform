@@ -50,7 +50,7 @@
 ### 4. 📊 Additional SEO Steps
 
 #### Essential Meta Tags (Add to layout.tsx):
-```typescript
+\`\`\`typescript
 export const metadata: Metadata = {
   metadataBase: new URL('https://nepalreforms.com'),
   title: {
@@ -63,10 +63,10 @@ export const metadata: Metadata = {
     google: 'YOUR_GOOGLE_VERIFICATION_CODE', // Add after Search Console verification
   },
 }
-```
+\`\`\`
 
 #### Structured Data (Add to agenda pages):
-```json
+\`\`\`json
 {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
   "datePublished": "2024-01-01",
   "dateModified": "2024-01-01"
 }
-```
+\`\`\`
 
 ### 5. 🔍 Google Indexing Timeline
 
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
 ### 7. 🛠️ Manual Sitemap Generation
 
 If you need to generate static sitemaps:
-```bash
+\`\`\`bash
 # Run the sitemap generator
 node scripts/generate-sitemap.js
 
@@ -109,7 +109,7 @@ node scripts/generate-sitemap.js
 # - public/sitemap.xml (main sitemap)
 # - public/sitemap-agendas.xml (reforms only)
 # - public/sitemap-index.xml (sitemap index)
-```
+\`\`\`
 
 ### 8. 🎨 Open Graph Images
 
@@ -123,7 +123,7 @@ Create and add these images to `/public`:
 ### 9. 🌍 Local SEO (Nepal-specific)
 
 #### Add Nepal-specific schema:
-```json
+\`\`\`json
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -137,7 +137,7 @@ Create and add these images to `/public`:
     "name": "Nepal"
   }
 }
-```
+\`\`\`
 
 ### 10. 📱 Social Media Integration
 

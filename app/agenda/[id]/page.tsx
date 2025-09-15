@@ -91,20 +91,7 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
             Reform #{item.id}: {item.title}
           </h1>
 
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl">{item.description}</p>
-
-          <div className="mt-6 p-4 bg-muted/30 rounded-lg border">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-1">What do you think about this reform?</h3>
-                <p className="text-xs text-muted-foreground">
-                  Your vote helps prioritize reforms based on public support
-                </p>
-              </div>
-              <AgendaVoteSection agendaId={agendaId} size="default" />
-            </div>
-          </div>
-        </div>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mb-1 mb-0 mb-1 mb-0">{item.description} <br /></p>
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Content */}

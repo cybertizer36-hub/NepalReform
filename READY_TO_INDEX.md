@@ -5,9 +5,9 @@
 ### ⚡ Quick Test
 
 Run your app and check these URLs:
-```bash
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
 Then visit:
 - http://localhost:3000/sitemap.xml (should show XML with all pages)
@@ -34,9 +34,9 @@ Then visit:
 ### 🚀 Deploy & Submit to Google
 
 #### 1. Deploy to Vercel:
-```bash
+\`\`\`bash
 vercel --prod
-```
+\`\`\`
 
 #### 2. Verify URLs work:
 - https://yourdomain.com/sitemap.xml

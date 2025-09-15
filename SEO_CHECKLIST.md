@@ -14,7 +14,7 @@
 - ✅ `components/structured-data.tsx` - Schema.org structured data
 
 ### 3. **Files Created**
-```
+\`\`\`
 📁 NepalReform-main/
 ├── 📄 app/sitemap.ts                    # Dynamic sitemap
 ├── 📄 app/robots.ts                     # Robots.txt
@@ -23,17 +23,17 @@
 ├── 📄 components/structured-data.tsx    # Schema markup
 ├── 📄 GOOGLE_INDEXING_GUIDE.md         # Complete guide
 └── 📄 SEO_CHECKLIST.md                 # This file
-```
+\`\`\`
 
 ## 🎯 Next Steps for Google Indexing
 
 ### Step 1: Deploy Your Site
-```bash
+\`\`\`bash
 npm run build
 npm run start
 # Or deploy to Vercel
 vercel --prod
-```
+\`\`\`
 
 ### Step 2: Verify Sitemap Works
 Visit these URLs after deployment:
@@ -98,22 +98,22 @@ In Search Console, use URL Inspection for:
 ## 🛠️ Manual Commands
 
 ### Generate Static Sitemap:
-```bash
+\`\`\`bash
 npm run sitemap:generate
-```
+\`\`\`
 
 ### Check SEO Build:
-```bash
+\`\`\`bash
 npm run seo:check
-```
+\`\`\`
 
 ## 📝 Environment Variables Needed
 
 Add to `.env.local`:
-```env
+\`\`\`env
 NEXT_PUBLIC_SITE_URL=https://nepalreforms.com
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code
-```
+\`\`\`
 
 ## 🎨 Additional Files Needed
 

@@ -94,48 +94,48 @@ Areas where we need help:
 ## 🚀 Getting Started
 
 1. **Fork the Repository**
-   ```bash
+   \`\`\`bash
    # Click the 'Fork' button on GitHub
-   ```
+   \`\`\`
 
 2. **Clone Your Fork**
-   ```bash
+   \`\`\`bash
    git clone https://github.com/your-username/nepal-reforms-platform.git
    cd nepal-reforms-platform
-   ```
+   \`\`\`
 
 3. **Add Upstream Remote**
-   ```bash
+   \`\`\`bash
    git remote add upstream https://github.com/original-owner/nepal-reforms-platform.git
-   ```
+   \`\`\`
 
 4. **Create a Branch**
-   ```bash
+   \`\`\`bash
    git checkout -b feature/your-feature-name
    # or
    git checkout -b fix/bug-description
-   ```
+   \`\`\`
 
 5. **Install Dependencies**
-   ```bash
+   \`\`\`bash
    npm install
-   ```
+   \`\`\`
 
 6. **Set Up Environment**
-   ```bash
+   \`\`\`bash
    cp .env.local.example .env.local
    # Add your Supabase credentials
-   ```
+   \`\`\`
 
 ## 🔄 Development Process
 
 ### 1. Stay Updated
 
-```bash
+\`\`\`bash
 git fetch upstream
 git checkout main
 git merge upstream/main
-```
+\`\`\`
 
 ### 2. Make Your Changes
 
@@ -146,7 +146,7 @@ git merge upstream/main
 
 ### 3. Test Your Changes
 
-```bash
+\`\`\`bash
 # Run the development server
 npm run dev
 
@@ -158,7 +158,7 @@ npm run lint
 
 # Run tests (when available)
 npm run test
-```
+\`\`\`
 
 ### 4. Commit Your Changes
 
@@ -166,9 +166,9 @@ We use conventional commits. See [Commit Messages](#commit-messages) section.
 
 ### 5. Push to Your Fork
 
-```bash
+\`\`\`bash
 git push origin feature/your-feature-name
-```
+\`\`\`
 
 ### 6. Create Pull Request
 
@@ -178,7 +178,7 @@ Go to GitHub and create a PR from your fork to the main repository.
 
 ### TypeScript/JavaScript
 
-```typescript
+\`\`\`typescript
 // Use meaningful variable names
 const userVoteCount = 10; // Good
 const uvc = 10; // Bad
@@ -202,11 +202,11 @@ interface AgendaProps {
   title: string;
   // ... other properties
 }
-```
+\`\`\`
 
 ### CSS/Tailwind
 
-```jsx
+\`\`\`jsx
 // Use Tailwind utility classes
 <div className="flex items-center justify-between p-4">
 
@@ -219,11 +219,11 @@ interface AgendaProps {
 
 // Good
 <div className="p-2.5">
-```
+\`\`\`
 
 ### Component Structure
 
-```typescript
+\`\`\`typescript
 // 1. Imports
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
@@ -250,20 +250,20 @@ export function Component({ prop }: ComponentProps) {
     </div>
   )
 }
-```
+\`\`\`
 
 ## 💬 Commit Messages
 
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
 
 ### Format
-```
+\`\`\`
 <type>(<scope>): <subject>
 
 <body>
 
 <footer>
-```
+\`\`\`
 
 ### Types
 
@@ -279,7 +279,7 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 
 ### Examples
 
-```bash
+\`\`\`bash
 feat(voting): add real-time vote updates
 fix(auth): resolve login redirect issue
 docs(readme): update installation instructions
@@ -288,17 +288,17 @@ refactor(api): optimize database queries
 perf(images): implement lazy loading
 test(voting): add unit tests for vote counting
 chore(deps): update dependencies
-```
+\`\`\`
 
 ## 🔀 Pull Request Process
 
 1. **PR Title**: Use conventional commit format
-   ```
+   \`\`\`
    feat(voting): add anonymous voting support
-   ```
+   \`\`\`
 
 2. **PR Description**: Use our template
-   ```markdown
+   \`\`\`markdown
    ## Description
    Brief description of changes
    
@@ -321,7 +321,7 @@ chore(deps): update dependencies
    - [ ] Self-reviewed code
    - [ ] Updated documentation
    - [ ] No console errors
-   ```
+   \`\`\`
 
 3. **Review Process**
    - At least one maintainer review required

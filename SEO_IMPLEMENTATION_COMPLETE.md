@@ -29,17 +29,17 @@
 ### 📋 Quick Start Guide
 
 #### Step 1: Test Locally
-```bash
+\`\`\`bash
 npm run dev
 # Visit: http://localhost:3000/sitemap.xml
 # Visit: http://localhost:3000/robots.txt
-```
+\`\`\`
 
 #### Step 2: Deploy to Production
-```bash
+\`\`\`bash
 npm run build
 vercel --prod
-```
+\`\`\`
 
 #### Step 3: Submit to Google
 1. Go to [Google Search Console](https://search.google.com/search-console)
@@ -59,7 +59,7 @@ vercel --prod
 
 ### 🔧 Commands Available
 
-```bash
+\`\`\`bash
 # Generate static sitemap (optional)
 npm run sitemap:generate
 
@@ -71,11 +71,11 @@ npm run dev
 
 # Production build
 npm run build
-```
+\`\`\`
 
 ### 📁 File Structure
 
-```
+\`\`\`
 ✅ app/sitemap.ts          → Dynamic sitemap generator
 ✅ app/robots.ts           → Robots.txt generator
 ✅ app/layout.tsx          → SEO metadata (updated)
@@ -83,7 +83,7 @@ npm run build
 ✅ components/structured-data.tsx → Schema markup
 ✅ scripts/generate-sitemap.js → Manual generator
 ✅ public/site.webmanifest → PWA manifest
-```
+\`\`\`
 
 ### 🎨 Images Still Needed
 
@@ -99,10 +99,10 @@ Create these files in `/public`:
 ### 🌐 Environment Variables
 
 Add to `.env.local`:
-```env
+\`\`\`env
 NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-code-here
-```
+\`\`\`
 
 ### 📈 What to Expect
 

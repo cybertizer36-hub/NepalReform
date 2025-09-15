@@ -117,22 +117,22 @@ The platform covers 27 reforms across these key areas:
 ### Installation
 
 1. **Clone the repository**
-```bash
+\`\`\`bash
 git clone https://github.com/yourusername/nepal-reforms-platform.git
 cd nepal-reforms-platform
-```
+\`\`\`
 
 2. **Install dependencies**
-```bash
+\`\`\`bash
 npm install
 # or
 pnpm install
-```
+\`\`\`
 
 3. **Set up environment variables**
-```bash
+\`\`\`bash
 cp .env.local.example .env.local
-```
+\`\`\`
 
 4. **Configure Supabase**
    - Create a project at [supabase.com](https://supabase.com)
@@ -140,11 +140,11 @@ cp .env.local.example .env.local
    - Update `.env.local` with your credentials
 
 5. **Run the development server**
-```bash
+\`\`\`bash
 npm run dev
 # or
 pnpm dev
-```
+\`\`\`
 
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
@@ -153,7 +153,7 @@ pnpm dev
 
 Create a `.env.local` file with the following variables:
 
-```env
+\`\`\`env
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -167,11 +167,11 @@ RESEND_API_KEY=your_resend_api_key
 
 # Analytics (Optional)
 NEXT_PUBLIC_VERCEL_ANALYTICS_ID=your_analytics_id
-```
+\`\`\`
 
 ## 📁 Project Structure
 
-```
+\`\`\`
 nepal-reforms-platform/
 ├── app/                    # Next.js 13+ App Router
 │   ├── admin/             # Admin dashboard
@@ -194,13 +194,13 @@ nepal-reforms-platform/
 ├── public/               # Static assets
 ├── styles/               # Global styles
 └── hooks/                # Custom React hooks
-```
+\`\`\`
 
 ## 💻 Development
 
 ### Available Scripts
 
-```bash
+\`\`\`bash
 # Development
 npm run dev              # Start development server
 npm run build           # Build for production
@@ -214,7 +214,7 @@ npm run analyze:server  # Analyze server bundle
 
 # Environment
 npm run env:pull        # Pull Vercel environment variables
-```
+\`\`\`
 
 ### Code Style
 
@@ -227,11 +227,11 @@ We follow these conventions:
 
 ### Testing
 
-```bash
+\`\`\`bash
 npm run test        # Run tests (coming soon)
 npm run test:watch  # Run tests in watch mode
 npm run test:coverage # Generate coverage report
-```
+\`\`\`
 
 ## 🤝 Contributing
 
@@ -241,18 +241,18 @@ We welcome contributions from the community! Please read our [Contributing Guide
 
 1. **Fork the repository**
 2. **Create a feature branch**
-   ```bash
+   \`\`\`bash
    git checkout -b feature/your-feature-name
-   ```
+   \`\`\`
 3. **Make your changes**
 4. **Commit with conventional commits**
-   ```bash
+   \`\`\`bash
    git commit -m "feat: add new feature"
-   ```
+   \`\`\`
 5. **Push to your fork**
-   ```bash
+   \`\`\`bash
    git push origin feature/your-feature-name
-   ```
+   \`\`\`
 6. **Open a Pull Request**
 
 ### Contribution Areas
@@ -268,7 +268,7 @@ We welcome contributions from the community! Please read our [Contributing Guide
 
 ### Public Endpoints
 
-```typescript
+\`\`\`typescript
 // Get all agendas
 GET /api/agendas
 Query params:
@@ -287,11 +287,11 @@ Body: {
   agenda_id: string
   vote_type: "up" | "down"
 }
-```
+\`\`\`
 
 ### Authenticated Endpoints
 
-```typescript
+\`\`\`typescript
 // Submit suggestion (requires auth)
 POST /api/suggestions
 Headers: Authorization: Bearer <token>
@@ -308,7 +308,7 @@ Body: {
   content: string
   agenda_id: string
 }
-```
+\`\`\`
 
 ## ⚡ Performance
 
@@ -337,21 +337,21 @@ Body: {
 
 ### Manual Deployment
 
-```bash
+\`\`\`bash
 # Build the application
 npm run build
 
 # Start production server
 npm start
-```
+\`\`\`
 
 ### Docker Deployment
 
-```dockerfile
+\`\`\`dockerfile
 # Dockerfile available in repository
 docker build -t nepal-reforms .
 docker run -p 3000:3000 nepal-reforms
-```
+\`\`\`
 
 ## 📄 License
 

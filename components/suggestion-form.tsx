@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -27,24 +26,29 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
   const supabase = createClient()
 
   useEffect(() => {
-    const checkUser = async () => {
+    const loadSession = async () => {
       try {
-        const {
-          data: { user },
-          error,
-        } = await supabase.auth.getUser()
-        if (error) {
-          console.error("Error checking user:", error)
-        }
-        setUser(user)
-      } catch (error) {
-        console.error("Error checking user:", error)
+        const { data: { session }, error } = await supabase.auth.getSession()
+        if (error) console.error("Error getting session:", error)
+        setUser(session?.user ?? null)
+      } catch (err) {
+        console.error("Error getting session:", err)
       } finally {
         setIsLoading(false)
       }
     }
-    checkUser()
-  }, [])
+
+    loadSession()
+
+    // Listen for login/logout/session refresh
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => {
+      subscription.subscription.unsubscribe()
+    }
+  }, [supabase])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -65,9 +69,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
     try {
       const response = await fetch("/api/suggestions", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           agenda_id: agendaId,
           content: content.trim(),
@@ -80,15 +82,15 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
         throw new Error(errorData.error || "Failed to submit suggestion")
       }
 
-      const data = await response.json()
+      await response.json()
 
-      // Reset form on success
+      // Reset form
       setContent("")
       setAuthorName("")
       onSuggestionAdded?.()
-    } catch (error) {
-      console.error("Error submitting suggestion:", error)
-      setError(error instanceof Error ? error.message : "Failed to submit suggestion")
+    } catch (err) {
+      console.error("Error submitting suggestion:", err)
+      setError(err instanceof Error ? err.message : "Failed to submit suggestion")
       setTimeout(() => setError(null), 5000)
     } finally {
       setIsSubmitting(false)
@@ -135,7 +137,10 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
         {error && (
           <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
             <p className="text-sm text-destructive">{error}</p>
-            <button onClick={() => setError(null)} className="text-xs underline hover:no-underline mt-1">
+            <button
+              onClick={() => setError(null)}
+              className="text-xs underline hover:no-underline mt-1"
+            >
               Dismiss
             </button>
           </div>
@@ -173,7 +178,11 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
             />
           </div>
 
-          <Button type="submit" disabled={isSubmitting || !content.trim() || !authorName.trim()} className="w-full">
+          <Button
+            type="submit"
+            disabled={isSubmitting || !content.trim() || !authorName.trim()}
+            className="w-full"
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
