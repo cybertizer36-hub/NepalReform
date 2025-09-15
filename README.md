@@ -18,6 +18,7 @@ A comprehensive digital platform presenting 27 evidence-based reform proposals f
 - [Reform Categories](#reform-categories)
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
+- [Docker Deployment](#docker-deployment)
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
 - [Development](#development)

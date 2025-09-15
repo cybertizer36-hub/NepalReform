@@ -67,9 +67,13 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/nrlogo7.png", sizes: "16x16", type: "image/png" },
+      { url: "/nrlogo7.png", sizes: "32x32", type: "image/png" },
+      { url: "/nrlogo7.png", sizes: "96x96", type: "image/png" },
+    ],
+    shortcut: "/nrlogo7.png",
+    apple: "/nrlogo7.png",
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
@@ -87,6 +91,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <head>
+        <link rel="icon" href="/nrlogo7.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/nrlogo7.png" />
+        <link rel="shortcut icon" href="/nrlogo7.png" />
+      </head>
       <body className="font-sans antialiased">
         <Suspense fallback={null}>{children}</Suspense>
         <Analytics />

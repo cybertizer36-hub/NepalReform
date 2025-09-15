@@ -9,13 +9,18 @@ import { LogOut, User, Menu, X, BookOpen, Home, Download, ChevronDown } from "lu
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
+import { ClientOnly } from "@/components/client-only"
+import { useHydration } from "@/hooks/use-hydration"
 
 export function Header() {
   const [user, setUser] = useState<any>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const isHydrated = useHydration()
   const supabase = createClient()
 
   useEffect(() => {
+    if (!isHydrated) return
+
     const checkUser = async () => {
       const {
         data: { user },
@@ -33,7 +38,7 @@ export function Header() {
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase.auth])
+  }, [supabase.auth, isHydrated])
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -50,6 +55,66 @@ export function Header() {
     const nepaliUrl =
       "https://nokrhvgrfcletinhsalt.supabase.co/storage/v1/object/sign/Manifestobucket/Nepali_language_Manifesto.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yZTMwMzU3Mi0zYTNmLTRjYmQtOTg1NC0yZjQyYWI4YmE4MTkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5pZmVzdG9idWNrZXQvTmVwYWxpX2xhbmd1YWdlX01hbmlmZXN0by5wZGYiLCJpYXQiOjE3NTc2MTQzMTYsImV4cCI6MTc4OTE1MDMxNn0.7jJXfea5IKF9S709YBKssa_FWzkIg5u213gErQMojr4"
     window.open(nepaliUrl, "_blank")
+  }
+
+  // Auth component with hydration-safe rendering
+  const AuthSection = () => {
+    if (!isHydrated) {
+      // Render a neutral placeholder during SSR to prevent hydration mismatch
+      return <div className="w-20 h-8 animate-pulse bg-gray-200 rounded" />
+    }
+
+    return user ? (
+      <div className="flex items-center gap-3">
+        <Avatar className="h-8 w-8">
+          <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+            {user.email?.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-sm">
+          <LogOut className="h-4 w-4 mr-2" />
+          Sign Out
+        </Button>
+      </div>
+    ) : (
+      <Button asChild size="sm">
+        <Link href="/auth/login">
+          <User className="h-4 w-4 mr-2" />
+          Sign In
+        </Link>
+      </Button>
+    )
+  }
+
+  // Mobile auth section
+  const MobileAuthSection = () => {
+    if (!isHydrated) {
+      return <div className="w-full h-8 animate-pulse bg-gray-200 rounded" />
+    }
+
+    return user ? (
+      <div className="space-y-3 pt-3 border-t">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-8 w-8">
+            <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+              {user.email?.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <span className="text-sm text-foreground">{user.email}</span>
+        </div>
+        <Button variant="ghost" size="sm" onClick={handleSignOut} className="w-full justify-start">
+          <LogOut className="h-4 w-4 mr-2" />
+          Sign Out
+        </Button>
+      </div>
+    ) : (
+      <Button asChild size="sm" className="w-full">
+        <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
+          <User className="h-4 w-4 mr-2" />
+          Sign In
+        </Link>
+      </Button>
+    )
   }
 
   return (
@@ -90,22 +155,25 @@ export function Header() {
                 <BookOpen className="h-4 w-4" />
                 27 Reforms
               </Link>
-              {user && (
-                <>
-                  <Link
-                    href="/create-opinion"
-                    className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-                  >
-                    Create Agenda
-                  </Link>
-                  <Link
-                    href="/profile"
-                    className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-                  >
-                    Profile
-                  </Link>
-                </>
-              )}
+              
+              <ClientOnly fallback={<div className="w-32 h-4" />}>
+                {user && (
+                  <>
+                    <Link
+                      href="/create-opinion"
+                      className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      Create Agenda
+                    </Link>
+                    <Link
+                      href="/profile"
+                      className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      Profile
+                    </Link>
+                  </>
+                )}
+              </ClientOnly>
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -149,26 +217,7 @@ export function Header() {
               </DropdownMenu>
             </nav>
 
-            {user ? (
-              <div className="flex items-center gap-3">
-                <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-primary text-primary-foreground text-sm">
-                    {user.email?.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-sm">
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Sign Out
-                </Button>
-              </div>
-            ) : (
-              <Button asChild size="sm">
-                <Link href="/auth/login">
-                  <User className="h-4 w-4 mr-2" />
-                  Sign In
-                </Link>
-              </Button>
-            )}
+            <AuthSection />
           </div>
 
           {/* Mobile Menu Button */}
@@ -198,24 +247,28 @@ export function Header() {
                   <BookOpen className="h-4 w-4" />
                   27 Reforms
                 </Link>
-                {user && (
-                  <>
-                    <Link
-                      href="/create-opinion"
-                      className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Create Opinion
-                    </Link>
-                    <Link
-                      href="/profile"
-                      className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Profile
-                    </Link>
-                  </>
-                )}
+                
+                <ClientOnly>
+                  {user && (
+                    <>
+                      <Link
+                        href="/create-opinion"
+                        className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Create Opinion
+                      </Link>
+                      <Link
+                        href="/profile"
+                        className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                    </>
+                  )}
+                </ClientOnly>
+                
                 <div className="space-y-2 pt-2 border-t">
                   <p className="text-sm font-medium text-foreground">Download Full Manifesto:</p>
                   <Button
@@ -245,29 +298,7 @@ export function Header() {
                 </div>
               </nav>
 
-              {user ? (
-                <div className="space-y-3 pt-3 border-t">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-primary text-primary-foreground text-sm">
-                        {user.email?.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span className="text-sm text-foreground">{user.email}</span>
-                  </div>
-                  <Button variant="ghost" size="sm" onClick={handleSignOut} className="w-full justify-start">
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Sign Out
-                  </Button>
-                </div>
-              ) : (
-                <Button asChild size="sm" className="w-full">
-                  <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
-                    <User className="h-4 w-4 mr-2" />
-                    Sign In
-                  </Link>
-                </Button>
-              )}
+              <MobileAuthSection />
             </div>
           </div>
         )}

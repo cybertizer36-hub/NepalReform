@@ -6,6 +6,9 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable React Strict Mode for better hydration debugging
+  reactStrictMode: true,
+  
   eslint: {
     ignoreDuringBuilds: process.env.NODE_ENV === 'development',
   },
@@ -39,6 +42,16 @@ const nextConfig = {
     // Add this if you have middleware and need Node.js runtime
     // nodeMiddleware: true,
   },
+  
+  // Handle hydration errors gracefully in production
+  onRecoverableError: (error, errorInfo) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Recoverable hydration error:', error, errorInfo)
+    }
+    // In production, you might want to send this to your error reporting service
+    // e.g., Sentry.captureException(error, { extra: errorInfo })
+  },
+  
   webpack: (config, { isServer, dev }) => {
     // Optimize recharts imports for better tree shaking
     config.resolve.alias = {

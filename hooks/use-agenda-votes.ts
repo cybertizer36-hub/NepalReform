@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { useHydration } from "@/hooks/use-hydration"
 
 interface VoteData {
   likes: number
@@ -10,41 +11,24 @@ interface VoteData {
 }
 
 export function useAgendaVotes(agendaId: string) {
-  // Initialize with localStorage data for immediate UI update
-  const getInitialVoteData = (): VoteData => {
-    if (typeof window !== "undefined") {
-      const storedVote = localStorage.getItem(`vote_${agendaId}`)
-      const storedCounts = localStorage.getItem(`vote_counts_${agendaId}`)
-      
-      if (storedCounts) {
-        try {
-          const counts = JSON.parse(storedCounts)
-          return {
-            likes: counts.likes || 0,
-            dislikes: counts.dislikes || 0,
-            userVote: (storedVote as "like" | "dislike") || null,
-          }
-        } catch (e) {
-          // Invalid stored data, use defaults
-        }
-      }
-    }
-    
-    return {
-      likes: 0,
-      dislikes: 0,
-      userVote: null,
-    }
-  }
-
-  const [voteData, setVoteData] = useState<VoteData>(getInitialVoteData())
+  const isHydrated = useHydration()
+  
+  // Initialize with neutral state to prevent hydration mismatch
+  const [voteData, setVoteData] = useState<VoteData>({
+    likes: 0,
+    dislikes: 0,
+    userVote: null,
+  })
+  
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
 
-  // Store vote data in localStorage whenever it changes
+  // Store vote data in localStorage whenever it changes (only after hydration)
   const persistVoteData = useCallback((data: VoteData) => {
-    if (typeof window !== "undefined") {
+    if (!isHydrated) return
+    
+    try {
       if (data.userVote) {
         localStorage.setItem(`vote_${agendaId}`, data.userVote)
       } else {
@@ -56,11 +40,38 @@ export function useAgendaVotes(agendaId: string) {
         dislikes: data.dislikes,
         timestamp: Date.now()
       }))
+    } catch (error) {
+      console.warn("Failed to persist vote data to localStorage:", error)
     }
-  }, [agendaId])
+  }, [agendaId, isHydrated])
+
+  // Load initial data from localStorage (only after hydration)
+  const loadFromLocalStorage = useCallback(() => {
+    if (!isHydrated) return null
+    
+    try {
+      const storedVote = localStorage.getItem(`vote_${agendaId}`)
+      const storedCounts = localStorage.getItem(`vote_counts_${agendaId}`)
+      
+      if (storedCounts) {
+        const counts = JSON.parse(storedCounts)
+        return {
+          likes: counts.likes || 0,
+          dislikes: counts.dislikes || 0,
+          userVote: (storedVote as "like" | "dislike") || null,
+        }
+      }
+    } catch (error) {
+      console.warn("Failed to load vote data from localStorage:", error)
+    }
+    
+    return null
+  }, [agendaId, isHydrated])
 
   // Fetch votes from database
   const fetchVotes = useCallback(async () => {
+    if (!agendaId) return
+    
     try {
       console.log("[v0] Fetching votes for agenda ID:", agendaId)
       const response = await fetch(`/api/agendas/${agendaId}/vote`)
@@ -91,14 +102,25 @@ export function useAgendaVotes(agendaId: string) {
     }
   }, [agendaId, persistVoteData])
 
-  // Set up initial fetch and real-time subscription
+  // Load from localStorage first, then fetch from database
   useEffect(() => {
-    const supabase = createClient()
+    if (!isHydrated || !agendaId) return
 
-    // Fetch initial data
-    if (agendaId) {
-      fetchVotes()
+    // Load from localStorage immediately for quick UI update
+    const localData = loadFromLocalStorage()
+    if (localData) {
+      setVoteData(localData)
     }
+
+    // Then fetch fresh data from the database
+    fetchVotes()
+  }, [agendaId, isHydrated, loadFromLocalStorage, fetchVotes])
+
+  // Set up real-time subscription
+  useEffect(() => {
+    if (!isHydrated || !agendaId) return
+
+    const supabase = createClient()
 
     // Set up real-time subscription
     const setupRealtimeSubscription = () => {
@@ -123,18 +145,21 @@ export function useAgendaVotes(agendaId: string) {
       return channel
     }
 
-    if (agendaId) {
-      const channel = setupRealtimeSubscription()
+    const channel = setupRealtimeSubscription()
 
-      // Cleanup subscription on unmount
-      return () => {
-        supabase.removeChannel(channel)
-      }
+    // Cleanup subscription on unmount
+    return () => {
+      supabase.removeChannel(channel)
     }
-  }, [agendaId, fetchVotes])
+  }, [agendaId, fetchVotes, isHydrated])
 
   // Handle voting with optimistic updates
   const handleVote = async (voteType: "like" | "dislike") => {
+    if (!isHydrated) {
+      setError("Please wait for the page to load completely")
+      return
+    }
+
     setIsLoading(true)
     setError(null)
 
@@ -224,7 +249,7 @@ export function useAgendaVotes(agendaId: string) {
   return {
     voteData,
     handleVote,
-    isLoading: isLoading || isInitialLoad,
+    isLoading: isLoading || (isInitialLoad && isHydrated),
     error,
   }
 }

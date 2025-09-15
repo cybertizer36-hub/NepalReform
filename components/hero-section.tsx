@@ -6,6 +6,7 @@ import { ArrowDown, Users, MessageSquare, Vote } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
+import Image from "next/image"
 
 const words = ["Read", "Challenge", "Improve"]
 
@@ -36,14 +37,26 @@ export function HeroSection() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center space-y-8">
-          {/* Badge */}
-          
-
-          {/* Main Heading */}
+          {/* Main Heading with Logo */}
           <div className="space-y-4">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-              <span className="text-primary">Nepal</span>Reforms
-            </h1>
+            <div className="flex items-center justify-center gap-4">
+              {/* Logo */}
+              <div className="flex-shrink-0">
+                <Image
+                  src="/nrlogo7.png"
+                  alt="NepalReforms Logo"
+                  width={80}
+                  height={80}
+                  className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-contain"
+                  priority
+                />
+              </div>
+              
+              {/* Title */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                <span className="text-primary">Nepal</span>Reforms
+              </h1>
+            </div>
             <p className="text-xl sm:text-2xl text-muted-foreground font-medium">
               Your Voice in Nepal's Democratic Future
             </p>

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
 import { manifestoData, getAllCategories } from "@/lib/manifesto-data"
+import { useHydration } from "@/hooks/use-hydration"
 
 interface FilterState {
   searchQuery: string
@@ -28,11 +29,15 @@ interface FilterState {
 }
 
 export function ManifestoList() {
-  const [randomSeed, setRandomSeed] = useState(0)
+  const isHydrated = useHydration()
+  const [randomSeed, setRandomSeed] = useState<number | null>(null)
 
+  // Only set random seed after hydration to prevent mismatch
   useEffect(() => {
-    setRandomSeed(Math.random())
-  }, [])
+    if (isHydrated) {
+      setRandomSeed(Math.random())
+    }
+  }, [isHydrated])
 
   const timelineValues = useMemo(() => {
     const timelines = manifestoData.map((item) => {
@@ -100,8 +105,14 @@ export function ManifestoList() {
       return searchMatch && categoryMatch && priorityMatch && timelineMatch
     })
 
-    return shuffleArray(filtered, randomSeed)
-  }, [filters, randomSeed])
+    // Only shuffle if we have a seed and are hydrated
+    if (isHydrated && randomSeed !== null) {
+      return shuffleArray(filtered, randomSeed)
+    }
+
+    // Return unshuffled array during SSR to prevent hydration mismatch
+    return filtered
+  }, [filters, randomSeed, isHydrated])
 
   const updateSearchQuery = (query: string) => {
     setFilters((prev) => ({ ...prev, searchQuery: query }))
