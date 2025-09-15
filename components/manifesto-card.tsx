@@ -72,7 +72,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
               </Badge>
             </div>
             <CardTitle className="text-xl leading-tight text-foreground">
-              #{item.id}. {item.title}
+              {item.title}
             </CardTitle>
           </div>
         </div>
