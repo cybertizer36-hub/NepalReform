@@ -106,6 +106,13 @@ export async function POST(request: NextRequest) {
 
     const { data: agendaData } = await supabase.from("agendas").select("title").eq("id", queryId).single()
 
+    const { data: systemSettings } = await supabase
+      .from("system_settings")
+      .select("auto_approve_suggestions")
+      .single();
+
+    const autoApprove = systemSettings?.auto_approve_suggestions === true;
+
     const { data: suggestion, error } = await supabase
       .from("suggestions")
       .insert({
@@ -113,6 +120,7 @@ export async function POST(request: NextRequest) {
         user_id: user.id,
         content: content.trim(),
         author_name: author_name.trim(),
+        status: autoApprove ? "approved" : "pending",
       })
       .select()
       .single()

@@ -26,6 +26,7 @@ interface SystemStats {
 
 export function SystemSettings() {
   const [loading, setLoading] = useState(false)
+  const [settingsId, setSettingsId] = useState<string | null>(null);
   const [stats, setStats] = useState<SystemStats>({
     totalUsers: 0,
     totalAgendas: 0,
@@ -56,7 +57,8 @@ export function SystemSettings() {
   const supabase = createClient()
 
   useEffect(() => {
-    fetchSystemStats()
+    fetchSystemStats();
+    fetchSystemSettings();
   }, [])
 
   const fetchSystemStats = async () => {
@@ -81,6 +83,35 @@ export function SystemSettings() {
     }
   }
 
+const fetchSystemSettings = async () => {
+  const { data, error } = await supabase
+    .from("system_settings")
+    .select("*")
+    .single();
+
+   if (data) {
+    setSettings({
+      platformName: data.platform_name,
+      platformUrl: data.platform_url,
+      platformDescription: data.platform_description,
+      maintenanceMode: data.maintenance_mode,
+      allowRegistration: data.allow_registration,
+      emailVerificationRequired: data.email_verification_required,
+      autoApproveSuggestions: data.auto_approve_suggestions,
+      maxAgendasPerPage: data.max_agendas_per_page,
+      maxSuggestionsPerUser: data.max_suggestions_per_user,
+      enableComments: data.enable_comments,
+      moderateComments: data.moderate_comments,
+      fromEmail: data.from_email,
+      fromName: data.from_name,
+      sendWelcomeEmails: data.send_welcome_emails,
+      sendNotificationEmails: data.send_notification_emails,
+      autoBackup: data.auto_backup,
+    });
+    setSettingsId(data.id);
+  }
+};
+
   const logActivity = async (action: string, details?: any) => {
     try {
       const { error } = await supabase.from("activity_logs").insert([
@@ -98,19 +129,41 @@ export function SystemSettings() {
   }
 
   const handleSaveSettings = async () => {
-    setLoading(true)
-    try {
-      // In a real implementation, you would save these to a settings table
-      // For now, we'll just log the activity
-      await logActivity("settings_updated", { settings })
-      toast.success("Settings saved successfully")
-    } catch (error) {
-      console.error("Error saving settings:", error)
-      toast.error("Failed to save settings")
-    } finally {
-      setLoading(false)
-    }
+  setLoading(true);
+  try {
+    if (!settingsId) throw new Error("Settings ID not loaded");
+    const { error } = await supabase
+      .from("system_settings")
+      .update({
+        platform_name: settings.platformName,
+        platform_url: settings.platformUrl,
+        platform_description: settings.platformDescription,
+        maintenance_mode: settings.maintenanceMode,
+        allow_registration: settings.allowRegistration,
+        email_verification_required: settings.emailVerificationRequired,
+        auto_approve_suggestions: settings.autoApproveSuggestions,
+        max_agendas_per_page: settings.maxAgendasPerPage,
+        max_suggestions_per_user: settings.maxSuggestionsPerUser,
+        enable_comments: settings.enableComments,
+        moderate_comments: settings.moderateComments,
+        from_email: settings.fromEmail,
+        from_name: settings.fromName,
+        send_welcome_emails: settings.sendWelcomeEmails,
+        send_notification_emails: settings.sendNotificationEmails,
+        auto_backup: settings.autoBackup,
+      })
+      .eq("id", settingsId);
+
+    if (error) throw error;
+    await logActivity("settings_updated", { settings });
+    toast.success("Settings saved successfully");
+  } catch (error) {
+    console.error("Error saving settings:", error);
+    toast.error("Failed to save settings");
+  } finally {
+    setLoading(false);
   }
+};
 
   const handleDatabaseCleanup = async () => {
     setLoading(true)
