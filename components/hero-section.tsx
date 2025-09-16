@@ -27,15 +27,30 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-16 sm:py-24">
+      {/* Hero Background Image - Full image with 50% opacity */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Image
+          src="/hero.webp"
+          alt="Nepal Reforms Background"
+          fill
+          className="object-cover object-center opacity-20"
+          priority
+          quality={85}
+          sizes="100vw"
+        />
+        {/* Optional subtle overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/10" />
+      </div>
+      
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 z-[1]">
         <div className="absolute top-10 left-10 w-20 h-20 border-2 border-primary rounded-full animate-pulse" />
         <div className="absolute top-32 right-20 w-16 h-16 bg-secondary/20 rounded-lg rotate-45 animate-bounce" />
         <div className="absolute bottom-20 left-1/4 w-12 h-12 border-2 border-accent rounded-full animate-pulse" />
         <div className="absolute bottom-32 right-1/3 w-8 h-8 bg-primary/20 rounded-full animate-bounce" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-8">
           {/* Main Heading with Logo */}
           <div className="space-y-4">
@@ -63,14 +78,14 @@ export function HeroSection() {
           </div>
 
           {/* Description */}
-          <div className="max-w-3xl mx-auto space-y-4">
-            <p className="text-lg text-foreground leading-relaxed">
+          <div className="max-w-3xl mx-auto space-y-4 bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-sm">
+            <p className="text-lg text-foreground leading-relaxed font-medium">
               Nepal's democracy is at a crossroads. This platform is where citizens shape the future, through ideas, debate, and action. From tackling corruption to rethinking elections, your voice can turn protest into progress.
             </p>
-            <p className="text-base text-muted-foreground">
+            <p className="text-base text-foreground/90">
               Born from the bold energy of Gen Z, and strengthened by the wisdom and support of experts, professionals, and concerned Nepalis of all ages and sectors, this movement is bigger than any one generation.
             </p>
-            <p className="text-base text-muted-foreground">
+            <p className="text-base text-foreground/90">
               This manifesto isn't just words, it's a roadmap for a just, accountable Nepal.
             </p>
           </div>
@@ -98,31 +113,31 @@ export function HeroSection() {
 
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-8 py-8">
-            <div className="flex items-center gap-2 text-center">
+            <div className="flex items-center gap-2 text-center bg-white/40 backdrop-blur-sm rounded-lg px-4 py-2">
               <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                 <Users className="h-5 w-5 text-primary" />
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">20+</div>
-                <div className="text-sm text-muted-foreground">Reform Agendas</div>
+                <div className="text-sm text-foreground/80">Reform Agendas</div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-center">
+            <div className="flex items-center gap-2 text-center bg-white/40 backdrop-blur-sm rounded-lg px-4 py-2">
               <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
                 <MessageSquare className="h-5 w-5 text-secondary" />
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">∞</div>
-                <div className="text-sm text-muted-foreground">Suggestions</div>
+                <div className="text-sm text-foreground/80">Suggestions</div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-center">
+            <div className="flex items-center gap-2 text-center bg-white/40 backdrop-blur-sm rounded-lg px-4 py-2">
               <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center">
                 <Vote className="h-5 w-5 text-accent" />
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">100%</div>
-                <div className="text-sm text-muted-foreground">Democratic</div>
+                <div className="text-sm text-foreground/80">Democratic</div>
               </div>
             </div>
           </div>
@@ -162,7 +177,7 @@ export function HeroSection() {
               variant="outline"
               size="lg"
               onClick={scrollToAgendas}
-              className="px-8 py-3 text-base font-medium bg-transparent"
+              className="px-8 py-3 text-base font-medium bg-white/50 backdrop-blur-sm hover:bg-white/70 border-white/60"
             >
               Explore Agendas
               <ArrowDown className="ml-2 h-5 w-5" />
