@@ -4,6 +4,10 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import { Providers } from "./providers"
+import { OfflineSync } from "@/components/offline-sync"
+import { ServiceWorkerRegistration } from "@/components/service-worker-registration"
+import { Toaster } from "sonner"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -95,9 +99,23 @@ export default function RootLayout({
         <link rel="icon" href="/nrlogo7.png" type="image/png" />
         <link rel="apple-touch-icon" href="/nrlogo7.png" />
         <link rel="shortcut icon" href="/nrlogo7.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="Nepal Reforms" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Nepal Reforms" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-TileImage" content="/nrlogo7.png" />
       </head>
       <body className="font-sans antialiased">
-        <Suspense fallback={null}>{children}</Suspense>
+        <Providers>
+          <ServiceWorkerRegistration />
+          <OfflineSync />
+          <Suspense fallback={null}>{children}</Suspense>
+          <Toaster position="bottom-right" richColors />
+        </Providers>
         <Analytics />
       </body>
     </html>

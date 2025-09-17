@@ -21,6 +21,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   const supabase = createClient()
@@ -65,6 +66,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
 
     setIsSubmitting(true)
     setError(null)
+    setSuccessMessage(null)
 
     try {
       const response = await fetch("/api/suggestions", {
@@ -82,11 +84,18 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
         throw new Error(errorData.error || "Failed to submit suggestion")
       }
 
-      await response.json()
-
+      const result = await response.json()
+      
+      // Show success message
+      setSuccessMessage(result.message || "Thank you for your suggestion!")
+      
       // Reset form
       setContent("")
       setAuthorName("")
+      
+      // Clear success message after 7 seconds
+      setTimeout(() => setSuccessMessage(null), 7000)
+      
       onSuggestionAdded?.()
     } catch (err) {
       console.error("Error submitting suggestion:", err)
@@ -140,6 +149,18 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
             <button
               onClick={() => setError(null)}
               className="text-xs underline hover:no-underline mt-1"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-md">
+            <p className="text-sm text-green-800">{successMessage}</p>
+            <button
+              onClick={() => setSuccessMessage(null)}
+              className="text-xs underline hover:no-underline mt-1 text-green-700"
             >
               Dismiss
             </button>

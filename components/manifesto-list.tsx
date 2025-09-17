@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Filter, Search, X, RotateCcw, SlidersHorizontal } from "lucide-react"
+import { Filter, Search, X, RotateCcw, SlidersHorizontal, Loader2 } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,8 +17,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
-import { manifestoData, getAllCategories } from "@/lib/manifesto-data"
+import { getAllCategories } from "@/lib/manifesto-data"
 import { useHydration } from "@/hooks/use-hydration"
+import { useManifestoData, useVotes } from "@/hooks/use-cached-data"
+import { CacheManager } from "@/lib/cache/cache-manager"
+import { Skeleton } from "@/components/ui/skeleton"
+import { ManifestoItem } from "@/lib/manifesto-data"
+
+// Define Vote interface locally
+interface Vote {
+  manifesto_id: string;
+  vote_type: "like" | "dislike";
+  // Add any other properties as needed
+}
 
 interface FilterState {
   searchQuery: string
@@ -31,6 +42,46 @@ interface FilterState {
 export function ManifestoList() {
   const isHydrated = useHydration()
   const [randomSeed, setRandomSeed] = useState<number | null>(null)
+  // Use cached data hooks
+  const { data: manifestoDataRaw = [], isLoading, error } = useManifestoData()
+  const manifestoData = manifestoDataRaw as ManifestoItem[]
+  const { data: votesDataRaw = [] } = useVotes()
+  const votesData = votesDataRaw as Vote[]
+
+  // Load filter preferences from cache on mount
+  const [filters, setFilters] = useState<FilterState>(() => {
+    if (typeof window !== 'undefined') {
+      const savedFilters = CacheManager.getLocal<FilterState>(CacheManager.KEYS.FILTER_PREFERENCES)
+      if (savedFilters) {
+        return savedFilters
+      }
+    }
+    
+    const timelineValues = manifestoData.length > 0 
+      ? (() => {
+          const timelines = manifestoData.map((item) => {
+            const match = item.timeline.match(/(\d+)/)
+            return match ? Number.parseInt(match[1]) : 1
+          })
+          return [Math.min(...timelines), Math.max(...timelines)]
+        })()
+      : [0, 5]
+    
+    return {
+      searchQuery: "",
+      selectedCategories: [],
+      selectedPriorities: [],
+      timelineRange: timelineValues as [number, number],
+      showAdvancedFilters: false,
+    }
+  })
+
+  // Save filter preferences to cache when they change
+  useEffect(() => {
+    if (isHydrated && filters) {
+      CacheManager.setLocal(CacheManager.KEYS.FILTER_PREFERENCES, filters, CacheManager.TTL.USER_DATA)
+    }
+  }, [filters, isHydrated])
 
   // Only set random seed after hydration to prevent mismatch
   useEffect(() => {
@@ -40,22 +91,19 @@ export function ManifestoList() {
   }, [isHydrated])
 
   const timelineValues = useMemo(() => {
+    if (!manifestoData || manifestoData.length === 0) return [0, 5]
     const timelines = manifestoData.map((item) => {
       const match = item.timeline.match(/(\d+)/)
       return match ? Number.parseInt(match[1]) : 1
     })
     return [Math.min(...timelines), Math.max(...timelines)]
-  }, [])
+  }, [manifestoData])
 
-  const [filters, setFilters] = useState<FilterState>({
-    searchQuery: "",
-    selectedCategories: [],
-    selectedPriorities: [],
-    timelineRange: [timelineValues[0], timelineValues[1]],
-    showAdvancedFilters: false,
-  })
+  const categories = useMemo(() => {
+    if (!manifestoData || manifestoData.length === 0) return []
+    return getAllCategories()
+  }, [manifestoData])
 
-  const categories = getAllCategories()
   const priorities = ["High", "Medium", "Low"]
 
   const shuffleArray = <T,>(array: T[], seed: number): T[] => {
@@ -78,7 +126,8 @@ export function ManifestoList() {
   }
 
   const filteredItems = useMemo(() => {
-    const filtered = manifestoData.filter((item) => {
+    if (!manifestoData || manifestoData.length === 0) return []
+    const filtered = manifestoData.filter((item: ManifestoItem) => {
       // Search query filter
       const searchMatch =
         filters.searchQuery === "" ||
@@ -105,14 +154,20 @@ export function ManifestoList() {
       return searchMatch && categoryMatch && priorityMatch && timelineMatch
     })
 
+    // Add vote counts to each item
+    const itemsWithVotes = filtered.map((item: ManifestoItem) => ({
+      ...item,
+      voteCount: votesData.filter((vote: Vote) => vote.manifesto_id === item.id).length
+    }))
+
     // Only shuffle if we have a seed and are hydrated
     if (isHydrated && randomSeed !== null) {
-      return shuffleArray(filtered, randomSeed)
+      return shuffleArray(itemsWithVotes, randomSeed)
     }
 
     // Return unshuffled array during SSR to prevent hydration mismatch
-    return filtered
-  }, [filters, randomSeed, isHydrated])
+    return itemsWithVotes
+  }, [filters, randomSeed, isHydrated, manifestoData, votesData])
 
   const updateSearchQuery = (query: string) => {
     setFilters((prev) => ({ ...prev, searchQuery: query }))
@@ -160,6 +215,57 @@ export function ManifestoList() {
     filters.selectedPriorities.length > 0 ||
     filters.timelineRange[0] !== timelineValues[0] ||
     filters.timelineRange[1] !== timelineValues[1]
+
+  // Loading state with skeleton
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <div className="space-y-4 bg-card/50 p-6 rounded-lg border">
+          <Skeleton className="h-10 w-full" />
+          <div className="flex gap-2">
+            <Skeleton className="h-8 w-24" />
+            <Skeleton className="h-8 w-24" />
+            <Skeleton className="h-8 w-24" />
+          </div>
+        </div>
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="bg-card rounded-lg border p-6">
+            <Skeleton className="h-6 w-3/4 mb-2" />
+            <Skeleton className="h-4 w-full mb-4" />
+            <div className="flex gap-2">
+              <Skeleton className="h-6 w-20" />
+              <Skeleton className="h-6 w-20" />
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="text-center py-12 space-y-4">
+        <div className="mx-auto w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center">
+          <X className="h-6 w-6 text-destructive" />
+        </div>
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold">Error loading reforms</h3>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            {error.message || "Something went wrong while loading the reform proposals."}
+          </p>
+        </div>
+        <Button 
+          variant="outline" 
+          onClick={() => window.location.reload()} 
+          className="mt-4"
+        >
+          <RotateCcw className="h-4 w-4 mr-2" />
+          Retry
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
@@ -359,21 +465,22 @@ export function ManifestoList() {
         <p className="text-sm text-muted-foreground">
           Showing {filteredItems.length} of {manifestoData.length} reform proposals
           {hasActiveFilters && " (filtered)"}
+          {votesData.length > 0 && ` • ${votesData.length} total votes`}
         </p>
 
         {filteredItems.length > 0 && (
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 rounded-full bg-red-500" />
-              High: {filteredItems.filter((item) => item.priority === "High").length}
+              High: {filteredItems.filter((item: ManifestoItem & { voteCount: number }) => item.priority === "High").length}
             </div>
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 rounded-full bg-yellow-500" />
-              Medium: {filteredItems.filter((item) => item.priority === "Medium").length}
+              Medium: {filteredItems.filter((item: ManifestoItem & { voteCount: number }) => item.priority === "Medium").length}
             </div>
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 rounded-full bg-green-500" />
-              Low: {filteredItems.filter((item) => item.priority === "Low").length}
+              Low: {filteredItems.filter((item: ManifestoItem & { voteCount: number }) => item.priority === "Low").length}
             </div>
           </div>
         )}
@@ -381,13 +488,13 @@ export function ManifestoList() {
 
       {/* Results */}
       <div className="space-y-6">
-        {filteredItems.map((item) => (
+        {filteredItems.map((item: ManifestoItem & { voteCount: number }) => (
           <ManifestoCard key={item.id} item={item} />
         ))}
       </div>
 
       {/* No Results State */}
-      {filteredItems.length === 0 && (
+      {filteredItems.length === 0 && manifestoData.length > 0 && (
         <div className="text-center py-12 space-y-4">
           <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
             <Search className="h-6 w-6 text-muted-foreground" />

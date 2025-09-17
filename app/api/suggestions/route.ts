@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
         user_id
       `)
       .eq("agenda_id", queryId)
+      .eq("status", "approved")
       .order("created_at", { ascending: false })
 
     if (error) {
@@ -151,9 +152,16 @@ export async function POST(request: NextRequest) {
       }
     })
 
+    // Prepare confirmation message based on auto-approve setting
+    const confirmationMessage = autoApprove 
+      ? "Thank you for your suggestion! Our team will review it and compile it in our next version of the manifesto."
+      : "Thanks for the suggestion! Due to many malicious actors, auto approve system is currently disabled but it is submitted to the team. It will be shown on website if it's approved."
+
     const response = NextResponse.json({
       success: true,
       suggestion,
+      message: confirmationMessage,
+      autoApproved: autoApprove,
     })
     response.headers.set("Cache-Control", "no-cache, no-store, must-revalidate")
     return response

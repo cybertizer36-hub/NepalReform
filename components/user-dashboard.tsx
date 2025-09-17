@@ -7,9 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { UserIcon, FileText, MessageSquare, ThumbsUp, ThumbsDown, LogOut, Plus, TrendingUp, Clock } from "lucide-react"
+import { UserIcon, FileText, MessageSquare, ThumbsUp, ThumbsDown, LogOut, Plus, TrendingUp, Clock, Settings } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
+import { CacheStatus } from "@/components/cache-status"
 
 interface UserDashboardProps {
   user: User
@@ -182,7 +183,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Overview
@@ -194,6 +195,10 @@ export function UserDashboard({ user }: UserDashboardProps) {
             <TabsTrigger value="profile" className="flex items-center gap-2">
               <UserIcon className="h-4 w-4" />
               Profile
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              Settings
             </TabsTrigger>
           </TabsList>
 
@@ -405,6 +410,119 @@ export function UserDashboard({ user }: UserDashboardProps) {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="settings" className="space-y-6">
+            <div className="grid gap-6 lg:grid-cols-2">
+              {/* Cache Status */}
+              <CacheStatus />
+
+              {/* Performance Settings */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Performance Settings</CardTitle>
+                  <CardDescription>Optimize your app experience</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">Offline Mode</label>
+                      <Badge variant="outline" className="text-xs">
+                        {navigator.onLine ? 'Online' : 'Offline'}
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Your changes are automatically saved and synced when online
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">Auto-Sync</label>
+                      <Badge variant="default" className="text-xs">Enabled</Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Data syncs automatically when you reconnect to the internet
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">Cache Duration</label>
+                      <span className="text-sm text-muted-foreground">7 days</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Reform data is cached for faster loading and offline access
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* App Information */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>App Information</CardTitle>
+                  <CardDescription>Nepal Reforms Platform details</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid gap-4">
+                    <div>
+                      <label className="text-sm font-medium">Version</label>
+                      <p className="text-sm text-muted-foreground">1.0.0</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Last Updated</label>
+                      <p className="text-sm text-muted-foreground">{new Date().toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">PWA Status</label>
+                      <Badge variant="outline" className="text-xs mt-1">Ready to Install</Badge>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Service Worker</label>
+                      <Badge variant="outline" className="text-xs mt-1">
+                        {typeof window !== 'undefined' && 'serviceWorker' in navigator ? 'Supported' : 'Not Supported'}
+                      </Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Privacy Settings */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Privacy & Data</CardTitle>
+                  <CardDescription>Control your data and privacy</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">Data Storage</label>
+                      <span className="text-sm text-muted-foreground">Local + Cloud</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Your data is stored locally for performance and backed up to the cloud
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">Encryption</label>
+                      <Badge variant="default" className="text-xs">Enabled</Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      All data transfers are encrypted using HTTPS
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t">
+                    <Button variant="outline" className="w-full" onClick={() => window.open('/privacy', '_blank')}>
+                      View Privacy Policy
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
