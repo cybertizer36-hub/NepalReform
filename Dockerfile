@@ -30,7 +30,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
 
 # Set build-time environment variables required for Next.js to build
-ENV RESEND_API_KEY="re_bCMGQ9GN_4TzPmAvGakKKx8aiCJp9rU4b"
+# RESEND_API_KEY is now provided securely at runtime, e.g.: docker run -e RESEND_API_KEY=your_key
 # Add any other required public runtime envs for build as needed
 ENV NEXT_PUBLIC_SITE_URL="https://www.nepalreforms.com"
 ENV NEXT_PUBLIC_SUPABASE_URL="https://nokrhvgrfcletinhsalt.supabase.co"
