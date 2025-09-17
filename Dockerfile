@@ -18,6 +18,9 @@ RUN pnpm install --frozen-lockfile
 FROM base AS builder
 WORKDIR /app
 
+# Install pnpm in builder stage
+RUN npm install -g pnpm
+
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -26,7 +29,14 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
 
-# Build application
+# Set build-time environment variables required for Next.js to build
+ENV RESEND_API_KEY="re_bCMGQ9GN_4TzPmAvGakKKx8aiCJp9rU4b"
+# Add any other required public runtime envs for build as needed
+ENV NEXT_PUBLIC_SITE_URL="https://www.nepalreforms.com"
+ENV NEXT_PUBLIC_SUPABASE_URL="https://nokrhvgrfcletinhsalt.supabase.co"
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5va3JodmdyZmNsZXRpbmhzYWx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1OTI0NzMsImV4cCI6MjA3MzE2ODQ3M30.1TUEt1q-JTXHAHZINCavbnH_X0TxyDu49Q2QzdogZmE"
+
+# Build the application
 RUN pnpm build
 
 # Production image, copy all the files and run next

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
+import { validateAndNormalizeAgendaId } from "@/lib/utils/uuid-helpers"
 
 export const runtime = "nodejs"
 
@@ -13,21 +14,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "agenda_id parameter is required" }, { status: 400 })
     }
 
-    let queryId = agendaId
-
-    // If not a valid UUID, try to find by ID field
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(agendaId)) {
-      const { data: agenda } = await supabase
-        .from("agendas")
-        .select("id")
-        .eq("ID", Number.parseInt(agendaId) || 0)
-        .single()
-
-      if (!agenda) {
-        return NextResponse.json({ error: "Agenda not found" }, { status: 404 })
-      }
-      queryId = agenda.id
+    // Use the same UUID validation and normalization as the vote route
+    const validation = await validateAndNormalizeAgendaId(agendaId)
+    if (!validation.isValid || !validation.agendaUUID) {
+      return NextResponse.json({ error: validation.error || "Invalid agenda ID" }, { status: 400 })
     }
+
+    const queryId = validation.agendaUUID
 
     const { data: suggestions, error } = await supabase
       .from("suggestions")
@@ -90,20 +83,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "author_name is required" }, { status: 400 })
     }
 
-    let queryId = agenda_id
-
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(agenda_id)) {
-      const { data: agenda } = await supabase
-        .from("agendas")
-        .select("id")
-        .eq("ID", Number.parseInt(agenda_id) || 0)
-        .single()
-
-      if (!agenda) {
-        return NextResponse.json({ error: "Agenda not found" }, { status: 404 })
-      }
-      queryId = agenda.id
+    // Use the same UUID validation and normalization as the vote route
+    const validation = await validateAndNormalizeAgendaId(agenda_id)
+    if (!validation.isValid || !validation.agendaUUID) {
+      return NextResponse.json({ error: validation.error || "Invalid agenda ID" }, { status: 400 })
     }
+
+    const queryId = validation.agendaUUID
 
     const { data: agendaData } = await supabase.from("agendas").select("title").eq("id", queryId).single()
 

@@ -8,7 +8,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig = {
   // Enable React Strict Mode for better hydration debugging
   reactStrictMode: true,
-  
+  output: 'standalone',
+
   eslint: {
     ignoreDuringBuilds: process.env.NODE_ENV === 'development',
   },

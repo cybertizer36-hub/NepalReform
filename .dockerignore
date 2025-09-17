@@ -15,6 +15,7 @@ out
 *.pem
 .env
 .env.*
+!.env.local
 !.env.example
 
 # Debug logs
