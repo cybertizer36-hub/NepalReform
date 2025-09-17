@@ -44,9 +44,10 @@ export function ManifestoList() {
   const [randomSeed, setRandomSeed] = useState<number | null>(null)
   // Use cached data hooks
   const { data: manifestoDataRaw = [], isLoading, error } = useManifestoData()
-  const manifestoData = manifestoDataRaw as ManifestoItem[]
+  // Defensive conversion and fallback
+  const manifestoData: ManifestoItem[] = Array.isArray(manifestoDataRaw) ? manifestoDataRaw : [];
   const { data: votesDataRaw = [] } = useVotes()
-  const votesData = votesDataRaw as Vote[]
+  const votesData: Vote[] = Array.isArray(votesDataRaw) ? votesDataRaw : [];
 
   // Load filter preferences from cache on mount
   const [filters, setFilters] = useState<FilterState>(() => {
@@ -57,9 +58,10 @@ export function ManifestoList() {
       }
     }
     
-    const timelineValues = manifestoData.length > 0 
+    const timelineValues = manifestoData && manifestoData.length > 0
       ? (() => {
           const timelines = manifestoData.map((item) => {
+            if (!item.timeline) return 1;
             const match = item.timeline.match(/(\d+)/)
             return match ? Number.parseInt(match[1]) : 1
           })
@@ -91,8 +93,9 @@ export function ManifestoList() {
   }, [isHydrated])
 
   const timelineValues = useMemo(() => {
-    if (!manifestoData || manifestoData.length === 0) return [0, 5]
+    if (!Array.isArray(manifestoData) || manifestoData.length === 0) return [0, 5]
     const timelines = manifestoData.map((item) => {
+      if (!item.timeline) return 1;
       const match = item.timeline.match(/(\d+)/)
       return match ? Number.parseInt(match[1]) : 1
     })
@@ -100,7 +103,7 @@ export function ManifestoList() {
   }, [manifestoData])
 
   const categories = useMemo(() => {
-    if (!manifestoData || manifestoData.length === 0) return []
+    if (!Array.isArray(manifestoData) || manifestoData.length === 0) return []
     return getAllCategories()
   }, [manifestoData])
 
@@ -126,46 +129,44 @@ export function ManifestoList() {
   }
 
   const filteredItems = useMemo(() => {
-    if (!manifestoData || manifestoData.length === 0) return []
+    if (!Array.isArray(manifestoData) || manifestoData.length === 0) return []
     const filtered = manifestoData.filter((item: ManifestoItem) => {
+      // Defensive property access
+      if (!item || typeof item !== 'object') return false;
       // Search query filter
       const searchMatch =
-        filters.searchQuery === "" ||
-        item.title.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-        item.problem.short.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-        item.problem.long.toLowerCase().includes(filters.searchQuery.toLowerCase())
-
+        (!filters.searchQuery || filters.searchQuery === "") ||
+        (item.title && item.title.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
+        (item.description && item.description.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
+        (item.problem?.short && item.problem.short.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
+        (item.problem?.long && item.problem.long.toLowerCase().includes(filters.searchQuery.toLowerCase()))
       // Category filter
       const categoryMatch =
-        filters.selectedCategories.length === 0 || filters.selectedCategories.includes(item.category)
-
+        !Array.isArray(filters.selectedCategories) || filters.selectedCategories.length === 0 || (item.category && filters.selectedCategories.includes(item.category))
       // Priority filter
       const priorityMatch =
-        filters.selectedPriorities.length === 0 || filters.selectedPriorities.includes(item.priority)
-
+        !Array.isArray(filters.selectedPriorities) || filters.selectedPriorities.length === 0 || (item.priority && filters.selectedPriorities.includes(item.priority))
       // Timeline filter
       const timelineMatch = (() => {
+        if (!item.timeline) return true;
         const match = item.timeline.match(/(\d+)/)
         const timelineYears = match ? Number.parseInt(match[1]) : 1
         return timelineYears >= filters.timelineRange[0] && timelineYears <= filters.timelineRange[1]
       })()
-
       return searchMatch && categoryMatch && priorityMatch && timelineMatch
     })
 
-    // Add vote counts to each item
+    // Defensive vote counting
     const itemsWithVotes = filtered.map((item: ManifestoItem) => ({
       ...item,
-      voteCount: votesData.filter((vote: Vote) => vote.manifesto_id === item.id).length
+      voteCount: Array.isArray(votesData)
+        ? votesData.filter((vote: Vote) => vote.manifesto_id === item.id).length
+        : 0,
     }))
 
-    // Only shuffle if we have a seed and are hydrated
     if (isHydrated && randomSeed !== null) {
       return shuffleArray(itemsWithVotes, randomSeed)
     }
-
-    // Return unshuffled array during SSR to prevent hydration mismatch
     return itemsWithVotes
   }, [filters, randomSeed, isHydrated, manifestoData, votesData])
 
@@ -463,12 +464,11 @@ export function ManifestoList() {
       {/* Results Summary */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          Showing {filteredItems.length} of {manifestoData.length} reform proposals
+          Showing {Array.isArray(filteredItems) ? filteredItems.length : 0} of {Array.isArray(manifestoData) ? manifestoData.length : 0} reform proposals
           {hasActiveFilters && " (filtered)"}
-          {votesData.length > 0 && ` • ${votesData.length} total votes`}
+          {Array.isArray(votesData) && votesData.length > 0 && ` • ${votesData.length} total votes`}
         </p>
-
-        {filteredItems.length > 0 && (
+        {Array.isArray(filteredItems) && filteredItems.length > 0 && (
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 rounded-full bg-red-500" />
@@ -488,7 +488,7 @@ export function ManifestoList() {
 
       {/* Results */}
       <div className="space-y-6">
-        {filteredItems.map((item: ManifestoItem & { voteCount: number }) => (
+        {Array.isArray(filteredItems) && filteredItems.map((item: ManifestoItem & { voteCount: number }) => (
           <ManifestoCard key={item.id} item={item} />
         ))}
       </div>

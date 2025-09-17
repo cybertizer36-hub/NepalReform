@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Users, FileText, MessageSquare, BarChart3, Settings, Plus, LogOut, Activity } from "lucide-react"
+import { Users, FileText, MessageSquare, BarChart3, Settings, Plus, LogOut, Activity, Quote } from "lucide-react"
 import dynamic from "next/dynamic"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
@@ -28,6 +28,14 @@ const SuggestionManagement = dynamic(
   () => import("./suggestion-management").then((mod) => ({ default: mod.SuggestionManagement })),
   {
     loading: () => <div className="text-center py-8">Loading suggestion management...</div>,
+    ssr: false,
+  },
+)
+
+const TestimonialManagement = dynamic(
+  () => import("./testimonial-management").then((mod) => ({ default: mod.TestimonialManagement })),
+  {
+    loading: () => <div className="text-center py-8">Loading testimonial management...</div>,
     ssr: false,
   },
 )
@@ -95,7 +103,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               Overview
@@ -107,6 +115,10 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
             <TabsTrigger value="suggestions" className="flex items-center gap-2">
               <MessageSquare className="h-4 w-4" />
               Content
+            </TabsTrigger>
+            <TabsTrigger value="testimonials" className="flex items-center gap-2">
+              <Quote className="h-4 w-4" />
+              Testimonials
             </TabsTrigger>
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
@@ -225,6 +237,14 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
                   <Button
                     variant="outline"
                     className="w-full justify-start bg-transparent"
+                    onClick={() => setActiveTab("testimonials")}
+                  >
+                    <Quote className="h-4 w-4 mr-2" />
+                    Manage Testimonials
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-transparent"
                     onClick={() => setActiveTab("users")}
                   >
                     <Users className="h-4 w-4 mr-2" />
@@ -257,6 +277,10 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
 
           <TabsContent value="suggestions">
             <SuggestionManagement />
+          </TabsContent>
+
+          <TabsContent value="testimonials">
+            <TestimonialManagement />
           </TabsContent>
 
           <TabsContent value="users">

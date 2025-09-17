@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { LogOut, User, Menu, X, BookOpen, Home, Download, ChevronDown } from "lucide-react"
+import { LogOut, User, Menu, X, BookOpen, Home, Download, ChevronDown, Quote } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
@@ -155,6 +155,13 @@ export function Header() {
                 <BookOpen className="h-4 w-4" />
                 27 Reforms
               </Link>
+              <Link
+                href="/testimonials"
+                className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+              >
+                <Quote className="h-4 w-4" />
+                Testimonials
+              </Link>
               
               <ClientOnly fallback={<div className="w-32 h-4" />}>
                 {user && (
@@ -246,6 +253,14 @@ export function Header() {
                 >
                   <BookOpen className="h-4 w-4" />
                   27 Reforms
+                </Link>
+                <Link
+                  href="/testimonials"
+                  className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Quote className="h-4 w-4" />
+                  Testimonials
                 </Link>
                 
                 <ClientOnly>

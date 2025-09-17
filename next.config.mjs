@@ -39,18 +39,11 @@ const nextConfig = {
   poweredByHeader: false,
   generateEtags: true,
   experimental: {
-    optimizePackageImports: ['recharts', 'lucide-react', '@radix-ui/react-icons'],
-    // Add this if you have middleware and need Node.js runtime
-    // nodeMiddleware: true,
-  },
-  
-  // Handle hydration errors gracefully in production
-  onRecoverableError: (error, errorInfo) => {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Recoverable hydration error:', error, errorInfo)
-    }
-    // In production, you might want to send this to your error reporting service
-    // e.g., Sentry.captureException(error, { extra: errorInfo })
+    optimizePackageImports: [
+      'recharts',
+      'lucide-react',
+      '@radix-ui/react-icons',
+    ],
   },
   
   webpack: (config, { isServer, dev }) => {
