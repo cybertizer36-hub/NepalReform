@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { ManifestoList } from "@/components/manifesto-list"
+import { TestimonialCarousel } from "@/components/testimonial-carousel"
 import Link from "next/link"
 
 export default function HomePage() {
@@ -50,9 +51,12 @@ export default function HomePage() {
             <ManifestoList />
           </div>
         </section>
-      </main>
 
-      <footer className="bg-muted/50 border-t py-12">
+        {/* Testimonials Section */}
+        <TestimonialCarousel />
+
+        {/* Footer or Additional Content */}
+        <footer className="bg-muted/50 border-t py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4">
             <div className="flex justify-center items-center gap-3">
@@ -76,6 +80,7 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      </main>
     </div>
   )
 }
