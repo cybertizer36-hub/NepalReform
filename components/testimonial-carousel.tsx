@@ -119,7 +119,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                   height={64}
                   className="object-cover w-full h-full"
                   onError={() => setImageError(true)}
-                  unoptimized={testimonial.image_url.includes('supabase')}
+                  unoptimized
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400">
