@@ -105,7 +105,11 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                   className="absolute -bottom-1 -right-1 bg-[#0077B5] rounded-full p-1 hover:bg-[#006399] transition-colors"
                   aria-label={`${testimonial.name}'s LinkedIn profile`}
                 >
-                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M10.59 13.41a1 1 0 0 1 1.41 0l4.59 4.59a3 3 0 0 0 4.24-4.24l-3.54-3.54a1 1 0 1 1 1.42-1.42l3.54 3.54a5 5 0 0 1-7.07 7.07l-4.59-4.59a1 1 0 0 1 0-1.41zM13.41 10.59a1 1 0 0 1-1.41 0L7.41 6a3 3 0 1 0-4.24 4.24l3.54 3.54a1 1 0 0 1-1.42 1.42L1.29 11.7a5 5 0 0 1 7.07-7.07l4.59 4.59a1 1 0 0 1 0 1.41z"/>
                   </svg>
                 </a>
