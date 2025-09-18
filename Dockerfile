@@ -1,69 +1,76 @@
-# Use Node.js LTS version as the base image
-FROM node:20-alpine AS base
+# Multi-stage Dockerfile for Next.js application
+# Optimized for both local development and production deployment
 
-# Install dependencies only when needed
+# Base stage with common dependencies
+FROM node:20-alpine AS base
+WORKDIR /app
+
+# Install pnpm globally
+RUN npm install -g pnpm@latest
+
+# Set environment variables
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+# Install security updates
+RUN apk update && apk upgrade && apk add --no-cache libc6-compat dumb-init
+
+# Create a non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Dependencies stage
 FROM base AS deps
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
-
 # Copy package files
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml* ./
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install dependencies with frozen lockfile
+RUN pnpm install --frozen-lockfile --prod=false
 
-# Rebuild the source code only when needed
+# Builder stage
 FROM base AS builder
 WORKDIR /app
 
-# Install pnpm in builder stage
-RUN npm install -g pnpm
-
-# Copy dependencies from deps stage
+# Copy node_modules from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Set environment variables
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV NODE_ENV production
-
-# Set build-time environment variables required for Next.js to build
-# RESEND_API_KEY is now provided securely at runtime, e.g.: docker run -e RESEND_API_KEY=your_key
-# Add any other required public runtime envs for build as needed
-ENV NEXT_PUBLIC_SITE_URL="https://www.nepalreforms.com"
-ENV NEXT_PUBLIC_SUPABASE_URL="https://nokrhvgrfcletinhsalt.supabase.co"
-ENV NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5va3JodmdyZmNsZXRpbmhzYWx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1OTI0NzMsImV4cCI6MjA3MzE2ODQ3M30.1TUEt1q-JTXHAHZINCavbnH_X0TxyDu49Q2QzdogZmE"
+# Create .env.local with placeholder values for build
+# These will be overridden at runtime
+RUN echo "NEXT_PUBLIC_SUPABASE_URL=placeholder" > .env.local && \
+    echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder" >> .env.local && \
+    echo "SUPABASE_SERVICE_ROLE_KEY=placeholder" >> .env.local && \
+    echo "NEXT_PUBLIC_SITE_URL=placeholder" >> .env.local
 
 # Build the application
 RUN pnpm build
 
-# Production image, copy all the files and run next
+# Production runner stage
 FROM base AS runner
 WORKDIR /app
 
-# Set environment variables
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Create non-root user
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+ENV NODE_ENV=production
+ENV PORT=3000
 
 # Copy built application
-COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Set user
+# Create necessary directories with proper permissions
+RUN mkdir -p .next/cache && chown -R nextjs:nodejs .next/cache
+
+# Switch to non-root user
 USER nextjs
 
-# Expose port
 EXPOSE 3000
 
-# Set environment variable for the port
-ENV PORT 3000
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1
 
-# Start the application
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "server.js"]

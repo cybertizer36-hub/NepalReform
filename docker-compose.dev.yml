@@ -1,0 +1,24 @@
+version: '3.8'
+
+# Development-specific overrides
+services:
+  web-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - .:/app
+      - node_modules_dev:/app/node_modules
+      - next_cache_dev:/app/.next
+    stdin_open: true
+    tty: true
+    command: ["pnpm", "dev"]
+
+volumes:
+  node_modules_dev:
+  next_cache_dev:

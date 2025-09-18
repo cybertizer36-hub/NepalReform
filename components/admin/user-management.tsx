@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -16,7 +16,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Search, UserCheck, UserX, Shield, Ban, Eye, Activity } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Search, UserCheck, UserX, Shield, Ban, Eye, Activity, AlertCircle, RefreshCw } from "lucide-react"
 import { toast } from "sonner"
 
 interface Profile {
@@ -42,36 +43,74 @@ interface ActivityLog {
 export function UserManagement() {
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [roleFilter, setRoleFilter] = useState<string>("all")
   const [selectedUser, setSelectedUser] = useState<Profile | null>(null)
   const [userActivity, setUserActivity] = useState<ActivityLog[]>([])
   const [activityLoading, setActivityLoading] = useState(false)
+  const [debugInfo, setDebugInfo] = useState<any>(null)
 
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchProfiles()
-  }, [])
-
-  const fetchProfiles = async () => {
+  const fetchProfiles = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    
     try {
+      // Try fetching from API first
       const response = await fetch("/api/admin/users", {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${await getAuthToken()}`,
+          "Content-Type": "application/json",
         },
+        cache: "no-cache"
       })
 
-      if (!response.ok) throw new Error("Failed to fetch profiles")
+      const responseData = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(responseData.error || "Failed to fetch profiles")
+      }
 
-      const { data } = await response.json()
-      setProfiles(data || [])
-    } catch (error) {
-      console.error("Error fetching profiles:", error)
+      setProfiles(responseData.data || [])
+      setDebugInfo(responseData.debug || null)
+      
+      // If API returns empty data, show helpful message
+      if (!responseData.data || responseData.data.length === 0) {
+        setError("No users found. This could mean the database is empty or there's a connection issue.")
+      }
+    } catch (apiError: any) {
+      console.error("API Error:", apiError)
+      
+      // If API fails, try direct Supabase query as fallback
+      try {
+        console.log("Falling back to direct Supabase query...")
+        const { data: directData, error: directError } = await supabase
+          .from("profiles")
+          .select("*")
+          .order("created_at", { ascending: false })
+          
+        if (directError) {
+          console.error("Direct query error:", directError)
+          throw directError
+        }
+        
+        setProfiles(directData || [])
+        toast.warning("Using direct database connection (API fallback)")
+      } catch (fallbackError: any) {
+        console.error("Fallback error:", fallbackError)
+        setError(`Failed to fetch users: ${apiError.message}. Fallback also failed: ${fallbackError.message}`)
+        toast.error("Failed to load users. Please check your database connection.")
+      }
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchProfiles()
+  }, [fetchProfiles])
 
   const fetchUserActivity = async (userId: string) => {
     setActivityLoading(true)
@@ -83,9 +122,17 @@ export function UserManagement() {
         .order("created_at", { ascending: false })
         .limit(20)
 
-      if (error) throw error
+      if (error) {
+        console.error("Activity logs error:", error)
+        if (error.message.includes("does not exist")) {
+          toast.warning("Activity logs table not found. Run the database migration script.")
+        } else {
+          throw error
+        }
+      }
+      
       setUserActivity(data || [])
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching user activity:", error)
       toast.error("Failed to fetch user activity")
     } finally {
@@ -93,70 +140,56 @@ export function UserManagement() {
     }
   }
 
-  const logActivity = async (action: string, resourceType: string, resourceId?: string, details?: any) => {
-    try {
-      const { error } = await supabase.from("activity_logs").insert([
-        {
-          action,
-          resource_type: resourceType,
-          resource_id: resourceId,
-          details,
-        },
-      ])
-
-      if (error) throw error
-    } catch (error) {
-      console.error("Error logging activity:", error)
-    }
-  }
-
   const updateUserRole = async (userId: string, newRole: string) => {
     try {
+      // Try API update first
       const response = await fetch(`/api/admin/users/${userId}/role`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${await getAuthToken()}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ role: newRole }),
       })
 
-      if (!response.ok) throw new Error("Failed to update user role")
+      if (!response.ok) {
+        // Fallback to direct update
+        const { error } = await supabase
+          .from("profiles")
+          .update({ role: newRole })
+          .eq("id", userId)
+          
+        if (error) throw error
+      }
 
-      setProfiles(profiles.map((profile) => (profile.id === userId ? { ...profile, role: newRole } : profile)))
-
-      // Log the activity
-      await logActivity("role_updated", "user", userId, { new_role: newRole })
+      setProfiles(profiles.map((profile) => 
+        profile.id === userId ? { ...profile, role: newRole } : profile
+      ))
 
       toast.success(`User role updated to ${newRole}`)
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error updating user role:", error)
-      toast.error("Failed to update user role")
+      toast.error("Failed to update user role: " + error.message)
     }
   }
 
   const toggleUserStatus = async (userId: string, isActive: boolean) => {
     try {
-      const response = await fetch(`/api/admin/users/${userId}/status`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${await getAuthToken()}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ is_active: isActive }),
-      })
+      // Direct Supabase update
+      const { error } = await supabase
+        .from("profiles")
+        .update({ is_active: isActive })
+        .eq("id", userId)
+        
+      if (error) throw error
 
-      if (!response.ok) throw new Error("Failed to update user status")
-
-      setProfiles(profiles.map((profile) => (profile.id === userId ? { ...profile, is_active: isActive } : profile)))
-
-      // Log the activity
-      await logActivity(isActive ? "user_activated" : "user_deactivated", "user", userId, { status: isActive })
+      setProfiles(profiles.map((profile) => 
+        profile.id === userId ? { ...profile, is_active: isActive } : profile
+      ))
 
       toast.success(`User ${isActive ? "activated" : "deactivated"} successfully`)
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error updating user status:", error)
-      toast.error("Failed to update user status")
+      toast.error("Failed to update user status: " + error.message)
     }
   }
 
@@ -181,21 +214,33 @@ export function UserManagement() {
     return isActive !== false ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
   }
 
-  const getAuthToken = async () => {
-    // Get current session token for admin operations
-    const supabase = createClient()
-    const {
-      data: { session },
-    } = await supabase.auth.getSession()
-    return session?.access_token || ""
-  }
-
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-foreground">User Management</h2>
         <p className="text-muted-foreground">Manage user accounts, roles, and permissions</p>
       </div>
+
+      {/* Debug Info Alert */}
+      {debugInfo && (
+        <Alert>
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Debug Information</AlertTitle>
+          <AlertDescription>
+            Service Role Configured: {debugInfo.serviceRoleConfigured ? "✓" : "✗"} | 
+            Profiles Count: {debugInfo.profilesCount}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Error Alert */}
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
       <div className="flex gap-4 items-center">
         <div className="relative flex-1 max-w-sm">
@@ -219,6 +264,11 @@ export function UserManagement() {
             <SelectItem value="user">User</SelectItem>
           </SelectContent>
         </Select>
+
+        <Button onClick={fetchProfiles} variant="outline" size="sm">
+          <RefreshCw className="h-4 w-4 mr-2" />
+          Refresh
+        </Button>
       </div>
 
       <div className="grid gap-6 md:grid-cols-4">
@@ -274,7 +324,14 @@ export function UserManagement() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="text-center py-8">Loading users...</div>
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+              <p className="mt-2">Loading users...</p>
+            </div>
+          ) : filteredProfiles.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              {profiles.length === 0 ? "No users found in the database" : "No users match your filters"}
+            </div>
           ) : (
             <Table>
               <TableHeader>
@@ -361,6 +418,9 @@ export function UserManagement() {
                                   <div>
                                     <h4 className="font-medium mb-2">User Information</h4>
                                     <div className="space-y-2 text-sm">
+                                      <p>
+                                        <strong>ID:</strong> {selectedUser.id}
+                                      </p>
                                       <p>
                                         <strong>Email:</strong> {selectedUser.email}
                                       </p>

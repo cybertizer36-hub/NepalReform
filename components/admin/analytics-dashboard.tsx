@@ -3,298 +3,231 @@
 import { useState, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { BarChart3, TrendingUp, Users, MessageSquare, ThumbsUp, ThumbsDown, Activity } from "lucide-react"
-import dynamic from "next/dynamic"
-
-// Import recharts with a different approach for v3 compatibility
-const RechartsComponents = dynamic(
-  () => import("recharts").then((mod) => ({
-    default: () => null,
-    LineChart: mod.LineChart,
-    Line: mod.Line,
-    BarChart: mod.BarChart,
-    Bar: mod.Bar,
-    PieChart: mod.PieChart,
-    Pie: mod.Pie,
-    Cell: mod.Cell,
-    XAxis: mod.XAxis,
-    YAxis: mod.YAxis,
-    CartesianGrid: mod.CartesianGrid,
-    Tooltip: mod.Tooltip,
-    Legend: mod.Legend,
-    ResponsiveContainer: mod.ResponsiveContainer,
-  })),
-  { ssr: false }
-)
-
-// Import all recharts components at once to avoid individual dynamic imports
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   BarChart,
   Bar,
   PieChart,
   Pie,
-  Cell,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Cell,
 } from "recharts"
-
-const ChartLoader = () => (
-  <div className="flex items-center justify-center h-[300px] bg-muted/20 rounded-lg">
-    <div className="text-center">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
-      <p className="text-sm text-muted-foreground">Loading chart...</p>
-    </div>
-  </div>
-)
+import { Users, FileText, MessageSquare, Vote, TrendingUp, Calendar, Eye, Activity } from "lucide-react"
+import { manifestoData } from "@/lib/manifesto-data"
 
 interface AnalyticsData {
-  totalUsers: number
-  totalAgendas: number
-  totalVotes: number
-  totalSuggestions: number
-  activeUsers: number
-  newUsersThisMonth: number
-  topAgendas: Array<{
-    id: string
-    title: string
-    category: string
-    likes: number
-    dislikes: number
-    engagement: number
-  }>
-  categoryStats: Array<{
-    category: string
-    count: number
-    percentage: number
-  }>
-  userGrowth: Array<{
-    month: string
-    users: number
-    agendas: number
-  }>
-  engagementTrends: Array<{
-    date: string
-    votes: number
-    suggestions: number
-  }>
-  recentActivity: Array<{
-    type: string
-    description: string
-    timestamp: string
-    user?: string
-  }>
+  users: {
+    total: number
+    active: number
+    newThisMonth: number
+    byRole: { role: string; count: number }[]
+  }
+  suggestions: {
+    total: number
+    pending: number
+    approved: number
+    rejected: number
+    byStatus: { status: string; count: number }[]
+    topAgendas: { agenda_id: string; count: number; title: string }[]
+  }
+  votes: {
+    total: number
+    byType: { type: string; count: number }[]
+    topAgendas: { agenda_id: string; votes: number; title: string }[]
+  }
+  activity: {
+    dailyActivity: { date: string; actions: number }[]
+    topActions: { action: string; count: number }[]
+  }
+  opinions: {
+    total: number
+    byCategory: { category: string; count: number }[]
+  }
 }
 
-export function AnalyticsDashboard() {
-  const [analytics, setAnalytics] = useState<AnalyticsData>({
-    totalUsers: 0,
-    totalAgendas: 0,
-    totalVotes: 0,
-    totalSuggestions: 0,
-    activeUsers: 0,
-    newUsersThisMonth: 0,
-    topAgendas: [],
-    categoryStats: [],
-    userGrowth: [],
-    engagementTrends: [],
-    recentActivity: [],
-  })
-  const [loading, setLoading] = useState(true)
-  const [timeRange, setTimeRange] = useState("30d")
-  const [chartsReady, setChartsReady] = useState(false)
+const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7c7c", "#8dd1e1", "#d084d0", "#ffb347", "#67b7dc"]
 
+export function AnalyticsDashboard() {
+  const [loading, setLoading] = useState(true)
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
+  const [dateRange, setDateRange] = useState("30days")
   const supabase = createClient()
 
   useEffect(() => {
-    // Check if we're on the client side
-    if (typeof window !== "undefined") {
-      setChartsReady(true)
-    }
-  }, [])
-
-  useEffect(() => {
     fetchAnalytics()
-  }, [timeRange])
+  }, [dateRange])
 
   const fetchAnalytics = async () => {
     try {
-      const now = new Date()
-      const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
-      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+      setLoading(true)
+      
+      // Calculate date range
+      const endDate = new Date()
+      const startDate = new Date()
+      if (dateRange === "7days") {
+        startDate.setDate(startDate.getDate() - 7)
+      } else if (dateRange === "30days") {
+        startDate.setDate(startDate.getDate() - 30)
+      } else if (dateRange === "90days") {
+        startDate.setDate(startDate.getDate() - 90)
+      }
 
-      const [usersResult, agendasResult, votesResult, suggestionsResult] = await Promise.all([
-        supabase.from("profiles").select("id, created_at", { count: "exact" }),
-        supabase.from("agendas").select("id, created_at", { count: "exact" }),
-        supabase.from("agenda_votes").select("id, created_at", { count: "exact" }),
-        supabase.from("suggestions").select("id, created_at", { count: "exact" }),
+      // Fetch all data in parallel
+      const [
+        profilesData,
+        suggestionsData,
+        votesData,
+        activityData,
+        opinionsData
+      ] = await Promise.all([
+        // User analytics
+        supabase.from("profiles").select("id, role, created_at, is_active"),
+        
+        // Suggestions analytics
+        supabase.from("suggestions").select("id, status, agenda_id, created_at"),
+        
+        // Votes analytics - both suggestion votes and agenda votes
+        Promise.all([
+          supabase.from("suggestion_votes").select("id, vote_type, suggestion_id, created_at"),
+          supabase.from("agenda_votes").select("id, vote_type, agenda_id, created_at")
+        ]),
+        
+        // Activity logs
+        supabase.from("activity_logs")
+          .select("id, action, created_at")
+          .gte("created_at", startDate.toISOString())
+          .lte("created_at", endDate.toISOString()),
+        
+        // Opinions analytics
+        supabase.from("opinions").select("id, category, created_at")
       ])
 
-      const { count: activeUsersCount } = await supabase
-        .from("profiles")
-        .select("id", { count: "exact" })
-        .gte("last_sign_in_at", sevenDaysAgo.toISOString())
+      // Process user data
+      const users = profilesData.data || []
+      const activeUsers = users.filter(u => u.is_active !== false)
+      const thisMonthStart = new Date()
+      thisMonthStart.setDate(1)
+      const newUsersThisMonth = users.filter(u => new Date(u.created_at) >= thisMonthStart)
+      
+      const roleGroups = users.reduce((acc: any, user) => {
+        const role = user.role || "user"
+        acc[role] = (acc[role] || 0) + 1
+        return acc
+      }, {})
 
-      const { count: newUsersCount } = await supabase
-        .from("profiles")
-        .select("id", { count: "exact" })
-        .gte("created_at", thirtyDaysAgo.toISOString())
+      // Process suggestions data
+      const suggestions = suggestionsData.data || []
+      const statusGroups = suggestions.reduce((acc: any, s) => {
+        acc[s.status] = (acc[s.status] || 0) + 1
+        return acc
+      }, {})
 
-      const { data: agendas } = await supabase
-        .from("agendas")
-        .select(`
-          id,
-          title,
-          category,
-          agenda_votes (vote_type)
-        `)
-        .limit(10)
+      // Count suggestions by agenda
+      const suggestionsByAgenda = suggestions.reduce((acc: any, s) => {
+        if (s.agenda_id) {
+          acc[s.agenda_id] = (acc[s.agenda_id] || 0) + 1
+        }
+        return acc
+      }, {})
 
-      const topAgendas =
-        agendas
-          ?.map((agenda) => {
-            const likes = agenda.agenda_votes?.filter((vote: any) => vote.vote_type === "like").length || 0
-            const dislikes = agenda.agenda_votes?.filter((vote: any) => vote.vote_type === "dislike").length || 0
-            const engagement = likes + dislikes
-            return {
-              id: agenda.id,
-              title: agenda.title,
-              category: agenda.category,
-              likes,
-              dislikes,
-              engagement,
-            }
-          })
-          .sort((a, b) => b.engagement - a.engagement)
-          .slice(0, 5) || []
+      // Process votes data
+      const suggestionVotes = votesData[0].data || []
+      const agendaVotes = votesData[1].data || []
+      const totalVotes = suggestionVotes.length + agendaVotes.length
 
-      const { data: categoryData } = await supabase.from("agendas").select("category")
-      const totalAgendasCount = categoryData?.length || 0
+      // Count votes by agenda
+      const votesByAgenda = agendaVotes.reduce((acc: any, v) => {
+        if (v.agenda_id) {
+          acc[v.agenda_id] = (acc[v.agenda_id] || 0) + 1
+        }
+        return acc
+      }, {})
 
-      const categoryStats =
-        categoryData?.reduce(
-          (acc, item) => {
-            const existing = acc.find((stat) => stat.category === item.category)
-            if (existing) {
-              existing.count++
-            } else {
-              acc.push({ category: item.category, count: 1, percentage: 0 })
-            }
-            return acc
-          },
-          [] as Array<{ category: string; count: number; percentage: number }>,
-        ) || []
+      // Process activity data
+      const activities = activityData.data || []
+      const actionCounts = activities.reduce((acc: any, a) => {
+        acc[a.action] = (acc[a.action] || 0) + 1
+        return acc
+      }, {})
 
-      categoryStats.forEach((stat) => {
-        stat.percentage = Math.round((stat.count / totalAgendasCount) * 100)
-      })
+      // Group activities by day
+      const dailyActivities = activities.reduce((acc: any, a) => {
+        const date = new Date(a.created_at).toLocaleDateString()
+        acc[date] = (acc[date] || 0) + 1
+        return acc
+      }, {})
 
-      const userGrowthData = []
-      for (let i = 5; i >= 0; i--) {
-        const date = new Date(now.getFullYear(), now.getMonth() - i, 1)
-        const nextMonth = new Date(now.getFullYear(), now.getMonth() - i + 1, 1)
+      // Process opinions data
+      const opinions = opinionsData.data || []
+      const categoryGroups = opinions.reduce((acc: any, o) => {
+        const category = o.category || "General"
+        acc[category] = (acc[category] || 0) + 1
+        return acc
+      }, {})
 
-        const { count: monthlyUsers } = await supabase
-          .from("profiles")
-          .select("id", { count: "exact" })
-          .gte("created_at", date.toISOString())
-          .lt("created_at", nextMonth.toISOString())
-
-        const { count: monthlyAgendas } = await supabase
-          .from("agendas")
-          .select("id", { count: "exact" })
-          .gte("created_at", date.toISOString())
-          .lt("created_at", nextMonth.toISOString())
-
-        userGrowthData.push({
-          month: date.toLocaleDateString("en-US", { month: "short", year: "numeric" }),
-          users: monthlyUsers || 0,
-          agendas: monthlyAgendas || 0,
-        })
+      // Prepare analytics data
+      const analyticsData: AnalyticsData = {
+        users: {
+          total: users.length,
+          active: activeUsers.length,
+          newThisMonth: newUsersThisMonth.length,
+          byRole: Object.entries(roleGroups).map(([role, count]) => ({ role, count: count as number }))
+        },
+        suggestions: {
+          total: suggestions.length,
+          pending: statusGroups.pending || 0,
+          approved: statusGroups.approved || 0,
+          rejected: statusGroups.rejected || 0,
+          byStatus: Object.entries(statusGroups).map(([status, count]) => ({ status, count: count as number })),
+          topAgendas: Object.entries(suggestionsByAgenda)
+            .sort((a: any, b: any) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([id, count]) => {
+              const agenda = manifestoData.find(a => a.id === id)
+              return { agenda_id: id, count: count as number, title: agenda?.title || "Unknown" }
+            })
+        },
+        votes: {
+          total: totalVotes,
+          byType: [
+            { type: "Suggestion Votes", count: suggestionVotes.length },
+            { type: "Agenda Votes", count: agendaVotes.length }
+          ],
+          topAgendas: Object.entries(votesByAgenda)
+            .sort((a: any, b: any) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([id, votes]) => {
+              const agenda = manifestoData.find(a => a.id === id)
+              return { agenda_id: id, votes: votes as number, title: agenda?.title || "Unknown" }
+            })
+        },
+        activity: {
+          dailyActivity: Object.entries(dailyActivities)
+            .sort((a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime())
+            .slice(-30)
+            .map(([date, actions]) => ({ date, actions: actions as number })),
+          topActions: Object.entries(actionCounts)
+            .sort((a: any, b: any) => b[1] - a[1])
+            .slice(0, 10)
+            .map(([action, count]) => ({ action, count: count as number }))
+        },
+        opinions: {
+          total: opinions.length,
+          byCategory: Object.entries(categoryGroups).map(([category, count]) => ({ category, count: count as number }))
+        }
       }
 
-      const engagementData = []
-      for (let i = 13; i >= 0; i--) {
-        const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000)
-        const nextDay = new Date(date.getTime() + 24 * 60 * 60 * 1000)
-
-        const { count: dailyVotes } = await supabase
-          .from("agenda_votes")
-          .select("id", { count: "exact" })
-          .gte("created_at", date.toISOString())
-          .lt("created_at", nextDay.toISOString())
-
-        const { count: dailySuggestions } = await supabase
-          .from("suggestions")
-          .select("id", { count: "exact" })
-          .gte("created_at", date.toISOString())
-          .lt("created_at", nextDay.toISOString())
-
-        engagementData.push({
-          date: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-          votes: dailyVotes || 0,
-          suggestions: dailySuggestions || 0,
-        })
-      }
-
-      const { data: recentVotes } = await supabase
-        .from("agenda_votes")
-        .select(`
-          created_at,
-          vote_type,
-          agendas(title),
-          profiles(email, full_name)
-        `)
-        .order("created_at", { ascending: false })
-        .limit(5)
-
-      const { data: recentSuggestions } = await supabase
-        .from("suggestions")
-        .select(`
-          created_at,
-          content,
-          profiles(email, full_name)
-        `)
-        .order("created_at", { ascending: false })
-        .limit(5)
-
-      const recentActivity = [
-        ...(recentVotes?.map((vote: any) => ({
-          type: "vote",
-          description: `${vote.profiles?.full_name || vote.profiles?.email} ${vote.vote_type}d "${vote.agendas?.title}"`,
-          timestamp: new Date(vote.created_at).toLocaleString(),
-          user: vote.profiles?.email,
-        })) || []),
-        ...(recentSuggestions?.map((suggestion: any) => ({
-          type: "suggestion",
-          description: `${suggestion.profiles?.full_name || suggestion.profiles?.email} submitted a suggestion`,
-          timestamp: new Date(suggestion.created_at).toLocaleString(),
-          user: suggestion.profiles?.email,
-        })) || []),
-      ]
-        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-        .slice(0, 10)
-
-      setAnalytics({
-        totalUsers: usersResult.count || 0,
-        totalAgendas: agendasResult.count || 0,
-        totalVotes: votesResult.count || 0,
-        totalSuggestions: suggestionsResult.count || 0,
-        activeUsers: activeUsersCount || 0,
-        newUsersThisMonth: newUsersCount || 0,
-        topAgendas,
-        categoryStats: categoryStats.sort((a, b) => b.count - a.count),
-        userGrowth: userGrowthData,
-        engagementTrends: engagementData,
-        recentActivity,
-      })
+      setAnalytics(analyticsData)
     } catch (error) {
       console.error("Error fetching analytics:", error)
     } finally {
@@ -302,10 +235,12 @@ export function AnalyticsDashboard() {
     }
   }
 
-  const COLORS = ["#059669", "#10b981", "#34d399", "#6ee7b7", "#a7f3d0", "#c6f6d5"]
-
   if (loading) {
-    return <div className="text-center py-8">Loading analytics...</div>
+    return <div className="text-center py-8">Loading analytics data...</div>
+  }
+
+  if (!analytics) {
+    return <div className="text-center py-8">No analytics data available</div>
   }
 
   return (
@@ -313,30 +248,65 @@ export function AnalyticsDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-foreground">Analytics Dashboard</h2>
-          <p className="text-muted-foreground">Comprehensive platform insights and performance metrics</p>
+          <p className="text-muted-foreground">Platform insights and performance metrics</p>
         </div>
-
-        <Select value={timeRange} onValueChange={setTimeRange}>
-          <SelectTrigger className="w-48">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="7d">Last 7 days</SelectItem>
-            <SelectItem value="30d">Last 30 days</SelectItem>
-            <SelectItem value="90d">Last 90 days</SelectItem>
-          </SelectContent>
-        </Select>
+        
+        <Tabs value={dateRange} onValueChange={setDateRange}>
+          <TabsList>
+            <TabsTrigger value="7days">7 Days</TabsTrigger>
+            <TabsTrigger value="30days">30 Days</TabsTrigger>
+            <TabsTrigger value="90days">90 Days</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-6">
+      {/* Summary Cards */}
+      <div className="grid gap-4 md:grid-cols-5">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Users</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analytics.totalUsers}</div>
-            <p className="text-xs text-muted-foreground">+{analytics.newUsersThisMonth} this month</p>
+            <div className="text-2xl font-bold">{analytics.users.total}</div>
+            <p className="text-xs text-muted-foreground">
+              {analytics.users.newThisMonth} new this month
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Suggestions</CardTitle>
+            <MessageSquare className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{analytics.suggestions.total}</div>
+            <p className="text-xs text-muted-foreground">
+              {analytics.suggestions.pending} pending review
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Votes</CardTitle>
+            <Vote className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{analytics.votes.total}</div>
+            <p className="text-xs text-muted-foreground">User engagement</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Opinions</CardTitle>
+            <Eye className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{analytics.opinions.total}</div>
+            <p className="text-xs text-muted-foreground">Community discussions</p>
           </CardContent>
         </Card>
 
@@ -346,198 +316,207 @@ export function AnalyticsDashboard() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analytics.activeUsers}</div>
-            <p className="text-xs text-muted-foreground">Last 7 days</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Agendas</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{analytics.totalAgendas}</div>
-            <p className="text-xs text-muted-foreground">Reform proposals</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Votes</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{analytics.totalVotes}</div>
-            <p className="text-xs text-muted-foreground">User engagement</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Suggestions</CardTitle>
-            <MessageSquare className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{analytics.totalSuggestions}</div>
-            <p className="text-xs text-muted-foreground">User contributions</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Engagement Rate</CardTitle>
-            <ThumbsUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {analytics.totalUsers > 0 ? Math.round((analytics.totalVotes / analytics.totalUsers) * 100) : 0}%
-            </div>
-            <p className="text-xs text-muted-foreground">Votes per user</p>
+            <div className="text-2xl font-bold">{analytics.users.active}</div>
+            <p className="text-xs text-muted-foreground">
+              {Math.round((analytics.users.active / analytics.users.total) * 100)}% of total
+            </p>
           </CardContent>
         </Card>
       </div>
 
+      {/* Charts */}
       <div className="grid gap-6 md:grid-cols-2">
+        {/* Daily Activity Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>Growth Trends</CardTitle>
-            <CardDescription>User and agenda growth over time</CardDescription>
+            <CardTitle>Daily Activity</CardTitle>
+            <CardDescription>Platform activity over time</CardDescription>
           </CardHeader>
           <CardContent>
-            {chartsReady ? (
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={analytics.userGrowth}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="users" stroke="#059669" name="New Users" strokeWidth={2} />
-                  <Line type="monotone" dataKey="agendas" stroke="#10b981" name="New Agendas" strokeWidth={2} />
-                </LineChart>
-              </ResponsiveContainer>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={analytics.activity.dailyActivity}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="actions" stroke="#8884d8" fill="#8884d8" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* User Roles Distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle>User Roles Distribution</CardTitle>
+            <CardDescription>Breakdown of user roles</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={analytics.users.byRole}
+                  dataKey="count"
+                  nameKey="role"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  fill="#8884d8"
+                  label
+                >
+                  {analytics.users.byRole.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Suggestion Status */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Suggestion Status</CardTitle>
+            <CardDescription>Current status of all suggestions</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={analytics.suggestions.byStatus}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="status" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="count" fill="#82ca9d" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Top Voted Agendas */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Top Voted Agendas</CardTitle>
+            <CardDescription>Most engaged reform proposals</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {analytics.votes.topAgendas.length > 0 ? (
+              <div className="space-y-4">
+                {analytics.votes.topAgendas.map((agenda) => (
+                  <div key={agenda.agenda_id} className="flex items-center justify-between">
+                    <div className="flex-1 mr-4">
+                      <p className="text-sm font-medium line-clamp-1">{agenda.title}</p>
+                      <p className="text-xs text-muted-foreground">ID: {agenda.agenda_id}</p>
+                    </div>
+                    <Badge variant="secondary">{agenda.votes} votes</Badge>
+                  </div>
+                ))}
+              </div>
             ) : (
-              <ChartLoader />
+              <p className="text-sm text-muted-foreground">No voting data available</p>
             )}
           </CardContent>
         </Card>
 
+        {/* Top Actions */}
         <Card>
           <CardHeader>
-            <CardTitle>Daily Engagement</CardTitle>
-            <CardDescription>Votes and suggestions over the last 14 days</CardDescription>
+            <CardTitle>Top Actions</CardTitle>
+            <CardDescription>Most common platform activities</CardDescription>
           </CardHeader>
           <CardContent>
-            {chartsReady ? (
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={analytics.engagementTrends}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="votes" fill="#059669" name="Votes" />
-                  <Bar dataKey="suggestions" fill="#10b981" name="Suggestions" />
-                </BarChart>
-              </ResponsiveContainer>
+            {analytics.activity.topActions.length > 0 ? (
+              <div className="space-y-3">
+                {analytics.activity.topActions.slice(0, 5).map((action) => (
+                  <div key={action.action} className="flex items-center justify-between">
+                    <p className="text-sm">{action.action.replace(/_/g, " ")}</p>
+                    <Badge variant="outline">{action.count}</Badge>
+                  </div>
+                ))}
+              </div>
             ) : (
-              <ChartLoader />
+              <p className="text-sm text-muted-foreground">No activity data available</p>
             )}
           </CardContent>
         </Card>
-      </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+        {/* Opinion Categories */}
         <Card>
           <CardHeader>
-            <CardTitle>Category Distribution</CardTitle>
-            <CardDescription>Agenda categories breakdown</CardDescription>
+            <CardTitle>Opinion Categories</CardTitle>
+            <CardDescription>Distribution of opinions by category</CardDescription>
           </CardHeader>
           <CardContent>
-            {chartsReady ? (
-              <ResponsiveContainer width="100%" height={250}>
+            {analytics.opinions.byCategory.length > 0 ? (
+              <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={analytics.categoryStats}
+                    data={analytics.opinions.byCategory}
+                    dataKey="count"
+                    nameKey="category"
                     cx="50%"
                     cy="50%"
-                    outerRadius={80}
+                    outerRadius={100}
                     fill="#8884d8"
-                    dataKey="count"
-                    label={({ category, percentage }: any) => `${category} (${percentage}%)`}
+                    label
                   >
-                    {analytics.categoryStats.map((entry, index) => (
+                    {analytics.opinions.byCategory.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />
+                  <Legend />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <ChartLoader />
+              <p className="text-sm text-muted-foreground text-center">No opinion data available</p>
             )}
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Most Engaged Agendas</CardTitle>
-            <CardDescription>Highest engagement by votes</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {analytics.topAgendas.map((agenda, index) => (
-              <div key={agenda.id} className="flex items-center justify-between">
-                <div className="flex-1">
-                  <p className="font-medium text-sm line-clamp-2">{agenda.title}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="outline" className="text-xs">
-                      {agenda.category}
-                    </Badge>
-                    <span className="text-xs text-muted-foreground">#{index + 1}</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="flex items-center gap-1 text-green-600">
-                    <ThumbsUp className="h-3 w-3" />
-                    <span>{agenda.likes}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-red-600">
-                    <ThumbsDown className="h-3 w-3" />
-                    <span>{agenda.dislikes}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>Latest platform activities</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {analytics.recentActivity.map((activity, index) => (
-              <div key={index} className="flex items-center gap-4">
-                <div
-                  className={`w-2 h-2 rounded-full ${
-                    activity.type === "vote"
-                      ? "bg-green-500"
-                      : activity.type === "suggestion"
-                        ? "bg-blue-500"
-                        : "bg-orange-500"
-                  }`}
-                />
-                <div className="flex-1">
-                  <p className="text-sm font-medium line-clamp-2">{activity.description}</p>
-                  <p className="text-xs text-muted-foreground">{activity.timestamp}</p>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
       </div>
+
+      {/* Engagement Metrics */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Engagement Metrics</CardTitle>
+          <CardDescription>Platform engagement statistics</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-4">
+            <div className="space-y-2">
+              <p className="text-sm font-medium">Suggestion Approval Rate</p>
+              <p className="text-2xl font-bold">
+                {analytics.suggestions.total > 0
+                  ? Math.round((analytics.suggestions.approved / analytics.suggestions.total) * 100)
+                  : 0}%
+              </p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-sm font-medium">Active User Rate</p>
+              <p className="text-2xl font-bold">
+                {Math.round((analytics.users.active / analytics.users.total) * 100)}%
+              </p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-sm font-medium">Avg Votes per User</p>
+              <p className="text-2xl font-bold">
+                {analytics.users.total > 0
+                  ? (analytics.votes.total / analytics.users.total).toFixed(1)
+                  : 0}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-sm font-medium">Opinions per User</p>
+              <p className="text-2xl font-bold">
+                {analytics.users.total > 0
+                  ? (analytics.opinions.total / analytics.users.total).toFixed(1)
+                  : 0}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

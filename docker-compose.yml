@@ -1,33 +1,138 @@
 version: '3.8'
 
 services:
+  # Production service
   web:
     build:
       context: .
       dockerfile: Dockerfile
+      target: runner
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-    env_file: .env.local
+      - PORT=3000
+    env_file:
+      - .env.local
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 40s
+    networks:
+      - nepal_reforms_network
+    volumes:
+      # Add volume for Next.js cache persistence
+      - nextjs_cache:/app/.next/cache
 
-  # Add development service for local development
+  # Development service with hot reload
   web-dev:
     build:
       context: .
-      target: deps
-    command: pnpm dev
+      dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
+      # Mount source code for hot reload
+      - .:/app:delegated
+      # Use named volumes for node_modules to avoid conflicts
+      - node_modules_dev:/app/node_modules
+      # Cache .next directory for faster rebuilds
+      - next_cache_dev:/app/.next
     environment:
       - NODE_ENV=development
-    env_file: .env.local
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=3000
+      # Pass through all Supabase env vars
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+    env_file:
+      - .env.local
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - nepal_reforms_network
+    depends_on:
+      - postgres_dev
+
+  # Local PostgreSQL for development (optional - can connect to Supabase cloud)
+  postgres_dev:
+    image: postgres:15-alpine
     environment:
-      - NODE_ENV=development
-    # If you need to expose environment variables, create a .env file and uncomment the following line
-    # env_file: .env.local
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nepal_reforms
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Mount SQL scripts for initialization
+      - ./scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nepal_reforms_network
+    profiles:
+      - with-local-db
+
+  # Lambda development service (for testing Lambda compatibility)
+  web-lambda:
+    build:
+      context: .
+      dockerfile: Dockerfile.lambda
+    ports:
+      - "9000:8080"
+    environment:
+      - NODE_ENV=production
+      - AWS_LAMBDA_RUNTIME_API=localhost:8080
+    env_file:
+      - .env.local
+    restart: unless-stopped
+    networks:
+      - nepal_reforms_network
+    profiles:
+      - lambda
+
+  # Adminer for database management (development only)
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - nepal_reforms_network
+    profiles:
+      - with-local-db
+    depends_on:
+      - postgres_dev
+
+volumes:
+  node_modules_dev:
+    driver: local
+  next_cache_dev:
+    driver: local
+  nextjs_cache:
+    driver: local
+  postgres_data:
+    driver: local
+
+networks:
+  nepal_reforms_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
