@@ -24,14 +24,19 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-import { Pencil, Trash2, Plus, ArrowUpDown } from "lucide-react"
+import { Pencil, Trash2, Plus, ArrowUpDown, Upload, X } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { createClient } from "@/lib/supabase/client"
+import Image from "next/image"
 
 export function TestimonialManagement() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [loading, setLoading] = useState(true)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string>("")
   const [formData, setFormData] = useState({
     name: "",
     profession: "",
@@ -42,6 +47,7 @@ export function TestimonialManagement() {
     display_order: 0,
   })
   const { toast } = useToast()
+  const supabase = createClient()
 
   useEffect(() => {
     fetchTestimonials()
@@ -67,10 +73,113 @@ export function TestimonialManagement() {
     }
   }
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Check file size (200KB limit)
+    if (file.size > 200 * 1024) {
+      toast({
+        title: "Error",
+        description: "Image size must be under 200KB",
+        variant: "destructive",
+      })
+      return
+    }
+
+    // Check file type
+    if (!file.type.startsWith("image/")) {
+      toast({
+        title: "Error",
+        description: "Please select an image file",
+        variant: "destructive",
+      })
+      return
+    }
+
+    setImageFile(file)
+    
+    // Create preview
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const uploadImage = async (): Promise<string | null> => {
+    if (!imageFile) return null
+
+    setUploading(true)
+    try {
+      // Generate unique filename
+      const fileExt = imageFile.name.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
+      const filePath = `testimonials/${fileName}`
+
+      // Upload to Supabase storage
+      const { data, error } = await supabase.storage
+        .from('testimonial-images')
+        .upload(filePath, imageFile)
+
+      if (error) {
+        console.error('Upload error:', error)
+        throw error
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('testimonial-images')
+        .getPublicUrl(filePath)
+
+      return publicUrl
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to upload image",
+        variant: "destructive",
+      })
+      return null
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const deleteOldImage = async (imageUrl: string) => {
+    try {
+      // Extract file path from URL
+      const url = new URL(imageUrl)
+      const pathMatch = url.pathname.match(/testimonial-images\/(.+)$/)
+      if (!pathMatch) return
+
+      const filePath = `testimonials/${pathMatch[1]}`
+      
+      await supabase.storage
+        .from('testimonial-images')
+        .remove([filePath])
+    } catch (error) {
+      console.error('Failed to delete old image:', error)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     try {
+      let imageUrl = formData.image_url
+
+      // Upload new image if selected
+      if (imageFile) {
+        const uploadedUrl = await uploadImage()
+        if (uploadedUrl) {
+          // Delete old image if updating
+          if (editingTestimonial && editingTestimonial.image_url) {
+            await deleteOldImage(editingTestimonial.image_url)
+          }
+          imageUrl = uploadedUrl
+        }
+      }
+
       const url = editingTestimonial
         ? `/api/testimonials/${editingTestimonial.id}`
         : "/api/testimonials"
@@ -80,7 +189,7 @@ export function TestimonialManagement() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, image_url: imageUrl }),
       })
 
       if (response.ok) {
@@ -104,10 +213,15 @@ export function TestimonialManagement() {
     }
   }
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, imageUrl: string | null) => {
     if (!confirm("Are you sure you want to delete this testimonial?")) return
 
     try {
+      // Delete image from storage if exists
+      if (imageUrl) {
+        await deleteOldImage(imageUrl)
+      }
+
       const response = await fetch(`/api/testimonials/${id}`, {
         method: "DELETE",
       })
@@ -141,12 +255,15 @@ export function TestimonialManagement() {
       is_active: testimonial.is_active,
       display_order: testimonial.display_order,
     })
+    setImagePreview(testimonial.image_url || "")
     setDialogOpen(true)
   }
 
   const handleCloseDialog = () => {
     setDialogOpen(false)
     setEditingTestimonial(null)
+    setImageFile(null)
+    setImagePreview("")
     setFormData({
       name: "",
       profession: "",
@@ -190,9 +307,7 @@ export function TestimonialManagement() {
   if (loading) {
     return <div>Loading testimonials...</div>
   }
-  if (!Array.isArray(testimonials)) {
-    return <div className="text-red-500">Testimonials data failed to load. Please try again later.</div>
-  }
+
   return (
     <Card>
       <CardHeader>
@@ -208,6 +323,7 @@ export function TestimonialManagement() {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Image</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Profession</TableHead>
                 <TableHead>Testimonial</TableHead>
@@ -223,64 +339,82 @@ export function TestimonialManagement() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {testimonials.length > 0 ? (
-                testimonials.map((testimonial) => (
-                  <TableRow key={testimonial.id}>
-                    <TableCell className="font-medium">{testimonial.name}</TableCell>
-                    <TableCell>{testimonial.profession}</TableCell>
-                    <TableCell className="max-w-xs truncate">
-                      {testimonial.testimonial}
-                    </TableCell>
-                    <TableCell>
-                      {testimonial.linkedin_url ? (
-                        <a
-                          href={testimonial.linkedin_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:underline"
-                        >
-                          View
-                        </a>
-                      ) : (
-                        "-"
-                      )}
-                    </TableCell>
-                    <TableCell>{testimonial.display_order}</TableCell>
-                    <TableCell>
-                      <Badge variant={testimonial.is_active ? "default" : "secondary"}>
-                        {testimonial.is_active ? "Active" : "Inactive"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleToggleActive(testimonial)}
-                        >
-                          {testimonial.is_active ? "Deactivate" : "Activate"}
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="outline"
-                          onClick={() => handleEdit(testimonial)}
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          size="icon"
-                          variant="destructive"
-                          onClick={() => handleDelete(testimonial.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+              {testimonials.map((testimonial) => (
+                <TableRow key={testimonial.id}>
+                  <TableCell>
+                    {testimonial.image_url ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
+                        <Image
+                          src={testimonial.image_url}
+                          alt={testimonial.name}
+                          width={40}
+                          height={40}
+                          className="object-cover w-full h-full"
+                        />
                       </div>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-sm font-bold text-gray-500">
+                          {testimonial.name.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                  </TableCell>
+                  <TableCell className="font-medium">{testimonial.name}</TableCell>
+                  <TableCell>{testimonial.profession}</TableCell>
+                  <TableCell className="max-w-xs truncate">
+                    {testimonial.testimonial}
+                  </TableCell>
+                  <TableCell>
+                    {testimonial.linkedin_url ? (
+                      <a
+                        href={testimonial.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline"
+                      >
+                        View
+                      </a>
+                    ) : (
+                      "-"
+                    )}
+                  </TableCell>
+                  <TableCell>{testimonial.display_order}</TableCell>
+                  <TableCell>
+                    <Badge variant={testimonial.is_active ? "default" : "secondary"}>
+                      {testimonial.is_active ? "Active" : "Inactive"}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleToggleActive(testimonial)}
+                      >
+                        {testimonial.is_active ? "Deactivate" : "Activate"}
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => handleEdit(testimonial)}
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="destructive"
+                        onClick={() => handleDelete(testimonial.id, testimonial.image_url)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {testimonials.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center py-8">
+                  <TableCell colSpan={8} className="text-center py-8">
                     No testimonials yet. Add your first testimonial!
                   </TableCell>
                 </TableRow>
@@ -291,7 +425,7 @@ export function TestimonialManagement() {
       </CardContent>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
               {editingTestimonial ? "Edit Testimonial" : "Add New Testimonial"}
@@ -333,27 +467,56 @@ export function TestimonialManagement() {
               />
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="image_url">Image URL</Label>
-                <Input
-                  id="image_url"
-                  type="url"
-                  value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                />
+            <div className="space-y-2">
+              <Label htmlFor="image">Profile Image (Max 200KB)</Label>
+              <div className="flex items-center gap-4">
+                {imagePreview && (
+                  <div className="relative w-20 h-20 rounded-full overflow-hidden bg-gray-200">
+                    <Image
+                      src={imagePreview}
+                      alt="Preview"
+                      fill
+                      className="object-cover"
+                    />
+                    <Button
+                      type="button"
+                      size="icon"
+                      variant="destructive"
+                      className="absolute -top-1 -right-1 w-6 h-6"
+                      onClick={() => {
+                        setImageFile(null)
+                        setImagePreview("")
+                        setFormData({ ...formData, image_url: "" })
+                      }}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                )}
+                <div className="flex-1">
+                  <Input
+                    id="image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="cursor-pointer"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Upload a square image for best results (recommended: 200x200px)
+                  </p>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="linkedin_url">LinkedIn URL</Label>
-                <Input
-                  id="linkedin_url"
-                  type="url"
-                  value={formData.linkedin_url}
-                  onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
-                  placeholder="https://linkedin.com/in/username"
-                />
-              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="linkedin_url">LinkedIn URL</Label>
+              <Input
+                id="linkedin_url"
+                type="url"
+                value={formData.linkedin_url}
+                onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
+                placeholder="https://linkedin.com/in/username"
+              />
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
@@ -385,8 +548,17 @@ export function TestimonialManagement() {
               <Button type="button" variant="outline" onClick={handleCloseDialog}>
                 Cancel
               </Button>
-              <Button type="submit">
-                {editingTestimonial ? "Update" : "Create"} Testimonial
+              <Button type="submit" disabled={uploading}>
+                {uploading ? (
+                  <>
+                    <Upload className="mr-2 h-4 w-4 animate-spin" />
+                    Uploading...
+                  </>
+                ) : (
+                  <>
+                    {editingTestimonial ? "Update" : "Create"} Testimonial
+                  </>
+                )}
               </Button>
             </div>
           </form>

@@ -7,8 +7,6 @@ import Image from 'next/image'
 
 export function TestimonialCarousel() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [isPaused, setIsPaused] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -21,14 +19,15 @@ export function TestimonialCarousel() {
   const fetchTestimonials = async () => {
     try {
       const response = await fetch('/api/testimonials')
-      if (!response.ok) throw new Error('Failed to fetch testimonials')
-      const data = await response.json()
-      setTestimonials(Array.isArray(data) ? data : [])
+      if (response.ok) {
+        const data = await response.json()
+        // Duplicate testimonials for seamless loop
+        if (data && data.length > 0) {
+          setTestimonials([...data, ...data])
+        }
+      }
     } catch (error) {
-      setError('Unable to load testimonials. Please try again later.')
-      setTestimonials([])
-    } finally {
-      setLoading(false)
+      console.error('Failed to fetch testimonials:', error)
     }
   }
 
@@ -57,11 +56,7 @@ export function TestimonialCarousel() {
     }
   }, [isPaused, isHovered, testimonials])
 
-  if (loading) return <div>Loading testimonials...</div>
-  if (error) return <div className="text-red-500">{error}</div>
-  if (!Array.isArray(testimonials) || testimonials.length === 0) {
-    return <div className="text-center text-gray-500 py-8">No testimonials to display.</div>
-  }
+  if (testimonials.length === 0) return null
 
   return (
     <section className="py-16 bg-gray-50">
@@ -92,7 +87,7 @@ export function TestimonialCarousel() {
             onMouseLeave={() => setIsHovered(false)}
           >
             <div className="space-y-4">
-              {[...testimonials, ...testimonials].map((testimonial, index) => (
+              {testimonials.map((testimonial, index) => (
                 <TestimonialCard key={`${testimonial.id}-${index}`} testimonial={testimonial} />
               ))}
             </div>
@@ -108,19 +103,23 @@ export function TestimonialCarousel() {
 }
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+  const [imageError, setImageError] = useState(false)
+  
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-4">
       <div className="flex items-start space-x-4">
         <div className="flex-shrink-0">
           <div className="relative">
             <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
-              {testimonial.image_url ? (
+              {testimonial.image_url && !imageError ? (
                 <Image
                   src={testimonial.image_url}
                   alt={testimonial.name}
                   width={64}
                   height={64}
-                  className="object-cover"
+                  className="object-cover w-full h-full"
+                  onError={() => setImageError(true)}
+                  unoptimized
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400">

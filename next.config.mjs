@@ -31,6 +31,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'localhost',
         port: '3000',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'nokrhvgrfcletinhsalt.supabase.co',
       }
     ],
     formats: ['image/webp', 'image/avif'],
