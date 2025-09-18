@@ -8,7 +8,6 @@ import { Card, CardContent } from '@/components/ui/card'
 export function TestimonialsGrid() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     fetchTestimonials()
@@ -17,12 +16,12 @@ export function TestimonialsGrid() {
   const fetchTestimonials = async () => {
     try {
       const response = await fetch('/api/testimonials')
-      if (!response.ok) throw new Error('Failed to fetch testimonials')
-      const data = await response.json()
-      setTestimonials(Array.isArray(data) ? data : [])
-    } catch (err) {
-      setError('Unable to load testimonials. Please try again later.')
-      setTestimonials([])
+      if (response.ok) {
+        const data = await response.json()
+        setTestimonials(data || [])
+      }
+    } catch (error) {
+      console.error('Failed to fetch testimonials:', error)
     } finally {
       setLoading(false)
     }
@@ -53,20 +52,16 @@ export function TestimonialsGrid() {
     )
   }
 
-  if (error) {
-    return <div className="text-red-500">{error}</div>
-  }
-
-  if (!Array.isArray(testimonials) || testimonials.length === 0) {
+  if (testimonials.length === 0) {
     return (
-      <div className="text-center text-gray-500 py-8">
-        No testimonials available.
+      <div className="text-center py-12">
+        <p className="text-lg text-muted-foreground">No testimonials available yet.</p>
       </div>
     )
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {testimonials.map((testimonial) => (
         <TestimonialCard key={testimonial.id} testimonial={testimonial} />
       ))}
@@ -75,6 +70,8 @@ export function TestimonialsGrid() {
 }
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+  const [imageError, setImageError] = useState(false)
+  
   return (
     <Card className="h-full hover:shadow-lg transition-shadow">
       <CardContent className="p-6">
@@ -82,13 +79,15 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           <div className="flex-shrink-0">
             <div className="relative">
               <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200">
-                {testimonial.image_url ? (
+                {testimonial.image_url && !imageError ? (
                   <Image
                     src={testimonial.image_url}
                     alt={testimonial.name}
                     width={64}
                     height={64}
-                    className="object-cover"
+                    className="object-cover w-full h-full"
+                    onError={() => setImageError(true)}
+                    unoptimized={testimonial.image_url.includes('supabase')}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-400">
