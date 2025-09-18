@@ -1,15 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import type { User } from "@supabase/supabase-js"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Users, FileText, MessageSquare, BarChart3, Settings, Plus, LogOut, Activity, Quote } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Users, FileText, MessageSquare, BarChart3, Settings, LogOut, Activity, Quote, Shield } from "lucide-react"
 import dynamic from "next/dynamic"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
+import { manifestoData } from "@/lib/manifesto-data"
 
 const AgendaManagement = dynamic(
   () => import("./agenda-management").then((mod) => ({ default: mod.AgendaManagement })),
@@ -62,15 +63,250 @@ interface AdminDashboardProps {
   user: User
 }
 
+interface DashboardStats {
+  totalUsers: number
+  activeUsers: number
+  totalSuggestions: number
+  pendingSuggestions: number
+  totalVotes: number
+  totalOpinions: number
+  recentActivity: number
+}
+
 export function AdminDashboard({ user }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState("overview")
+  const [stats, setStats] = useState<DashboardStats>({
+    totalUsers: 0,
+    activeUsers: 0,
+    totalSuggestions: 0,
+    pendingSuggestions: 0,
+    totalVotes: 0,
+    totalOpinions: 0,
+    recentActivity: 0,
+  })
+  const [loading, setLoading] = useState(true)
   const router = useRouter()
   const supabase = createClient()
+
+  useEffect(() => {
+    fetchDashboardStats()
+  }, [])
+
+  const fetchDashboardStats = async () => {
+    try {
+      // Fetch all statistics in parallel
+      const [
+        profilesResponse,
+        suggestionsResponse,
+        votesResponse,
+        opinionsResponse,
+        activityResponse
+      ] = await Promise.all([
+        supabase.from("profiles").select("id, is_active", { count: "exact" }),
+        supabase.from("suggestions").select("id, status", { count: "exact" }),
+        Promise.all([
+          supabase.from("suggestion_votes").select("id", { count: "exact" }),
+          supabase.from("agenda_votes").select("id", { count: "exact" })
+        ]),
+        supabase.from("opinions").select("id", { count: "exact" }),
+        supabase.from("activity_logs")
+          .select("id", { count: "exact" })
+          .gte("created_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+      ])
+
+      const profiles = profilesResponse.data || []
+      const suggestions = suggestionsResponse.data || []
+      const suggestionVotes = votesResponse[0].data || []
+      const agendaVotes = votesResponse[1].data || []
+      const opinions = opinionsResponse.data || []
+
+      setStats({
+        totalUsers: profilesResponse.count || 0,
+        activeUsers: profiles.filter(p => p.is_active !== false).length,
+        totalSuggestions: suggestionsResponse.count || 0,
+        pendingSuggestions: suggestions.filter(s => s.status === "pending" || !s.status).length,
+        totalVotes: (votesResponse[0].count || 0) + (votesResponse[1].count || 0),
+        totalOpinions: opinionsResponse.count || 0,
+        recentActivity: activityResponse.count || 0,
+      })
+    } catch (error) {
+      console.error("Error fetching dashboard stats:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     router.push("/")
   }
+
+  const OverviewTab = () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold">Platform Overview</h3>
+        <p className="text-muted-foreground">Real-time statistics and system health</p>
+      </div>
+
+      {/* Main Statistics */}
+      <div className="grid gap-4 md:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? "..." : stats.totalUsers}</div>
+            <p className="text-xs text-muted-foreground">
+              {loading ? "Loading..." : `${stats.activeUsers} active users`}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Reform Proposals</CardTitle>
+            <FileText className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{manifestoData.length}</div>
+            <p className="text-xs text-muted-foreground">
+              {manifestoData.filter(item => item.priority === "High").length} high priority
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Suggestions</CardTitle>
+            <MessageSquare className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? "..." : stats.totalSuggestions}</div>
+            <p className="text-xs text-muted-foreground">
+              {loading ? "Loading..." : `${stats.pendingSuggestions} pending review`}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Votes</CardTitle>
+            <BarChart3 className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? "..." : stats.totalVotes}</div>
+            <p className="text-xs text-muted-foreground">Community engagement</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Secondary Statistics */}
+      <div className="grid gap-4 md:grid-cols-3">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Opinions</CardTitle>
+            <Quote className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? "..." : stats.totalOpinions}</div>
+            <p className="text-xs text-muted-foreground">Community discussions</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Recent Activity</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? "..." : stats.recentActivity}</div>
+            <p className="text-xs text-muted-foreground">Last 24 hours</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">System Status</CardTitle>
+            <Shield className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">Online</div>
+            <p className="text-xs text-muted-foreground">All systems operational</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+          <CardDescription>Common administrative tasks</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-3 md:grid-cols-2">
+          <Button
+            variant="outline"
+            onClick={() => setActiveTab("suggestions")}
+            className="justify-start h-12"
+          >
+            <MessageSquare className="h-4 w-4 mr-2" />
+            Review {stats.pendingSuggestions} Pending Suggestions
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setActiveTab("users")}
+            className="justify-start h-12"
+          >
+            <Users className="h-4 w-4 mr-2" />
+            Manage Users & Permissions
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setActiveTab("analytics")}
+            className="justify-start h-12"
+          >
+            <BarChart3 className="h-4 w-4 mr-2" />
+            View Analytics Dashboard
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setActiveTab("settings")}
+            className="justify-start h-12"
+          >
+            <Settings className="h-4 w-4 mr-2" />
+            Configure System Settings
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Reform Categories Overview */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Reform Categories</CardTitle>
+          <CardDescription>Overview of the 27 comprehensive reform proposals</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-2 md:grid-cols-3">
+            {Array.from(new Set(manifestoData.map(item => item.category))).map(category => {
+              const count = manifestoData.filter(item => item.category === category).length
+              const priority = manifestoData.filter(item => item.category === category && item.priority === "High").length
+              return (
+                <div key={category} className="flex items-center justify-between p-2 rounded-lg border">
+                  <div>
+                    <p className="font-medium text-sm">{category}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {count} reforms, {priority} high priority
+                    </p>
+                  </div>
+                  <Badge variant="secondary">{count}</Badge>
+                </div>
+              )
+            })}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-background">
@@ -105,174 +341,49 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="overview" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              Overview
+              <Shield className="h-4 w-4" />
+              <span className="hidden sm:inline">Overview</span>
             </TabsTrigger>
             <TabsTrigger value="agendas" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              Agendas
-            </TabsTrigger>
-            <TabsTrigger value="suggestions" className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4" />
-              Content
-            </TabsTrigger>
-            <TabsTrigger value="testimonials" className="flex items-center gap-2">
-              <Quote className="h-4 w-4" />
-              Testimonials
+              <span className="hidden sm:inline">Reforms</span>
             </TabsTrigger>
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Users
+              <span className="hidden sm:inline">Users</span>
+            </TabsTrigger>
+            <TabsTrigger value="suggestions" className="flex items-center gap-2">
+              <MessageSquare className="h-4 w-4" />
+              <span className="hidden sm:inline">Content</span>
+            </TabsTrigger>
+            <TabsTrigger value="testimonials" className="flex items-center gap-2">
+              <Quote className="h-4 w-4" />
+              <span className="hidden sm:inline">Testimonials</span>
             </TabsTrigger>
             <TabsTrigger value="analytics" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
-              Analytics
+              <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
             <TabsTrigger value="activity" className="flex items-center gap-2">
               <Activity className="h-4 w-4" />
-              Activity
+              <span className="hidden sm:inline">Activity</span>
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
-              Settings
+              <span className="hidden sm:inline">Settings</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Agendas</CardTitle>
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">12</div>
-                  <p className="text-xs text-muted-foreground">+2 from last month</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">1,234</div>
-                  <p className="text-xs text-muted-foreground">+15% from last month</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Total Votes</CardTitle>
-                  <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">5,678</div>
-                  <p className="text-xs text-muted-foreground">+25% from last month</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Suggestions</CardTitle>
-                  <CardDescription>Latest suggestions on the platform</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">89</div>
-                  <p className="text-xs text-muted-foreground">+5 pending review</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                  <CardDescription>Latest actions on the platform</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">New agenda created: "Electoral Reform"</p>
-                      <p className="text-xs text-muted-foreground">2 hours ago</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">User suggestion approved</p>
-                      <p className="text-xs text-muted-foreground">4 hours ago</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">High engagement on "Justice Reform"</p>
-                      <p className="text-xs text-muted-foreground">6 hours ago</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
-                  <CardDescription>Common administrative tasks</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button className="w-full justify-start" onClick={() => setActiveTab("agendas")}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create New Agenda
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start bg-transparent"
-                    onClick={() => setActiveTab("suggestions")}
-                  >
-                    <MessageSquare className="h-4 w-4 mr-2" />
-                    Review Suggestions
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start bg-transparent"
-                    onClick={() => setActiveTab("testimonials")}
-                  >
-                    <Quote className="h-4 w-4 mr-2" />
-                    Manage Testimonials
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start bg-transparent"
-                    onClick={() => setActiveTab("users")}
-                  >
-                    <Users className="h-4 w-4 mr-2" />
-                    Manage Users
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start bg-transparent"
-                    onClick={() => setActiveTab("analytics")}
-                  >
-                    <BarChart3 className="h-4 w-4 mr-2" />
-                    View Analytics
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start bg-transparent"
-                    onClick={() => setActiveTab("activity")}
-                  >
-                    <Activity className="h-4 w-4 mr-2" />
-                    View Activity Logs
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+          <TabsContent value="overview">
+            <OverviewTab />
           </TabsContent>
 
           <TabsContent value="agendas">
             <AgendaManagement />
+          </TabsContent>
+
+          <TabsContent value="users">
+            <UserManagement />
           </TabsContent>
 
           <TabsContent value="suggestions">
@@ -281,10 +392,6 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
 
           <TabsContent value="testimonials">
             <TestimonialManagement />
-          </TabsContent>
-
-          <TabsContent value="users">
-            <UserManagement />
           </TabsContent>
 
           <TabsContent value="analytics">

@@ -1,0 +1,47 @@
+# Development Dockerfile with hot reload and debugging capabilities
+FROM node:20-alpine AS development
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies and development tools
+RUN apk add --no-cache \
+    libc6-compat \
+    dumb-init \
+    git \
+    curl \
+    && rm -rf /var/cache/apk/*
+
+# Install pnpm
+RUN npm install -g pnpm@latest
+
+# Create non-root user for development
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+RUN chown -R nextjs:nodejs /app
+
+# Switch to non-root user
+USER nextjs
+
+# Copy package files
+COPY --chown=nextjs:nodejs package.json pnpm-lock.yaml* ./
+
+# Install all dependencies (including dev dependencies)
+RUN pnpm install --frozen-lockfile
+
+# Set development environment variables
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV WATCHPACK_POLLING=true
+ENV CHOKIDAR_USEPOLLING=true
+
+# Expose port
+EXPOSE 3000
+
+# Health check for development
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
+
+# Development command with hot reload
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["pnpm", "dev"]
