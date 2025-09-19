@@ -8,42 +8,39 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { PasswordStrengthIndicator } from "@/components/password-strength-indicator"
 import { useAuth } from "@/contexts/auth-context"
-import { validateEmail, validatePassword } from "@/lib/utils/auth-validation"
+import { validatePassword } from "@/lib/utils/auth-validation"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useState, useEffect } from "react"
-import { Eye, EyeOff, AlertCircle, CheckCircle, Mail, User } from "lucide-react"
+import { Eye, EyeOff, AlertCircle, CheckCircle, Shield } from "lucide-react"
 import { toast } from "sonner"
 
-export default function SignUpPage() {
-  const [email, setEmail] = useState("")
+export default function ResetPasswordPage() {
   const [password, setPassword] = useState("")
   const [repeatPassword, setRepeatPassword] = useState("")
-  const [fullName, setFullName] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [showRepeatPassword, setShowRepeatPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   const [errors, setErrors] = useState<{
-    email?: string
     password?: string
     repeatPassword?: string
-    fullName?: string
     general?: string
   }>({})
   const [touched, setTouched] = useState({
-    email: false,
     password: false,
     repeatPassword: false,
-    fullName: false,
   })
 
-  const { signUp, user } = useAuth()
+  const { updatePassword, user } = useAuth()
   const router = useRouter()
-
-  // Redirect if already logged in
+  const searchParams = useSearchParams()
+  
+  // Check if user is authenticated (they should be after clicking reset link)
   useEffect(() => {
-    if (user) {
-      router.push('/dashboard')
+    if (!user) {
+      // If not authenticated, they probably need to click the reset link again
+      router.push('/auth/forgot-password')
     }
   }, [user, router])
 
@@ -53,20 +50,6 @@ export default function SignUpPage() {
 
   const validateForm = () => {
     const newErrors: typeof errors = {}
-
-    // Full name validation
-    if (!fullName.trim()) {
-      newErrors.fullName = "Full name is required"
-    } else if (fullName.trim().length < 2) {
-      newErrors.fullName = "Full name must be at least 2 characters"
-    }
-
-    // Email validation
-    if (!email) {
-      newErrors.email = "Email is required"
-    } else if (!validateEmail(email)) {
-      newErrors.email = "Please enter a valid email address"
-    }
 
     // Password validation
     const passwordValidation = validatePassword(password)
@@ -91,28 +74,6 @@ export default function SignUpPage() {
     const newErrors = { ...errors }
 
     switch (field) {
-      case 'fullName':
-        if (touched.fullName) {
-          if (!value.trim()) {
-            newErrors.fullName = "Full name is required"
-          } else if (value.trim().length < 2) {
-            newErrors.fullName = "Full name must be at least 2 characters"
-          } else {
-            delete newErrors.fullName
-          }
-        }
-        break
-      case 'email':
-        if (touched.email) {
-          if (!value) {
-            newErrors.email = "Email is required"
-          } else if (!validateEmail(value)) {
-            newErrors.email = "Please enter a valid email address"
-          } else {
-            delete newErrors.email
-          }
-        }
-        break
       case 'password':
         if (touched.password) {
           const passwordValidation = validatePassword(value)
@@ -149,7 +110,7 @@ export default function SignUpPage() {
     setErrors(newErrors)
   }
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
     
     if (!validateForm()) {
@@ -160,36 +121,107 @@ export default function SignUpPage() {
     setErrors({})
 
     try {
-      const { user, error } = await signUp(email, password, fullName.trim())
+      const { error } = await updatePassword(password)
 
       if (error) {
-        // Handle specific error types
-        if (error.message.includes('User already registered')) {
-          setErrors({ email: 'An account with this email already exists' })
-        } else if (error.message.includes('Password should be')) {
+        if (error.message.includes('Password should be')) {
           setErrors({ password: error.message })
-        } else if (error.message.includes('Unable to validate email address')) {
-          setErrors({ email: 'Please enter a valid email address' })
-        } else if (error.message.includes('Signup is disabled')) {
-          setErrors({ general: 'Registration is temporarily disabled. Please try again later.' })
+        } else if (error.message.includes('Unable to process request')) {
+          setErrors({ general: 'The reset link may have expired. Please request a new one.' })
         } else {
           setErrors({ general: error.message })
         }
         return
       }
 
-      if (user) {
-        toast.success('Account created successfully!', {
-          description: 'Please check your email to verify your account.',
-        })
-        router.push('/auth/sign-up-success')
-      }
+      setIsSuccess(true)
+      toast.success('Password updated successfully!', {
+        description: 'You can now sign in with your new password.',
+      })
+
+      // Redirect to login after success
+      setTimeout(() => {
+        router.push('/auth/login')
+      }, 2000)
+
     } catch (err) {
-      console.error('Sign up error:', err)
+      console.error('Password reset error:', err)
       setErrors({ general: 'An unexpected error occurred. Please try again.' })
     } finally {
       setIsLoading(false)
     }
+  }
+
+  // Show success state
+  if (isSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-100 p-6">
+        <div className="w-full max-w-md">
+          <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <CardHeader className="text-center space-y-4">
+              <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                <CheckCircle className="w-8 h-8 text-green-600" />
+              </div>
+              <CardTitle className="text-2xl font-bold text-foreground">Password Updated!</CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Your password has been successfully updated
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center space-y-6">
+              <p className="text-sm text-muted-foreground">
+                You will be automatically redirected to the login page, or you can click the button below.
+              </p>
+
+              <Button asChild className="w-full h-12">
+                <Link href="/auth/login">
+                  Continue to Login
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
+  }
+
+  // If not authenticated, show message to use reset link
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-100 p-6">
+        <div className="w-full max-w-md">
+          <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+            <CardHeader className="text-center space-y-4">
+              <div className="mx-auto w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center">
+                <Shield className="w-8 h-8 text-orange-600" />
+              </div>
+              <CardTitle className="text-2xl font-bold text-foreground">Access Required</CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Please click the reset link in your email to access this page
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center space-y-6">
+              <p className="text-sm text-muted-foreground">
+                To reset your password, you need to click the secure link we sent to your email address.
+              </p>
+
+              <div className="space-y-3">
+                <Button asChild className="w-full h-12">
+                  <Link href="/auth/forgot-password">
+                    Request New Reset Link
+                  </Link>
+                </Button>
+                
+                <Button asChild variant="outline" className="w-full h-12">
+                  <Link href="/auth/login">
+                    Back to Login
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -198,90 +230,18 @@ export default function SignUpPage() {
         <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
           <CardHeader className="text-center space-y-4">
             <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center">
-              <img src="/nepal-flag-logo.png" alt="NepalReforms Logo" className="w-12 h-12 object-contain" />
+              <Shield className="w-8 h-8 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold text-foreground">Join NepalReforms</CardTitle>
+            <CardTitle className="text-2xl font-bold text-foreground">Set New Password</CardTitle>
             <CardDescription className="text-muted-foreground">
-              Create your account to start sharing opinions and engaging in democratic discourse
-              <br /><br />
-              We need authentication only for vote uniqueness. We do not store any of your data in simple text.
+              Choose a strong password for your account
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSignUp} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="fullName" className="text-sm font-medium">
-                  Full Name
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="fullName"
-                    type="text"
-                    placeholder="Your full name"
-                    required
-                    value={fullName}
-                    onChange={(e) => {
-                      setFullName(e.target.value)
-                      handleFieldValidation('fullName', e.target.value)
-                    }}
-                    onBlur={() => handleFieldTouch('fullName')}
-                    className={`h-12 pr-10 ${errors.fullName ? 'border-red-500' : touched.fullName && fullName.trim().length >= 2 ? 'border-green-500' : ''}`}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    {touched.fullName && (
-                      fullName.trim().length >= 2 ? (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                      ) : fullName ? (
-                        <AlertCircle className="h-4 w-4 text-red-500" />
-                      ) : (
-                        <User className="h-4 w-4 text-muted-foreground" />
-                      )
-                    )}
-                  </div>
-                </div>
-                {errors.fullName && (
-                  <p className="text-sm text-red-600">{errors.fullName}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">
-                  Email Address
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your.email@example.com"
-                    required
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value)
-                      handleFieldValidation('email', e.target.value)
-                    }}
-                    onBlur={() => handleFieldTouch('email')}
-                    className={`h-12 pr-10 ${errors.email ? 'border-red-500' : touched.email && validateEmail(email) ? 'border-green-500' : ''}`}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    {touched.email && (
-                      validateEmail(email) ? (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                      ) : email ? (
-                        <AlertCircle className="h-4 w-4 text-red-500" />
-                      ) : (
-                        <Mail className="h-4 w-4 text-muted-foreground" />
-                      )
-                    )}
-                  </div>
-                </div>
-                {errors.email && (
-                  <p className="text-sm text-red-600">{errors.email}</p>
-                )}
-              </div>
-
+            <form onSubmit={handleResetPassword} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-sm font-medium">
-                  Password
+                  New Password
                 </Label>
                 <div className="relative">
                   <Input
@@ -316,7 +276,7 @@ export default function SignUpPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="repeat-password" className="text-sm font-medium">
-                  Confirm Password
+                  Confirm New Password
                 </Label>
                 <div className="relative">
                   <Input
@@ -362,17 +322,14 @@ export default function SignUpPage() {
               )}
 
               <Button type="submit" className="w-full h-12 text-base font-medium" disabled={isLoading}>
-                {isLoading ? "Creating account..." : "Create Account"}
+                {isLoading ? "Updating Password..." : "Update Password"}
               </Button>
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Already have an account?{" "}
-                <Link href="/auth/login" className="text-primary hover:underline font-medium">
-                  Sign in
-                </Link>
-              </p>
+              <Link href="/auth/login" className="text-sm text-muted-foreground hover:text-primary">
+                Back to Login
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -381,7 +338,7 @@ export default function SignUpPage() {
           <p className="text-sm text-muted-foreground">
             Powered by{" "}
             <Link href="https://nexalaris.com/" target="_blank" className="text-primary hover:underline font-medium">
-              Nexalaris Tech Pvt. Ltd.
+              Nexalaris Tech Pvt. Ltd
             </Link>
           </p>
         </div>

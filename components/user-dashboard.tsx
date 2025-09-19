@@ -7,7 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { UserIcon, FileText, MessageSquare, ThumbsUp, ThumbsDown, LogOut, Plus, TrendingUp, Clock, Settings } from "lucide-react"
+import { LogoutButton } from "@/components/logout-button"
+import { UserIcon, FileText, MessageSquare, ThumbsUp, ThumbsDown, Plus, TrendingUp, Clock, Settings } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { CacheStatus } from "@/components/cache-status"
@@ -118,11 +119,6 @@ export function UserDashboard({ user }: UserDashboardProps) {
     }
   }
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.push("/")
-  }
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString("en-US", {
@@ -135,6 +131,10 @@ export function UserDashboard({ user }: UserDashboardProps) {
 
   const getUserInitials = (email: string) => {
     return email.substring(0, 2).toUpperCase()
+  }
+
+  const getDisplayName = () => {
+    return user.user_metadata?.full_name || user.email?.split('@')[0] || 'User'
   }
 
   if (loading) {
@@ -169,13 +169,10 @@ export function UserDashboard({ user }: UserDashboardProps) {
                 <AvatarFallback>{getUserInitials(user.email || "")}</AvatarFallback>
               </Avatar>
               <div className="hidden sm:block">
-                <p className="text-sm font-medium">{user.email}</p>
+                <p className="text-sm font-medium">{getDisplayName()}</p>
                 <p className="text-xs text-muted-foreground">Citizen</p>
               </div>
-              <Button variant="outline" size="sm" onClick={handleSignOut}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Button>
+              <LogoutButton variant="outline" size="sm" />
             </div>
           </div>
         </div>
@@ -206,7 +203,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
             {/* Welcome Section */}
             <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20">
               <CardHeader>
-                <CardTitle className="text-2xl">Welcome back!</CardTitle>
+                <CardTitle className="text-2xl">Welcome back, {getDisplayName()}!</CardTitle>
                 <CardDescription className="text-base">
                   Thank you for being part of Nepal's democratic reform movement. Your voice matters in shaping our
                   nation's future.
@@ -382,13 +379,17 @@ export function UserDashboard({ user }: UserDashboardProps) {
                     <AvatarFallback className="text-lg">{getUserInitials(user.email || "")}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="text-lg font-medium">{user.email}</h3>
-                    <p className="text-sm text-muted-foreground">Citizen of Nepal</p>
+                    <h3 className="text-lg font-medium">{getDisplayName()}</h3>
+                    <p className="text-sm text-muted-foreground">{user.email}</p>
                     <p className="text-xs text-muted-foreground">Member since {formatDate(user.created_at)}</p>
                   </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2 pt-4 border-t">
+                  <div>
+                    <label className="text-sm font-medium">Display Name</label>
+                    <p className="text-sm text-muted-foreground">{getDisplayName()}</p>
+                  </div>
                   <div>
                     <label className="text-sm font-medium">Email</label>
                     <p className="text-sm text-muted-foreground">{user.email}</p>
@@ -404,8 +405,14 @@ export function UserDashboard({ user }: UserDashboardProps) {
                   <div>
                     <label className="text-sm font-medium">Account Status</label>
                     <Badge variant="default" className="text-xs">
-                      Active
+                      {user.email_confirmed_at ? 'Verified' : 'Pending Verification'}
                     </Badge>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Last Sign In</label>
+                    <p className="text-sm text-muted-foreground">
+                      {user.last_sign_in_at ? formatDate(user.last_sign_in_at) : 'Never'}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -414,49 +421,50 @@ export function UserDashboard({ user }: UserDashboardProps) {
 
           <TabsContent value="settings" className="space-y-6">
             <div className="grid gap-6 lg:grid-cols-2">
-              {/* Cache Status */}
-              <CacheStatus />
-
-              {/* Performance Settings */}
+              {/* Account Settings */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Performance Settings</CardTitle>
-                  <CardDescription>Optimize your app experience</CardDescription>
+                  <CardTitle>Account Settings</CardTitle>
+                  <CardDescription>Manage your account preferences</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Offline Mode</label>
-                      <Badge variant="outline" className="text-xs">
-                        {navigator.onLine ? 'Online' : 'Offline'}
+                      <label className="text-sm font-medium">Email Verification</label>
+                      <Badge variant={user.email_confirmed_at ? "default" : "secondary"} className="text-xs">
+                        {user.email_confirmed_at ? 'Verified' : 'Unverified'}
                       </Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      Your changes are automatically saved and synced when online
-                    </p>
+                    {!user.email_confirmed_at && (
+                      <p className="text-xs text-muted-foreground">
+                        Check your email for a verification link
+                      </p>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Auto-Sync</label>
-                      <Badge variant="default" className="text-xs">Enabled</Badge>
+                      <label className="text-sm font-medium">Two-Factor Authentication</label>
+                      <Badge variant="outline" className="text-xs">Not Available</Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Data syncs automatically when you reconnect to the internet
+                      Coming soon for enhanced security
                     </p>
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">Cache Duration</label>
-                      <span className="text-sm text-muted-foreground">7 days</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Reform data is cached for faster loading and offline access
-                    </p>
+                  <div className="pt-4 border-t space-y-2">
+                    <Button variant="outline" className="w-full" size="sm">
+                      Change Password
+                    </Button>
+                    <Button variant="outline" className="w-full" size="sm">
+                      Update Profile
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Cache Status */}
+              <CacheStatus />
 
               {/* App Information */}
               <Card>
