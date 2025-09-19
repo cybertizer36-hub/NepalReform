@@ -1,0 +1,8 @@
+// Simple test to verify alert-dialog imports
+try {
+  const alertDialog = require('./components/ui/alert-dialog.tsx');
+  console.log('✅ Alert Dialog component imports successfully');
+  console.log('Available exports:', Object.keys(alertDialog));
+} catch (error) {
+  console.error('❌ Alert Dialog import failed:', error.message);
+}
