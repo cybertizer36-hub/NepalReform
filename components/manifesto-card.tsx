@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ExternalLink, Clock, Target, CheckCircle, X } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { ManifestoItem } from "@/lib/manifesto-data"
 import Link from "next/link"
 import { AgendaVoteSection } from "@/components/agenda-vote-section"
+import { useTranslation } from 'react-i18next'
+import { ManifestoItem } from "@/hooks/use-manifesto-data"
 
 interface ManifestoCardProps {
   item: ManifestoItem
@@ -16,6 +17,7 @@ interface ManifestoCardProps {
 
 export function ManifestoCard({ item }: ManifestoCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const { t } = useTranslation('common')
 
   const getCategoryColor = (category: string) => {
     const colors = {
@@ -54,6 +56,12 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
     return colors[priority as keyof typeof colors] || "bg-gray-100 text-gray-800 border-gray-200"
   }
 
+  // Get localized priority label
+  const getPriorityLabel = (priority: string) => {
+    const priorityKey = priority.toLowerCase() as 'high' | 'medium' | 'low';
+    return t(`labels.priority.${priorityKey}`);
+  }
+
   return (
     <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 shadow-md hover:shadow-lg">
       <CardHeader className="pb-4">
@@ -64,7 +72,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
                 {item.category}
               </Badge>
               <Badge variant="outline" className={cn("text-xs font-medium", getPriorityColor(item.priority))}>
-                {item.priority} Priority
+                {getPriorityLabel(item.priority)} {t('labels.priority.label')}
               </Badge>
               <Badge variant="outline" className="text-xs font-medium bg-blue-100 text-blue-800 border-blue-200">
                 <Clock className="w-3 h-3 mr-1" />
@@ -84,7 +92,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
         <div>
           <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
             <X className="w-4 h-4 text-destructive" />
-            The Problem
+            {t('sections.theProblem')}
           </h4>
           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
             {item.problem.short}
@@ -95,7 +103,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
         <div>
           <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-primary" />
-            Key Solutions
+            {t('sections.keySolutions')}
           </h4>
           <ul className="text-sm text-muted-foreground space-y-1">
             {item.solution.short.slice(0, 3).map((solution, index) => (
@@ -106,7 +114,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
             ))}
             {item.solution.short.length > 3 && (
               <li className="text-xs text-muted-foreground/70 italic pl-4">
-                +{item.solution.short.length - 3} more solutions...
+                +{item.solution.short.length - 3} {t('actions.moreSolutions')}
               </li>
             )}
           </ul>
@@ -116,7 +124,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
         <div>
           <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
             <Target className="w-4 h-4 text-purple-600" />
-            Key Targets
+            {t('sections.keyTargets')}
           </h4>
           <div className="flex flex-wrap gap-2">
             {item.performanceTargets.slice(0, 2).map((target, index) => (
@@ -126,7 +134,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
             ))}
             {item.performanceTargets.length > 2 && (
               <Badge variant="outline" className="text-xs">
-                +{item.performanceTargets.length - 2} more
+                +{item.performanceTargets.length - 2} {t('actions.moreTargets')}
               </Badge>
             )}
           </div>
@@ -137,7 +145,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
           <div className="space-y-4 pt-4 border-t">
             {/* Real World Evidence (SHORT VERSION) */}
             <div>
-              <h4 className="font-semibold text-sm mb-2">Real World Evidence</h4>
+              <h4 className="font-semibold text-sm mb-2">{t('sections.realWorldEvidence')}</h4>
               <ul className="text-sm text-muted-foreground space-y-2">
                 {item.realWorldEvidence.short.map((evidence, index) => (
                   <li key={index} className="flex items-start gap-2">
@@ -150,7 +158,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
 
             {/* Implementation Timeline (SHORT VERSION) */}
             <div>
-              <h4 className="font-semibold text-sm mb-2">Implementation Overview</h4>
+              <h4 className="font-semibold text-sm mb-2">{t('sections.implementationOverview')}</h4>
               <ul className="text-sm text-muted-foreground space-y-2">
                 {item.implementation.short.map((step, index) => (
                   <li key={index} className="flex items-start gap-2">
@@ -164,7 +172,7 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
             {/* Legal Foundation */}
             {item.legalFoundation && (
               <div>
-                <h4 className="font-semibold text-sm mb-2">Legal Foundation</h4>
+                <h4 className="font-semibold text-sm mb-2">{t('sections.legalFoundation')}</h4>
                 <p className="text-sm text-muted-foreground bg-muted/50 p-2 rounded">
                   {item.legalFoundation}
                 </p>
@@ -185,12 +193,12 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
               <ChevronDown
                 className={cn("w-4 h-4 mr-1 transition-transform", isExpanded && "rotate-180")}
               />
-              {isExpanded ? "Show Less" : "Show More"}
+              {isExpanded ? t('actions.showLess') : t('actions.showMore')}
             </Button>
             <Link href={`/agenda/${item.id}`}>
               <Button variant="ghost" size="sm" className="text-xs">
                 <ExternalLink className="w-4 h-4 mr-1" />
-                Full Details
+                {t('actions.fullDetails')}
               </Button>
             </Link>
           </div>

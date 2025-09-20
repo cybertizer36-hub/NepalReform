@@ -17,12 +17,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
-import { getAllCategories } from "@/lib/manifesto-data"
 import { useHydration } from "@/hooks/use-hydration"
-import { useManifestoData, useVotes } from "@/hooks/use-cached-data"
+import { useVotes } from "@/hooks/use-cached-data"
 import { CacheManager } from "@/lib/cache/cache-manager"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ManifestoItem } from "@/lib/manifesto-data"
+import { useManifestoData, ManifestoItem } from "@/hooks/use-manifesto-data"
 
 // Define Vote interface locally
 interface Vote {
@@ -42,10 +41,12 @@ interface FilterState {
 export function ManifestoList() {
   const isHydrated = useHydration()
   const [randomSeed, setRandomSeed] = useState<number | null>(null)
-  // Use cached data hooks
-  const { data: manifestoDataRaw = [], isLoading, error } = useManifestoData()
-  // Defensive conversion and fallback
-  const manifestoData: ManifestoItem[] = Array.isArray(manifestoDataRaw) ? manifestoDataRaw : [];
+  // Add error state
+  const [error, setError] = useState<Error | null>(null)
+
+  // Use the new i18n-aware hook
+  const { manifestoData, loading: isLoading, getAllCategories } = useManifestoData()
+  
   const { data: votesDataRaw = [] } = useVotes()
   const votesData: Vote[] = Array.isArray(votesDataRaw) ? votesDataRaw : [];
 

@@ -11,6 +11,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { ClientOnly } from "@/components/client-only"
 import { useHydration } from "@/hooks/use-hydration"
+import { LanguageToggle } from "@/components/language-toggle"
 
 export function Header() {
   const [user, setUser] = useState<any>(null)
@@ -225,6 +226,7 @@ export function Header() {
             </nav>
 
             <AuthSection />
+            <LanguageToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -314,6 +316,9 @@ export function Header() {
               </nav>
 
               <MobileAuthSection />
+              <div className="pt-3 border-t">
+                <LanguageToggle />
+              </div>
             </div>
           </div>
         )}
