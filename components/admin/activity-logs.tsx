@@ -26,6 +26,10 @@ interface ActivityLogEntry {
     email: string
     full_name: string | null
   }
+  profiles?: {
+    email: string
+    full_name: string | null
+  }
 }
 
 const ACTION_COLORS: Record<string, string> = {
@@ -120,7 +124,7 @@ export function ActivityLogs() {
       if (error) throw error
 
       // Map the data to include user info properly
-      const formattedLogs = (data || []).map(log => ({
+      const formattedLogs = (data || []).map((log: ActivityLogEntry & { profiles?: { email: string; full_name: string | null }}) => ({
         ...log,
         user: log.profiles
       }))

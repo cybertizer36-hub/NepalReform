@@ -24,6 +24,12 @@ interface OpinionCardProps {
   opinion: Opinion
 }
 
+// Add Vote type for votes in agenda_votes
+interface Vote {
+  vote_type: "like" | "dislike";
+  // add other fields if you use them elsewhere
+}
+
 export function OpinionCard({ opinion }: OpinionCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [user, setUser] = useState<any>(null)
@@ -67,7 +73,7 @@ export function OpinionCard({ opinion }: OpinionCardProps) {
 
   const fetchVoteCounts = async () => {
     try {
-      const { data, error } = await supabase.from("agenda_votes").select("vote_type").eq("agenda_id", opinion.id)
+      const { data, error }: { data: Vote[] | null, error: any } = await supabase.from("agenda_votes").select("vote_type").eq("agenda_id", opinion.id);
 
       if (error) throw error
 

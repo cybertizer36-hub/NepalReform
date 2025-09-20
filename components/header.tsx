@@ -13,6 +13,27 @@ import { ClientOnly } from "@/components/client-only"
 import { useHydration } from "@/hooks/use-hydration"
 import { LanguageToggle } from "@/components/language-toggle"
 
+// Locally define Supabase's AuthChangeEvent type union (from internal source)
+type AuthChangeEvent =
+  | "SIGNED_IN"
+  | "SIGNED_OUT"
+  | "USER_UPDATED"
+  | "USER_DELETED"
+  | "PASSWORD_RECOVERY"
+  | "TOKEN_REFRESHED"
+  | "MFA_CHALLENGE_VERIFIED"
+  | "MFA_VERIFIED"
+  | "MFA_ENROLL";
+// Minimal Session type interface (can be expanded if needed)
+interface Session {
+  user: {
+    id: string;
+    email: string;
+    // Add more fields if required
+  };
+  // Add other session properties here as needed, based on project usage
+}
+
 export function Header() {
   const [user, setUser] = useState<any>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -34,9 +55,11 @@ export function Header() {
     // Listen for auth state changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
+    } = supabase.auth.onAuthStateChange(
+      (_event: AuthChangeEvent, session: Session | null) => {
+        setUser(session?.user ?? null)
+      }
+    )
 
     return () => subscription.unsubscribe()
   }, [supabase.auth, isHydrated])

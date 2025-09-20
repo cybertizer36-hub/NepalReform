@@ -31,6 +31,12 @@ interface OpinionDetailProps {
   opinion: Opinion
 }
 
+// Add Vote type for votes in agenda_votes
+interface Vote {
+  vote_type: "like" | "dislike"
+  // add other fields if needed
+}
+
 export function OpinionDetail({ opinion }: OpinionDetailProps) {
   const [user, setUser] = useState<any>(null)
   const [userVote, setUserVote] = useState<"like" | "dislike" | null>(null)
@@ -73,12 +79,15 @@ export function OpinionDetail({ opinion }: OpinionDetailProps) {
 
   const fetchVoteCounts = async () => {
     try {
-      const { data, error } = await supabase.from("agenda_votes").select("vote_type").eq("agenda_id", opinion.id)
+      const { data, error }: { data: Vote[] | null; error: any } = await supabase
+        .from("agenda_votes")
+        .select("vote_type")
+        .eq("agenda_id", opinion.id)
 
       if (error) throw error
 
       const counts = { likes: 0, dislikes: 0 }
-      data?.forEach((vote) => {
+      data?.forEach((vote: Vote) => {
         if (vote.vote_type === "like") counts.likes++
         else if (vote.vote_type === "dislike") counts.dislikes++
       })

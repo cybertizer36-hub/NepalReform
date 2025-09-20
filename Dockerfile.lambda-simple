@@ -1,0 +1,40 @@
+# AWS Lambda-specific Dockerfile with build environment
+FROM public.ecr.aws/lambda/nodejs:20 AS base
+
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
+RUN npm install -g pnpm@latest
+
+# Dependencies stage
+FROM base AS deps
+COPY package.json pnpm-lock.yaml* ${LAMBDA_TASK_ROOT}/
+WORKDIR ${LAMBDA_TASK_ROOT}
+RUN pnpm install --frozen-lockfile --prod=false
+
+# Builder stage
+FROM base AS builder
+COPY --from=deps ${LAMBDA_TASK_ROOT}/node_modules ./node_modules
+COPY . ${LAMBDA_TASK_ROOT}/
+WORKDIR ${LAMBDA_TASK_ROOT}
+
+# Copy build environment file
+COPY .env.build .env.local
+
+# Build the application
+RUN pnpm build
+
+# Final Lambda runtime image
+FROM public.ecr.aws/lambda/nodejs:20
+
+ENV NODE_ENV=production
+
+RUN npm install -g pnpm@latest
+
+# Copy built application
+COPY --from=builder ${LAMBDA_TASK_ROOT}/.next/standalone ${LAMBDA_TASK_ROOT}/
+COPY --from=builder ${LAMBDA_TASK_ROOT}/public ${LAMBDA_TASK_ROOT}/public
+COPY --from=builder ${LAMBDA_TASK_ROOT}/.next/static ${LAMBDA_TASK_ROOT}/.next/static
+COPY lambda-handler.js ${LAMBDA_TASK_ROOT}/
+
+CMD ["lambda-handler.handler"]

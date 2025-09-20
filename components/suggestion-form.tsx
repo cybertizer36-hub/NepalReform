@@ -42,9 +42,11 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
     loadSession()
 
     // Listen for login/logout/session refresh
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
+    const { data: subscription } = supabase.auth.onAuthStateChange(
+      (_event: "SIGNED_IN" | "SIGNED_OUT" | "USER_UPDATED" | "USER_DELETED" | "PASSWORD_RECOVERY" | "TOKEN_REFRESHED" | "MFA_CHALLENGE_VERIFIED" | "MFA_VERIFIED" | "MFA_ENROLL", session: { user?: { id: string; email: string } } | null) => {
+        setUser(session?.user ?? null)
+      }
+    )
 
     return () => {
       subscription.subscription.unsubscribe()
@@ -220,4 +222,23 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
       </CardContent>
     </Card>
   )
+}
+
+type AuthChangeEvent =
+  | "SIGNED_IN"
+  | "SIGNED_OUT"
+  | "USER_UPDATED"
+  | "USER_DELETED"
+  | "PASSWORD_RECOVERY"
+  | "TOKEN_REFRESHED"
+  | "MFA_CHALLENGE_VERIFIED"
+  | "MFA_VERIFIED"
+  | "MFA_ENROLL";
+interface Session {
+  user: {
+    id: string;
+    email: string;
+    // add more user fields if your app needs
+  }
+  // add other session properties if required
 }

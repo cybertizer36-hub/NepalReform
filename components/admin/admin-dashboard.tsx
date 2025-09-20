@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import type { User } from "@supabase/supabase-js"
+import type { Profile } from "./user-management"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -122,9 +123,9 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
 
       setStats({
         totalUsers: profilesResponse.count || 0,
-        activeUsers: profiles.filter(p => p.is_active !== false).length,
+        activeUsers: profiles.filter((p: Profile) => p.is_active !== false).length,
         totalSuggestions: suggestionsResponse.count || 0,
-        pendingSuggestions: suggestions.filter(s => s.status === "pending" || !s.status).length,
+        pendingSuggestions: suggestions.filter((s: { status?: string }) => s.status === "pending" || !s.status).length,
         totalVotes: (votesResponse[0].count || 0) + (votesResponse[1].count || 0),
         totalOpinions: opinionsResponse.count || 0,
         recentActivity: activityResponse.count || 0,

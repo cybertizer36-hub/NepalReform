@@ -73,8 +73,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     // Get updated vote counts
     const { data: voteCounts } = await supabase.from("agenda_votes").select("vote_type").eq("agenda_id", agenda_id)
 
-    const likes = voteCounts?.filter((v) => v.vote_type === "like").length || 0
-    const dislikes = voteCounts?.filter((v) => v.vote_type === "dislike").length || 0
+    const likes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "like").length || 0
+    const dislikes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "dislike").length || 0
 
     console.log("[v0] Updated vote counts - Likes:", likes, "Dislikes:", dislikes)
 
@@ -121,8 +121,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       throw voteCountsError
     }
 
-    const likes = voteCounts?.filter((v) => v.vote_type === "like").length || 0
-    const dislikes = voteCounts?.filter((v) => v.vote_type === "dislike").length || 0
+    const likes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "like").length || 0
+    const dislikes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "dislike").length || 0
 
     console.log("[v0] Vote counts - Likes:", likes, "Dislikes:", dislikes)
 

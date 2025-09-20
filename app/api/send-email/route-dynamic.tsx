@@ -1,45 +1,28 @@
-import { Resend } from "resend"
 import { type NextRequest, NextResponse } from "next/server"
-
-// Don't initialize at module level - this causes build errors
-let resend: Resend | null = null
-
-// Initialize Resend only when needed and API key is available
-function getResendClient() {
-  if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY === 'placeholder') {
-    return null
-  }
-  
-  if (!resend) {
-    try {
-      resend = new Resend(process.env.RESEND_API_KEY)
-    } catch (error) {
-      console.error("Failed to initialize Resend:", error)
-      return null
-    }
-  }
-  
-  return resend
-}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { type, data } = body
 
-    // Check if email service is available
-    const resendClient = getResendClient()
-    
-    if (!resendClient) {
+    // Check if we have a valid API key (not a placeholder)
+    const hasValidApiKey = process.env.RESEND_API_KEY && 
+                          process.env.RESEND_API_KEY !== 'placeholder' &&
+                          process.env.RESEND_API_KEY.startsWith('re_')
+
+    if (!hasValidApiKey) {
       console.warn("Email service not configured - RESEND_API_KEY missing or invalid")
       // Return success anyway to not break the application flow
-      // In production, you might want to queue these for later sending
       return NextResponse.json({ 
         success: true, 
         message: "Email service not configured, but request processed",
         emailId: null 
       })
     }
+
+    // Dynamically import Resend only when we have a valid API key
+    const { Resend } = await import("resend")
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
     let emailContent = ""
     let subject = ""
@@ -116,7 +99,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      const { data: emailData, error } = await resendClient.emails.send({
+      const { data: emailData, error } = await resend.emails.send({
         from: "Nepal Reforms <noreply@nepalreforms.com>",
         to: ["suggestions@nepalreforms.com"],
         subject,

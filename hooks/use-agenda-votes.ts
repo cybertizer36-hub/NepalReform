@@ -10,6 +10,26 @@ interface VoteData {
   userVote: "like" | "dislike" | null
 }
 
+// Canonical type for postgres_changes payload
+export type PostgresChangePayload<Row> = {
+  schema: string;
+  table: string;
+  commit_timestamp: string;
+  eventType: "INSERT" | "UPDATE" | "DELETE";
+  new: Row | null;
+  old: Row | null;
+  errors?: any;
+};
+
+// Row type for agenda_votes table
+export type AgendaVoteRow = {
+  id: string;
+  agenda_id: string;
+  user_id: string;
+  vote_type: "like" | "dislike";
+  // Add more fields if your table has them
+};
+
 export function useAgendaVotes(agendaId: string) {
   const isHydrated = useHydration()
   
@@ -134,7 +154,7 @@ export function useAgendaVotes(agendaId: string) {
             table: "agenda_votes",
             filter: `agenda_id=eq.${agendaId}`,
           },
-          async (payload) => {
+          async (payload: PostgresChangePayload<AgendaVoteRow>) => {
             console.log("[v0] Real-time vote update received:", payload)
             // Refetch vote counts when any vote changes
             await fetchVotes()

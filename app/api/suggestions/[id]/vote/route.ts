@@ -100,8 +100,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return NextResponse.json({ error: "Failed to fetch vote counts" }, { status: 500 })
     }
 
-    const likes = voteCounts?.filter((v) => v.vote_type === "like").length || 0
-    const dislikes = voteCounts?.filter((v) => v.vote_type === "dislike").length || 0
+    const likes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "like").length || 0
+    const dislikes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "dislike").length || 0
 
     let userVote: "like" | "dislike" | null = null
     if (operation === "removed") {
@@ -148,8 +148,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       .select("vote_type")
       .eq("suggestion_id", suggestion_id)
 
-    const likes = voteCounts?.filter((v) => v.vote_type === "like").length || 0
-    const dislikes = voteCounts?.filter((v) => v.vote_type === "dislike").length || 0
+    const likes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "like").length || 0
+    const dislikes = voteCounts?.filter((v: { vote_type: string }) => v.vote_type === "dislike").length || 0
 
     console.log("[v0] Vote counts - Likes:", likes, "Dislikes:", dislikes)
 

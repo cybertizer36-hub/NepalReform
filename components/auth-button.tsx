@@ -25,7 +25,7 @@ export function AuthButton() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((event: string, session: import("@supabase/supabase-js").Session | null) => {
       setUser(session?.user ?? null)
       setLoading(false)
     })

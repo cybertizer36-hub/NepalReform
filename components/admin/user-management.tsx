@@ -20,7 +20,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Search, UserCheck, UserX, Shield, Ban, Eye, Activity, AlertCircle, RefreshCw } from "lucide-react"
 import { toast } from "sonner"
 
-interface Profile {
+export interface Profile {
   id: string
   email: string
   full_name: string | null

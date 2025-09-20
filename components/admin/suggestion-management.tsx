@@ -20,7 +20,7 @@ import {
 import { Check, X, Eye, MessageSquare, Search, CheckSquare, XSquare } from "lucide-react"
 import { toast } from "sonner"
 
-interface Suggestion {
+export interface Suggestion {
   id: string
   content: string
   author_name: string
@@ -63,7 +63,7 @@ export function SuggestionManagement() {
       if (suggestionsError) throw suggestionsError
 
       // Fetch profiles separately
-      const userIds = [...new Set(suggestionsData?.map((s) => s.user_id).filter(Boolean))]
+      const userIds = [...new Set(suggestionsData?.map((s: Suggestion) => s.user_id).filter(Boolean))]
       const { data: profilesData, error: profilesError } = await supabase
         .from("profiles")
         .select("id, email, full_name")
@@ -72,7 +72,7 @@ export function SuggestionManagement() {
       if (profilesError) throw profilesError
 
       // Fetch agendas separately
-      const agendaIds = [...new Set(suggestionsData?.map((s) => s.agenda_id).filter(Boolean))]
+      const agendaIds = [...new Set(suggestionsData?.map((s: Suggestion) => s.agenda_id).filter(Boolean))]
       const { data: agendasData, error: agendasError } = await supabase
         .from("agendas")
         .select("id, title")
@@ -81,12 +81,14 @@ export function SuggestionManagement() {
       if (agendasError) throw agendasError
 
       // Create lookup maps
-      const profilesMap = new Map(profilesData?.map((p) => [p.id, p]) || [])
-      const agendasMap = new Map(agendasData?.map((a) => [a.id, a]) || [])
+      const profilesMap = new Map(
+        profilesData?.map((p: { id: string; email: string; full_name: string | null }) => [p.id, p]) || [],
+      )
+      const agendasMap = new Map(agendasData?.map((a: { id: string; title: string }) => [a.id, a]) || [])
 
       // Join the data manually
       const joinedData =
-        suggestionsData?.map((suggestion) => ({
+        suggestionsData?.map((suggestion: Suggestion) => ({
           ...suggestion,
           status: suggestion.status || "pending", // Default status if not set
           profiles: suggestion.user_id ? profilesMap.get(suggestion.user_id) : null,

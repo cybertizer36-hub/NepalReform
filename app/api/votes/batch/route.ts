@@ -46,7 +46,13 @@ export async function POST(request: NextRequest) {
     const voteMap = new Map<string, { likes: number; dislikes: number }>()
     const userVoteMap = new Map<string, string>()
 
-    votes?.forEach((vote) => {
+    interface Vote {
+      [key: string]: string // allow access to both "agenda_id" and "suggestion_id"
+      vote_type: string
+      user_id: string
+    }
+
+    votes?.forEach((vote: Vote) => {
       const itemId = vote[itemIdColumn]
 
       if (!voteMap.has(itemId)) {

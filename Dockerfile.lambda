@@ -29,11 +29,13 @@ COPY . ${LAMBDA_TASK_ROOT}/
 
 WORKDIR ${LAMBDA_TASK_ROOT}
 
-# Create placeholder env for build
-RUN echo "NEXT_PUBLIC_SUPABASE_URL=placeholder" > .env.local && \
-    echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder" >> .env.local && \
-    echo "SUPABASE_SERVICE_ROLE_KEY=placeholder" >> .env.local && \
-    echo "NEXT_PUBLIC_SITE_URL=placeholder" >> .env.local
+# Create placeholder env for build (use valid URLs that will be overridden at runtime)
+# These are valid URLs that won't cause parsing errors during build
+RUN echo "NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co" > .env.local && \
+    echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2MDAwMDAwMDAsImV4cCI6MTkwMDAwMDAwMH0.placeholder" >> .env.local && \
+    echo "SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTYwMDAwMDAwMCwiZXhwIjoxOTAwMDAwMDAwfQ.placeholder" >> .env.local && \
+    echo "NEXT_PUBLIC_SITE_URL=https://placeholder.example.com" >> .env.local && \
+    echo "RESEND_API_KEY=re_placeholder_key" >> .env.local
 
 # Build the Next.js application
 RUN pnpm build
