@@ -4,15 +4,15 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ExternalLink, Clock, Target, CheckCircle, X } from "lucide-react"
+import { ChevronDown, ExternalLink, Clock, Target, CheckCircle, AlertTriangle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { AgendaVoteSection } from "@/components/agenda-vote-section"
 import { useTranslation } from 'react-i18next'
-import { ManifestoItem } from "@/hooks/use-manifesto-data"
+import { ManifestoSummaryItem } from "@/hooks/use-manifesto-data"
 
 interface ManifestoCardProps {
-  item: ManifestoItem
+  item: ManifestoSummaryItem
 }
 
 export function ManifestoCard({ item }: ManifestoCardProps) {
@@ -59,150 +59,193 @@ export function ManifestoCard({ item }: ManifestoCardProps) {
   // Get localized priority label
   const getPriorityLabel = (priority: string) => {
     const priorityKey = priority.toLowerCase() as 'high' | 'medium' | 'low';
-    return t(`labels.priority.${priorityKey}`);
+    return t(`labels.priority.${priorityKey}`, { defaultValue: priority });
   }
 
   return (
-    <Card className="overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 shadow-md hover:shadow-lg">
+    <Card className="group w-full border hover:shadow-lg transition-all duration-300">
       <CardHeader className="pb-4">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-3 flex-wrap">
-              <Badge variant="outline" className={cn("text-xs font-medium", getCategoryColor(item.category))}>
-                {item.category}
-              </Badge>
-              <Badge variant="outline" className={cn("text-xs font-medium", getPriorityColor(item.priority))}>
-                {getPriorityLabel(item.priority)} {t('labels.priority.label')}
-              </Badge>
-              <Badge variant="outline" className="text-xs font-medium bg-blue-100 text-blue-800 border-blue-200">
-                <Clock className="w-3 h-3 mr-1" />
-                {item.timeline}
-              </Badge>
-            </div>
-            <CardTitle className="text-xl leading-tight text-foreground">
-              {item.title}
-            </CardTitle>
-          </div>
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <Badge variant="outline" className={cn("text-xs", getCategoryColor(item.category))}>
+            {item.category}
+          </Badge>
+          <Badge variant="outline" className={cn("text-xs", getPriorityColor(item.priority))}>
+            {getPriorityLabel(item.priority)}
+          </Badge>
+          <Badge variant="outline" className="text-xs bg-blue-100 text-blue-800 border-blue-200">
+            <Clock className="w-3 h-3 mr-1" />
+            {item.timeline}
+          </Badge>
         </div>
-        <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{item.description}</p>
+        
+        <CardTitle className="text-lg sm:text-xl font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
+          {item.title}
+        </CardTitle>
+        
+        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mt-2">
+          {item.description}
+        </p>
       </CardHeader>
 
-      <CardContent className="space-y-4">
-        {/* Problem (SHORT VERSION) */}
-        <div>
-          <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
-            <X className="w-4 h-4 text-destructive" />
-            {t('sections.theProblem')}
-          </h4>
-          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-            {item.problem.short}
-          </p>
-        </div>
-
-        {/* Solutions (SHORT VERSION) */}
-        <div>
-          <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-primary" />
-            {t('sections.keySolutions')}
-          </h4>
-          <ul className="text-sm text-muted-foreground space-y-1">
-            {item.solution.short.slice(0, 3).map((solution, index) => (
-              <li key={index} className="flex items-start gap-2">
-                <span className="text-primary mt-1">•</span>
-                <span className="line-clamp-2">{solution}</span>
-              </li>
-            ))}
-            {item.solution.short.length > 3 && (
-              <li className="text-xs text-muted-foreground/70 italic pl-4">
-                +{item.solution.short.length - 3} {t('actions.moreSolutions')}
-              </li>
-            )}
-          </ul>
-        </div>
-
-        {/* Performance Targets (LIMITED) */}
-        <div>
-          <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
-            <Target className="w-4 h-4 text-purple-600" />
-            {t('sections.keyTargets')}
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {item.performanceTargets.slice(0, 2).map((target, index) => (
-              <Badge key={index} variant="secondary" className="text-xs font-normal">
-                {target.length > 50 ? target.substring(0, 50) + "..." : target}
-              </Badge>
-            ))}
-            {item.performanceTargets.length > 2 && (
-              <Badge variant="outline" className="text-xs">
-                +{item.performanceTargets.length - 2} {t('actions.moreTargets')}
-              </Badge>
-            )}
-          </div>
-        </div>
-
-        {/* Expanded Content */}
-        {isExpanded && (
-          <div className="space-y-4 pt-4 border-t">
-            {/* Real World Evidence (SHORT VERSION) */}
-            <div>
-              <h4 className="font-semibold text-sm mb-2">{t('sections.realWorldEvidence')}</h4>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                {item.realWorldEvidence.short.map((evidence, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <span className="text-green-600 mt-1">✓</span>
-                    <span>{evidence}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Implementation Timeline (SHORT VERSION) */}
-            <div>
-              <h4 className="font-semibold text-sm mb-2">{t('sections.implementationOverview')}</h4>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                {item.implementation.short.map((step, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <span className="font-medium text-primary">{index + 1}.</span>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Legal Foundation */}
-            {item.legalFoundation && (
-              <div>
-                <h4 className="font-semibold text-sm mb-2">{t('sections.legalFoundation')}</h4>
-                <p className="text-sm text-muted-foreground bg-muted/50 p-2 rounded">
-                  {item.legalFoundation}
+      <CardContent className="pt-0">
+        <div className="space-y-4">
+          {/* Problem Section */}
+          <div className="bg-red-50 border-l-4 border-red-300 p-3 sm:p-4 rounded-r">
+            <div className="flex items-start gap-2 sm:gap-3">
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-xs sm:text-sm font-medium text-red-800 mb-1">
+                  {t('sections.theProblem', { defaultValue: 'The Problem' })}
+                </p>
+                <p className="text-xs sm:text-sm text-red-700 leading-relaxed line-clamp-2">
+                  {item.problem.short}
                 </p>
               </div>
-            )}
+            </div>
           </div>
-        )}
 
-        {/* Actions */}
-        <div className="flex items-center justify-between pt-4 border-t">
-          <div className="flex gap-2 flex-col items-start">
+          {/* Solutions Section */}
+          <div className="bg-green-50 border-l-4 border-green-300 p-3 sm:p-4 rounded-r">
+            <div className="flex items-start gap-2 sm:gap-3">
+              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-xs sm:text-sm font-medium text-green-800 mb-2">
+                  {t('sections.keySolutions', { defaultValue: 'Key Solutions' })}
+                </p>
+                <div className="space-y-1">
+                  {item.solution.short.slice(0, 2).map((solution, index) => (
+                    <div key={index} className="flex items-start gap-1.5">
+                      <div className="w-1 h-1 bg-green-600 rounded-full mt-1.5 flex-shrink-0" />
+                      <p className="text-xs sm:text-sm text-green-700 leading-relaxed line-clamp-1">
+                        {solution}
+                      </p>
+                    </div>
+                  ))}
+                  {item.solution.short.length > 2 && (
+                    <p className="text-xs sm:text-sm text-green-600 font-medium">
+                      +{item.solution.short.length - 2} {t('actions.moreSolutions', { defaultValue: 'more solutions' })}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Performance Targets */}
+          <div className="bg-purple-50 border-l-4 border-purple-300 p-3 sm:p-4 rounded-r">
+            <div className="flex items-start gap-2 sm:gap-3">
+              <Target className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-xs sm:text-sm font-medium text-purple-800 mb-2">
+                  {t('sections.keyTargets', { defaultValue: 'Performance Targets' })}
+                </p>
+                <div className="space-y-1">
+                  {item.performanceTargets.slice(0, 2).map((target, index) => (
+                    <div key={index} className="flex items-start gap-1.5">
+                      <div className="w-1 h-1 bg-purple-600 rounded-full mt-1.5 flex-shrink-0" />
+                      <p className="text-xs sm:text-sm text-purple-700 leading-relaxed line-clamp-1">
+                        {target}
+                      </p>
+                    </div>
+                  ))}
+                  {item.performanceTargets.length > 2 && (
+                    <p className="text-xs sm:text-sm text-purple-600 font-medium">
+                      +{item.performanceTargets.length - 2} {t('actions.moreTargets', { defaultValue: 'more targets' })}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Expanded Content */}
+          {isExpanded && (
+            <div className="space-y-4 pt-4 border-t border-gray-200">
+              {/* Real World Evidence */}
+              {item.realWorldEvidence.short.length > 0 && (
+                <div>
+                  <h4 className="text-sm sm:text-base font-medium text-foreground mb-2 flex items-center gap-2">
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full" />
+                    </div>
+                    {t('sections.realWorldEvidence', { defaultValue: 'Real World Evidence' })}
+                  </h4>
+                  <div className="space-y-2">
+                    {item.realWorldEvidence.short.map((evidence, index) => (
+                      <div key={index} className="text-xs sm:text-sm text-muted-foreground bg-blue-50 p-2 sm:p-3 rounded border-l-2 border-blue-200">
+                        {evidence}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Implementation Steps */}
+              {item.implementation.short.length > 0 && (
+                <div>
+                  <h4 className="text-sm sm:text-base font-medium text-foreground mb-2 flex items-center gap-2">
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 bg-orange-500 rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full" />
+                    </div>
+                    {t('sections.implementationOverview', { defaultValue: 'Implementation Steps' })}
+                  </h4>
+                  <div className="space-y-2">
+                    {item.implementation.short.map((step, index) => (
+                      <div key={index} className="flex items-start gap-2 sm:gap-3">
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5 flex-shrink-0">
+                          {index + 1}
+                        </div>
+                        <p className="text-xs sm:text-sm text-muted-foreground bg-orange-50 p-2 sm:p-3 rounded border-l-2 border-orange-200 flex-1">
+                          {step}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Legal Foundation */}
+              {item.legalFoundation && (
+                <div>
+                  <h4 className="text-sm sm:text-base font-medium text-foreground mb-2 flex items-center gap-2">
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 bg-gray-500 rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full" />
+                    </div>
+                    {t('sections.legalFoundation', { defaultValue: 'Legal Foundation' })}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-muted-foreground bg-gray-50 p-3 sm:p-4 rounded border-l-2 border-gray-300">
+                    {item.legalFoundation}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Actions Footer */}
+        <div className="flex items-center justify-between pt-6 mt-4 border-t border-gray-200">
+          <div className="flex items-center gap-2 flex-wrap">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xs"
+              className="text-xs p-2 h-8"
             >
-              <ChevronDown
-                className={cn("w-4 h-4 mr-1 transition-transform", isExpanded && "rotate-180")}
-              />
-              {isExpanded ? t('actions.showLess') : t('actions.showMore')}
+              <ChevronDown className={cn("w-4 h-4 mr-1 transition-transform", isExpanded && "rotate-180")} />
+              {isExpanded ? t('actions.showLess', { defaultValue: 'Less' }) : t('actions.showMore', { defaultValue: 'More' })}
             </Button>
+            
             <Link href={`/agenda/${item.id}`}>
-              <Button variant="ghost" size="sm" className="text-xs">
+              <Button variant="ghost" size="sm" className="text-xs p-2 h-8">
                 <ExternalLink className="w-4 h-4 mr-1" />
-                {t('actions.fullDetails')}
+                {t('actions.fullDetails', { defaultValue: 'Details' })}
               </Button>
             </Link>
           </div>
-          <AgendaVoteSection agendaId={item.id} size="sm" />
+          
+          <div className="flex-shrink-0">
+            <AgendaVoteSection agendaId={item.id} size="sm" />
+          </div>
         </div>
       </CardContent>
     </Card>

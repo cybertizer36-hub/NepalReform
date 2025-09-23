@@ -1,0 +1,106 @@
+{
+  "id": "16",
+  "title": "Make Proportional Representation More Democratic",
+  "description": "Reform PR candidate selection through open party primaries and regional constituencies while maintaining constitutional inclusion requirements for marginalized communities.",
+  "category": "Electoral Reform",
+  "priority": "Medium",
+  "timeline": "3 years",
+  "problem": {
+    "long": "Party leaders appoint PR representatives without voter input, weakening democratic accountability while maintaining necessary inclusion for marginalized communities. Article 84 mandates mixed electoral system with 110 PR seats ensuring representation for women, Dalits, indigenous communities, Madhesis, Tharus, Muslims, and backward regions."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Democratic PR Nominations",
+          "title": "Open Primary System",
+          "items": [
+            "Mandatory open party primaries for PR nominations with registered member voting",
+            "Public disclosure of selection criteria, candidate qualifications, and voting processes",
+            "Competitive selection within inclusion categories maintaining constitutional quotas while improving quality",
+            "Performance-based party member evaluation of PR representatives with accountability measures"
+          ]
+        },
+        {
+          "phase": "Enhanced Accountability Mechanisms",
+          "title": "Regional Representation and Oversight",
+          "items": [
+            "Regional PR constituencies instead of single national list with provincial/regional representation",
+            "Public reporting requirements: monthly constituency reports for all MPs regardless of election method",
+            "Recall provisions applicable to both FPTP and PR representatives for misconduct",
+            "Parliamentary performance scorecards published quarterly for all members with transparent metrics"
+          ]
+        },
+        {
+          "phase": "Constitutional Inclusion Maintenance",
+          "title": "Preserve Marginalized Community Representation",
+          "items": [
+            "Maintain mandatory quotas for marginalized communities as constitutionally required",
+            "Strengthen community input in PR candidate selection processes with local consultation",
+            "Ensure diverse representation while improving democratic legitimacy of selection",
+            "Open-list PR system introduction for enhanced voter choice within constitutional framework"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Germany",
+        "details": "Mixed-member system combines constituency accountability with proportional inclusion",
+        "impact": "Achieves both democratic legitimacy and diverse representation through balanced electoral framework"
+      },
+      {
+        "country": "New Zealand",
+        "details": "MMP system reformed party list processes to increase democratic input while maintaining proportional outcomes",
+        "impact": "Demonstrates how regional PR seats can maintain accountability while ensuring inclusion of diverse communities"
+      },
+      {
+        "country": "Scotland",
+        "details": "Additional member system maintains accountability while ensuring inclusion through regional representation",
+        "impact": "Shows how democratizing PR selection processes preserves constitutional inclusion while improving legitimacy"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-12",
+        "description": "Immediate Regulatory Reforms",
+        "details": [
+          "Election Commission regulations for mandatory open party primaries implementation",
+          "Regional PR constituency establishment through administrative restructuring",
+          "Public reporting requirements for all PR representatives with accountability measures",
+          "Performance scorecard system development for parliamentary oversight"
+        ]
+      },
+      {
+        "timeline": "Years 1-2",
+        "description": "Implementation and Monitoring",
+        "details": [
+          "Open party primary system operational with registered member voting",
+          "Regional representation system functioning with constituency accountability",
+          "Enhanced accountability mechanisms enforcement through Election Commission authority",
+          "Community input strengthening in candidate selection with local consultation"
+        ]
+      },
+      {
+        "timeline": "Years 2-3",
+        "description": "Constitutional Reform Consensus Building",
+        "details": [
+          "Political consensus building for deeper constitutional reforms where needed",
+          "System evaluation and optimization based on democratic participation and inclusion outcomes",
+          "Constitutional amendment preparation for permanent protection of democratic reforms",
+          "Maintained constitutional inclusion requirements with improved selection legitimacy"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "100% PR nominations through open party primaries",
+    "Regional representation for all PR constituencies",
+    "Enhanced accountability mechanisms for all MPs",
+    "Maintained constitutional inclusion requirements"
+  ]
+}

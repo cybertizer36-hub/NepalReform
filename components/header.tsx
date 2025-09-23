@@ -173,11 +173,11 @@ export function Header() {
                 Home
               </Link>
               <Link
-                href="/#agendas-section"
+                href="https://lawcommission.gov.np/content/13437/nepal-s-constitution/"
                 className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 <BookOpen className="h-4 w-4" />
-                27 Reforms
+                Constitution
               </Link>
               <Link
                 href="/testimonials"
@@ -252,10 +252,13 @@ export function Header() {
             <LanguageToggle />
           </div>
 
-          {/* Mobile Menu Button */}
-          <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+          {/* Mobile Language Toggle and Menu Button */}
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageToggle />
+            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -339,9 +342,6 @@ export function Header() {
               </nav>
 
               <MobileAuthSection />
-              <div className="pt-3 border-t">
-                <LanguageToggle />
-              </div>
             </div>
           </div>
         )}

@@ -1,0 +1,107 @@
+{
+  "id": "19",
+  "title": "Make Courts Truly Independent",
+  "description": "Ensure judicial independence through merit-based judge appointments, transparent accountability, and constitutional protections from political interference.",
+  "category": "Judicial Reform",
+  "priority": "High",
+  "timeline": "5 years",
+  "problem": {
+    "long": "Judges appointed through political connections compromise court independence while lack of transparency in judicial conduct and appointments undermines rule of law and public trust. Article 126 guarantees judicial independence and Articles 128-138 establish Supreme Court authority, but implementation mechanisms are weak."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Independent Appointment Process",
+          "title": "Merit-Based Judicial Selection",
+          "items": [
+            "Independent Judicial Appointment Commission (IJAC) with senior retired judges, non-partisan legal scholars, civil society representatives",
+            "Merit-based selection through written examination, case analysis, public interview process for all appointments",
+            "No political ties: lifetime prohibition on judges holding party membership or engaging in political activism",
+            "Conflict of interest prohibitions: no financial, business, or political interests affecting judicial duties"
+          ]
+        },
+        {
+          "phase": "Judicial Accountability Framework",
+          "title": "Transparency and Performance Standards",
+          "items": [
+            "Annual asset declarations: all judges publish audited wealth statements with source documentation",
+            "Performance transparency: case resolution times, judgment quality, conduct published annually",
+            "Misconduct investigation: independent tribunal with power to recommend removal for proven misconduct",
+            "Public complaint system: citizens report judicial misconduct with mandatory investigation timeline"
+          ]
+        },
+        {
+          "phase": "Constitutional Protections",
+          "title": "Independence and Enforcement Mechanisms",
+          "items": [
+            "Fixed tenure security: judges cannot be removed except through impeachment-level process",
+            "Financial independence: judicial budget allocated directly by Parliament, not executive control",
+            "Administrative autonomy: courts manage own administration without executive interference",
+            "Decision enforcement mechanisms: judicial police/institution for court order compliance"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Chile",
+        "details": "1990s judicial reforms created independent courts that prosecuted military officials and politicians",
+        "impact": "Established rule of law after dictatorship through merit-based appointments and institutional independence"
+      },
+      {
+        "country": "South Africa",
+        "details": "Post-apartheid judicial independence enabled prosecution of corruption across all political parties",
+        "impact": "Maintained democratic accountability through independent courts with constitutional protection"
+      },
+      {
+        "country": "Botswana",
+        "details": "Independent judiciary since 1966 consistently ranks among world's most trusted institutions",
+        "impact": "Contributed to stable democracy and economic development through consistent rule of law"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-6",
+        "description": "IJAC Establishment and Legal Framework",
+        "details": [
+          "Independent Judicial Appointment Commission establishment through Parliamentary legislation",
+          "Constitutional reforms to current Judicial Council and Constitutional Council structure",
+          "Merit-based selection criteria establishment with written exams and public interviews",
+          "Asset declaration and performance transparency framework development"
+        ]
+      },
+      {
+        "timeline": "Months 6-18",
+        "description": "Gradual Transition and Implementation",
+        "details": [
+          "New appointment process implementation for all future judicial vacancies",
+          "Existing judge conduct evaluation for misconduct investigation system",
+          "Public education campaigns on judicial independence importance and citizen rights",
+          "Financial independence establishment with direct Parliamentary budget allocation"
+        ]
+      },
+      {
+        "timeline": "Years 2-5",
+        "description": "Full System Operation and Constitutional Protection",
+        "details": [
+          "Complete merit-based appointment system operation with public accountability",
+          "Constitutional protections strengthened through amendment process where necessary",
+          "Decision enforcement mechanisms operational for court order compliance",
+          "Public confidence measurement and system optimization based on performance metrics"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "90% public confidence in judicial independence within 5 years",
+    "100% asset declaration compliance by all judges",
+    "50% reduction in case processing times",
+    "Zero tolerance for political interference in judicial appointments"
+  ],
+  "legalFoundation": "Article 126 guarantees judicial independence. Articles 128-138 establish Supreme Court authority"
+}

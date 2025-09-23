@@ -1,0 +1,106 @@
+{
+  "id": "17",
+  "title": "End Permanent Government Jobs Without Performance",
+  "description": "Create accountability systems for government employees through performance management, citizen complaints, and consequences for poor service while maintaining fair process.",
+  "category": "Civil Service Reform",
+  "priority": "High",
+  "timeline": "3 years",
+  "problem": {
+    "long": "Government employees operate without fear of consequences, leading to complacency, poor service, and misuse of power. Current job security regardless of performance creates a culture where citizens suffer while officials remain comfortable."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Immediate Administrative Actions",
+          "title": "Performance Management and Complaint Systems",
+          "items": [
+            "National Citizen Complaint Portal with verified complaints, case tracking, automatic escalation",
+            "Mandatory performance management with quarterly KPIs for all frontline roles",
+            "Modernized recruitment through digital processes emphasizing practical skills over MCQs",
+            "Whistleblower protection enhancement with published legal protections and investigation timelines"
+          ]
+        },
+        {
+          "phase": "Accountability Mechanisms with Due Process",
+          "title": "Civil Liability and Disciplinary Framework",
+          "items": [
+            "Civil liability framework allowing personal lawsuits for negligence through fast-track small claims courts",
+            "Three-strikes disciplinary system: two criminal convictions = removal; three misconduct convictions = lifetime ban",
+            "Administrative fines through Civil Service Departmental Tribunal with judicial confirmation",
+            "Criminal liability enforcement: strengthen CIAA/AG prosecution for corruption and embezzlement"
+          ]
+        },
+        {
+          "phase": "Strong Protections Against Abuse",
+          "title": "Due Process and Anti-Retaliation Safeguards",
+          "items": [
+            "Presumption of innocence in all disciplinary proceedings with notice and legal representation",
+            "Political motivation screening to prevent complaint misuse and malicious prosecution",
+            "Limited summary dismissals only for serious offenses with strong evidence and expedited procedures",
+            "Privacy protection for salary deductions with subsistence guarantees and family protection"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "New Zealand",
+        "details": "1980s civil service transformation ended jobs-for-life while implementing rigorous due process",
+        "impact": "Dramatically improved government efficiency and citizen satisfaction through professional management with legal protections"
+      },
+      {
+        "country": "Singapore",
+        "details": "Performance-based system with competitive compensation and strict accountability",
+        "impact": "Consistently ranks among world's most efficient governments with high citizen satisfaction and professional service delivery"
+      },
+      {
+        "country": "Georgia",
+        "details": "Post-2003 reforms combined merit-based hiring with accountability measures and due process protection",
+        "impact": "Increased public satisfaction with government services from 5% to over 70% within five years"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-3",
+        "description": "Immediate System Launch",
+        "details": [
+          "National Citizen Complaint Portal launch with verified complaint tracking and resolution monitoring",
+          "Performance appraisal rollout with quarterly KPIs for frontline government roles",
+          "Digital literacy testing within 6 months for new hires, 12 months for existing staff",
+          "Public performance scorecards for all agencies and departments with citizen satisfaction metrics"
+        ]
+      },
+      {
+        "timeline": "Months 4-6",
+        "description": "Legal Framework and Court System",
+        "details": [
+          "Legal framework completion for civil liability and fast-track court procedures",
+          "Whistleblower system launch with anonymous complaint options and case tracking",
+          "Civil Service Departmental Tribunal enhancement for administrative fines with judicial oversight",
+          "Due process requirements establishment: notice, opportunity to be heard, legal representation, appeals process"
+        ]
+      },
+      {
+        "timeline": "Year 1",
+        "description": "Full System Operation and Performance-Based Actions",
+        "details": [
+          "Full accountability system operation with performance-based actions and measurable outcomes",
+          "First performance-based disciplinary actions with strong due process protection",
+          "System evaluation and optimization based on citizen satisfaction and service delivery metrics",
+          "Digital literacy standards achievement for 95% of government employees"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "80% improvement in citizen satisfaction with government services within 3 years",
+    "90% of service requests completed within published timelines",
+    "50% reduction in corruption complaints",
+    "95% of government employees meet digital literacy standards"
+  ]
+}

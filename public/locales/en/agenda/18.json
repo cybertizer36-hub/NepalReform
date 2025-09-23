@@ -1,0 +1,107 @@
+{
+  "id": "18",
+  "title": "End Political Appointments in Government",
+  "description": "Fill all senior government positions through competitive examinations and experience requirements instead of political loyalty and party connections.",
+  "category": "Civil Service Reform",
+  "priority": "High",
+  "timeline": "1 year",
+  "problem": {
+    "long": "All top government positions - CDOs, Secretaries, Agency Heads - are filled through political loyalty rather than merit, creating incompetent administration that serves party interests instead of citizens. The Civil Service Act 2049 already requires merit-based recruitment, and the Constitution mandates competent administration, but current laws are not enforced, allowing political appointments to undermine professional governance."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Immediate Merit-Based Selection",
+          "title": "Examination and Experience Requirements",
+          "items": [
+            "Examination-based selection for all senior positions (CDO, Secretary, Director General) through rigorous competitive exams",
+            "Experience requirements: minimum 8 years relevant experience with proven performance record",
+            "Lateral entry from qualified professionals outside civil service within 6-12 months for expertise",
+            "Independent selection panels with technical experts, retired civil servants, public representatives - no active politicians"
+          ]
+        },
+        {
+          "phase": "Transparency and Protection",
+          "title": "Public Accountability and Tenure Security",
+          "items": [
+            "Public scorecards with candidate qualifications, examination scores, selection rationale published",
+            "Performance contracts with clear KPIs and annual public evaluation of results",
+            "Fixed tenure protection: cannot be transferred or removed arbitrarily except for documented performance failure",
+            "Staff allocation to specific levels (federal, provincial, local) with accountability to that level"
+          ]
+        },
+        {
+          "phase": "Civil Service Restructuring",
+          "title": "Comprehensive System Reform",
+          "items": [
+            "Civil Service Act 2049 amendment to remove political party-based trade unions",
+            "Reallocation of staff from overstaffed federal ministries to under-resourced provincial/local governments",
+            "Ministry restructuring as recommended by Public Expenditure Review Commission Report 2075",
+            "Employment on 5-year renewable contracts based strictly on performance"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Singapore",
+        "details": "Merit-based civil service contributed to 100x GDP growth from 1959-2009 through professional administration",
+        "impact": "Public Service Commission independence created world-class bureaucracy serving citizens rather than politicians"
+      },
+      {
+        "country": "South Korea",
+        "details": "1980s civil service reforms eliminated political appointments during democratization period",
+        "impact": "Contributed to economic miracle and democratic consolidation through consistent policy implementation across political changes"
+      },
+      {
+        "country": "Botswana",
+        "details": "Maintained merit-based appointments since independence creating Africa's most effective government",
+        "impact": "Consistent economic growth and low corruption through professional bureaucracy serving public interest"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Days 1-30",
+        "description": "Immediate Administrative Order",
+        "details": [
+          "Prime Minister directive ending all political appointments within 30 days",
+          "Public Service Commission authority enforcement for merit requirements using existing constitutional powers",
+          "Emergency transition protocol for continuity of essential government services",
+          "Legal framework preparation for Civil Service Act amendments"
+        ]
+      },
+      {
+        "timeline": "Months 1-6",
+        "description": "Transition and Competency Evaluation",
+        "details": [
+          "Current appointees face competency evaluation through standardized testing and performance review",
+          "Replacement process for those failing evaluation within 6 months",
+          "Independent selection panel establishment for all future senior appointments",
+          "Public scorecard system implementation for transparent candidate evaluation"
+        ]
+      },
+      {
+        "timeline": "Months 6-12",
+        "description": "System Institutionalization",
+        "details": [
+          "Civil Service Act amendment to remove political party-based trade unions and institutionalize merit",
+          "Staff reallocation from federal to provincial/local governments based on capacity needs",
+          "Performance contract system operational for all senior officials with public evaluation",
+          "Fixed tenure protection implementation preventing arbitrary removal"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "100% senior appointments through competitive examination within 1 year",
+    "50% improvement in government service delivery within 2 years",
+    "90% reduction in political interference complaints within 3 years",
+    "Complete elimination of party-based appointments"
+  ],
+  "legalFoundation": "Article 51 mandates competent governance. Civil Service Act 2049 requires merit-based recruitment"
+}

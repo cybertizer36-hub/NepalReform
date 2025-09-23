@@ -1,0 +1,107 @@
+{
+  "id": "23",
+  "title": "Limit Prime Ministers to Two Terms Maximum",
+  "description": "Amend constitution to prevent any individual from serving as Prime Minister for more than two terms (10 years total) to ensure leadership renewal.",
+  "category": "Constitutional Reform",
+  "priority": "Medium",
+  "timeline": "2 years",
+  "problem": {
+    "long": "Concentration of power in a single leader for extended periods undermines democratic renewal and creates opportunities for institutional capture and corruption. Article 76 governs Prime Minister appointment but lacks term limits, allowing indefinite tenure that can lead to authoritarian tendencies and prevent healthy democratic rotation of leadership."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Constitutional Amendment Framework",
+          "title": "Term Limit Structure and Application",
+          "items": [
+            "Two-term maximum with no individual serving more than 10 years total as Prime Minister",
+            "Non-consecutive terms counted toward limit preventing circumvention through temporary absence",
+            "Mid-term calculation: serving more than half a parliamentary term counts as full term",
+            "Transitional provision applying from amendment enactment, not retroactively to current leaders"
+          ]
+        },
+        {
+          "phase": "Democratic Benefits Implementation",
+          "title": "Leadership Renewal and Institution Building",
+          "items": [
+            "Leadership renewal: encourages fresh ideas and prevents political stagnation",
+            "Institutional strengthening: builds stronger party structures beyond individual personalities",
+            "Generational opportunity: creates space for younger and emerging political leaders",
+            "Power distribution: prevents excessive concentration of executive authority in single individual"
+          ]
+        },
+        {
+          "phase": "Constitutional Process",
+          "title": "Amendment Procedure and Consensus Building",
+          "items": [
+            "Constitutional amendment process through Article 274 procedure requiring 2/3 Parliamentary majority",
+            "Provincial assembly consultation to build consensus across federal structure",
+            "2-year process for full constitutional amendment completion with stakeholder engagement",
+            "Public education campaign on democratic benefits of term limits and leadership rotation"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "United States",
+        "details": "Two-term limit established by 22nd Amendment ensures regular executive renewal since 1951",
+        "impact": "Maintains policy continuity through institutions while preventing excessive individual power concentration"
+      },
+      {
+        "country": "South Korea",
+        "details": "Single five-year term creates clear leadership transition and prevents power entrenchment",
+        "impact": "Enables effective governance while preventing authoritarian consolidation of power through term limits"
+      },
+      {
+        "country": "Mexico",
+        "details": "Six-year single term (since 1917) contributed to political stability and prevented authoritarian rule",
+        "impact": "Demonstrates how term limits strengthen democracy by ensuring power rotation and institutional development"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-12",
+        "description": "Amendment Drafting and Coalition Building",
+        "details": [
+          "Constitutional amendment drafting through Article 274 procedure with legal expert consultation",
+          "Political coalition building for 2/3 Parliamentary majority with cross-party engagement",
+          "Provincial assembly consultation process to build consensus across federal structure",
+          "Public education campaign launch on democratic benefits of term limits"
+        ]
+      },
+      {
+        "timeline": "Year 1-2",
+        "description": "Parliamentary Process and Stakeholder Engagement",
+        "details": [
+          "Parliamentary debate and committee review process for constitutional amendment",
+          "Stakeholder engagement including civil society, political parties, constitutional experts",
+          "Provincial assembly feedback integration and consensus building activities",
+          "Media campaign and public discourse on leadership renewal and democratic vitality"
+        ]
+      },
+      {
+        "timeline": "Year 2",
+        "description": "Amendment Passage and Implementation",
+        "details": [
+          "Constitutional amendment passage through 2/3 Parliamentary majority vote",
+          "Presidential endorsement and constitutional promulgation process",
+          "Implementation framework for term limit application and monitoring",
+          "Institutional development encouragement beyond individual personalities for long-term democratic health"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "Constitutional amendment passed within 2 years",
+    "Clear succession planning encouraged in political parties",
+    "Enhanced institutional development beyond individual personalities",
+    "Regular leadership renewal ensuring democratic vitality"
+  ],
+  "legalFoundation": "Article 76 governs Prime Minister appointment. Constitutional amendment process under Article 274"
+}

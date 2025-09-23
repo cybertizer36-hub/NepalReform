@@ -1,72 +1,69 @@
 {
-  "nav": {
-    "backToReforms": "Back to All Reforms",
-    "previousReform": "Previous Reform",
-    "nextReform": "Next Reform",
-    "viewAllReforms": "View All Reforms",
-    "navigateReforms": "Navigate Reforms"
+  "sections": {
+    "theProblem": "The Problem",
+    "keySolutions": "Key Solutions",
+    "keyTargets": "Key Targets",
+    "realWorldEvidence": "Real World Evidence",
+    "implementationOverview": "Implementation Overview",
+    "legalFoundation": "Legal Foundation",
+    "problemDetailed": "The Problem - Detailed Analysis",
+    "solutionsPhased": "Proposed Solutions - Phased Approach",
+    "implementationTimeline": "Implementation Timeline",
+    "performanceTargets": "Performance Targets",
+    "communitySuggestions": "Community Suggestions",
+    "publicSupport": "Public Support",
+    "quickInfo": "Quick Information",
+    "navigateReforms": "Navigate Reforms",
+    "shareEngage": "Share & Engage"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "detailedAnalysis": "Detailed Analysis",
+    "summary": "Summary",
+    "detailedPhases": "Detailed Phases",
+    "keyExamples": "Key Examples",
+    "detailedEvidence": "Detailed Evidence",
+    "quickTimeline": "Quick Timeline",
+    "detailedRoadmap": "Detailed Roadmap"
   },
   "labels": {
     "priority": {
+      "label": "Priority",
       "high": "High",
-      "medium": "Medium", 
-      "low": "Low",
-      "label": "Priority"
+      "medium": "Medium",
+      "low": "Low"
     },
     "category": "Category",
-    "timeline": "Timeline",
+    "priorityLevel": "Priority Level",
     "implementationTimeline": "Implementation Timeline",
-    "reform": "Reform",
-    "reformNumber": "Reform Number",
-    "of": "of",
-    "quickInfo": "Quick Information",
-    "priorityLevel": "Priority Level"
-  },
-  "sections": {
-    "theProblem": "The Problem",
-    "detailedAnalysis": "Detailed Analysis",
-    "overview": "Overview",
-    "keySolutions": "Key Solutions",
-    "proposedSolutions": "Proposed Solutions",
-    "phasedApproach": "Phased Approach",
-    "summary": "Summary",
-    "detailedPhases": "Detailed Phases",
-    "realWorldEvidence": "Real World Evidence",
-    "keyExamples": "Key Examples",
-    "detailedEvidence": "Detailed Evidence",
+    "reformNumber": "Reform #{{number}}",
+    "reformNumberOf": "Reform Number",
+    "of27": "of 27",
     "implementation": "Implementation",
-    "quickTimeline": "Quick Timeline",
-    "detailedRoadmap": "Detailed Roadmap",
-    "performanceTargets": "Performance Targets",
-    "keyTargets": "Key Targets",
-    "legalFoundation": "Legal Foundation",
-    "communitySuggestions": "Community Suggestions",
-    "publicSupport": "Public Support",
-    "shareAndEngage": "Share & Engage",
-    "implementationOverview": "Implementation Overview"
+    "impact": "Impact"
   },
   "actions": {
     "showMore": "Show More",
     "showLess": "Show Less",
     "fullDetails": "Full Details",
-    "vote": "Vote",
-    "share": "Share",
-    "moreSolutions": "+ more solutions...",
-    "moreTargets": "+ more"
+    "moreSolutions": "more solutions",
+    "moreTargets": "more targets"
   },
-  "descriptions": {
-    "communityFeedback": "Share your ideas and feedback on this reform proposal. Engage with the community by voting on suggestions from other citizens.",
-    "voteHelp": "Vote to help prioritize this reform based on public support and engagement.",
-    "shareHelp": "Help spread awareness about this reform proposal and contribute to Nepal's democratic transformation.",
-    "noPhasedDetails": "No phased implementation details available."
+  "navigation": {
+    "backToAllReforms": "Back to All Reforms",
+    "previousReform": "Previous Reform",
+    "nextReform": "Next Reform",
+    "viewAllReforms": "View All Reforms"
   },
-  "evidence": {
-    "implementation": "Implementation:",
-    "impact": "Impact:",
-    "country": "Country"
+  "messages": {
+    "summaryNotAvailable": "Summary not available in this view.",
+    "noPhasedDetails": "No phased implementation details available.",
+    "suggestionsCTA": "Share your ideas and feedback on this reform proposal. Engage with the community by voting on suggestions from other citizens.",
+    "voteHelpText": "Vote to help prioritize this reform based on public support and engagement.",
+    "shareHelpText": "Help spread awareness about this reform proposal and contribute to Nepal's democratic transformation."
   },
   "footer": {
-    "empowering": "Empowering Nepal's youth to shape democratic reforms",
+    "tagline": "Empowering Nepal's youth to shape democratic reforms",
     "copyright": "© 2024 Nexalaris Tech Company. All rights reserved."
   }
 }

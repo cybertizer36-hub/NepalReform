@@ -1,0 +1,117 @@
+{
+  "id": "2",
+  "title": "Fresh Elections in 180 Days",
+  "description": "Conduct new parliamentary elections within 6 months with strict rules to ensure only qualified, honest candidates can run and all campaign money is transparent.",
+  "category": "Electoral Reform",
+  "priority": "High",
+  "timeline": "180 days",
+  "problem": {
+    "long": "This government has lost legitimacy. People no longer trust their representatives. The electoral system lacks proper vetting mechanisms to prevent candidates with criminal and corruption charges from running. Campaign finance transparency is absent, allowing hidden corporate donations and undisclosed spending."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Immediate",
+          "title": "Parliamentary Dissolution and Election Preparation",
+          "items": [
+            "Parliamentary dissolution under Article 76(7) followed by immediate elections within 180 days",
+            "Presidential dissolution considering political crisis and constitutional provisions",
+            "Election Commission publishes detailed candidate profiles including education, experience, wealth sources",
+            "Amend Electoral laws to disqualify candidates with pending corruption indictments and proven criminal charges"
+          ]
+        },
+        {
+          "phase": "Campaign Finance Reform",
+          "title": "Transparency and Financial Controls",
+          "items": [
+            "Real-time campaign finance transparency with 24-hour disclosure requirement",
+            "Ban corporate donations - only verified individual contributions allowed with strict limits",
+            "Campaign spending limits with strict ceiling and live monitoring",
+            "Public finance dashboard: Election Commission provides real-time tracking of all donations and expenditures",
+            "Mandatory audited expense reports within 30 days with heavy penalties for violations"
+          ]
+        },
+        {
+          "phase": "Electoral Innovation",
+          "title": "Democratic Choice Enhancement",
+          "items": [
+            "NOTA option: If 'None of the Above' wins in constituency, re-election with entirely new candidates",
+            "Voter education campaign: comprehensive candidate background disclosure, not just rally promises",
+            "Multi-institutional verification across CIAA, Election Commission, and Auditor-General",
+            "Public candidate vetting with supporting documentation required at nomination"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Ecuador",
+        "details": "Has 'Muerte Cruzada' mechanism that allows president to dissolve parliament but triggers fresh presidential elections too",
+        "impact": "Prevents abuse while resolving deadlocks. President Guillermo Lasso used this in 2023 to avoid impeachment and reset political system"
+      },
+      {
+        "country": "Canada",
+        "details": "Requires real-time disclosure of donations over $200 within 3 days of receipt",
+        "impact": "Creates transparency in campaign financing and enables real-time public scrutiny of political funding sources"
+      },
+      {
+        "country": "Australia",
+        "details": "Mandates disclosure of all donations over $15,200 annually with strict reporting requirements",
+        "impact": "Countries with stricter campaign finance rules show higher public trust in elections and lower political corruption rates"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Day 1-30",
+        "description": "Parliamentary Dissolution and Legal Framework",
+        "details": [
+          "Presidential dissolution of parliament considering political crisis under constitutional provisions",
+          "Immediate Electoral Act amendments to implement candidate vetting and campaign finance transparency",
+          "Election Commission preparation for enhanced candidate verification and real-time financial tracking",
+          "Legal framework establishment for NOTA implementation and re-election procedures"
+        ]
+      },
+      {
+        "timeline": "Day 31-90",
+        "description": "Candidate Vetting and Campaign Preparation",
+        "details": [
+          "Complete candidate background verification including criminal, corruption, and asset checks",
+          "Publication of detailed candidate profiles with education, experience, wealth sources",
+          "Campaign finance registration system launch with real-time tracking capabilities",
+          "Voter education campaign launch on candidate backgrounds and NOTA option"
+        ]
+      },
+      {
+        "timeline": "Day 91-150",
+        "description": "Campaign Period with Live Monitoring",
+        "details": [
+          "Active campaign period with real-time donation and expenditure tracking",
+          "Daily publication of campaign finance data with 24-hour disclosure requirement",
+          "Continuous monitoring for compliance with spending limits and source restrictions",
+          "Public candidate debates and forums with transparency requirements"
+        ]
+      },
+      {
+        "timeline": "Day 151-180",
+        "description": "Election and Post-Election Accountability",
+        "details": [
+          "Conduct elections with NOTA option and complete candidate choice",
+          "Immediate post-election audited expense report submission within 30 days",
+          "Investigation of any campaign finance violations with heavy penalties",
+          "Re-election procedures if NOTA wins in any constituency"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "Complete background verification for 100% of candidates",
+    "Real-time tracking of all campaign donations and spending",
+    "Zero tolerance for hidden campaign funding",
+    "Complete electoral process within 180 days"
+  ]
+}

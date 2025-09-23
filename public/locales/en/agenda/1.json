@@ -1,0 +1,109 @@
+{
+  "id": "1",
+  "title": "Transform CIAA Into a Truly Independent Anti-Corruption Force",
+  "description": "Transform Nepal's anti-corruption commission into a powerful, independent body that can actually investigate and prosecute corruption cases without political interference.",
+  "category": "Anti-Corruption",
+  "priority": "High",
+  "timeline": "5 years",
+  "problem": {
+    "long": "Nepal's Commission for the Investigation of Abuse of Authority (CIAA), though constitutionally established under Articles 238 and 239 of the Constitution (2015) and governed by the CIAA Act 2048 (1991) and its Rules 2049, remains largely ineffective despite having strong legal powers on paper. Key issues include: Politicised leadership where the Chief Commissioner and other member Commissioners are politically appointed; Lack of operational independence where the CIAA depends on the Ministry of Finance for its budget; Narrowed jurisdiction where the 2015 Constitution removed its authority to investigate 'improper conduct'; and Weak institutional capacity where Investigation and prosecution units are understaffed, siloed, and lack advanced forensic and digital tools."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Phase 1",
+          "title": "Immediate Statutory Reforms",
+          "items": [
+            "Integrated investigation—prosecution teams: Build mixed teams where legal experts work alongside investigators",
+            "Collaboration with the Office of the Attorney General: Second prosecutors to the CIAA until internal capacity developed",
+            "Specialised training: Mandatory 6—7 month intensive training for new investigation and prosecution staff",
+            "Adequate staffing: Significantly expand investigators, forensic auditors, digital forensics specialists, and prosecutors",
+            "Performance safeguards: Enforce strict code of conduct, require minimum two-year service terms"
+          ]
+        },
+        {
+          "phase": "Phase 2",
+          "title": "Constitutional Reforms",
+          "items": [
+            "Constitutional budget allocation: Independent funding line, not dependent on Finance Ministry (Article 238-239 amendment)",
+            "Merit-based appointments: Chief Commissioner and Commissioners selected through competitive examination by independent panel",
+            "Fixed tenure protection: Introduce a 5—8 year fixed term tenure to prevent capture while avoiding lifetime appointments",
+            "Jurisdiction over corruption and improper conduct: Amending Article 239 and extending CIAA's jurisdiction",
+            "Diverse expertise: Recruit Commissioners from varied technical backgrounds"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Singapore",
+        "details": "CPIB achieved 98% conviction rate through complete independence, direct prosecution powers, and asset recovery authority",
+        "impact": "Critical sequencing: Singapore first strengthened powers through legislation (1952), then achieved full independence through constitutional protection (1965)"
+      },
+      {
+        "country": "Hong Kong",
+        "details": "ICAC reformed gradually: 1974 initial legislation gave prosecution powers, 1997 constitutional entrenchment secured independence",
+        "impact": "Went from investigating 2,300 cases annually to virtually eliminating government corruption within a decade"
+      },
+      {
+        "country": "Indonesia",
+        "details": "KPK demonstrates phased approach: 2002 law created prosecution authority, 2004 constitutional amendment secured independence",
+        "impact": "77% conviction rate with major high-level prosecutions including ministers and governors"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-6",
+        "description": "CIAA Act Amendment and Legal Reforms",
+        "details": [
+          "CIAA Act amendment for prosecution powers, asset freezing authority, expanded jurisdiction",
+          "Collaboration with Office of Attorney General to second prosecutors until internal capacity developed",
+          "Specialized training: mandatory 6-7 month intensive training for investigation and prosecution staff",
+          "Enhanced powers through court-supervised asset freezing during investigations"
+        ]
+      },
+      {
+        "timeline": "Months 7-12",
+        "description": "Institutional Capacity Building",
+        "details": [
+          "Specialized courts establishment with reformed appointment of judges and faster timelines",
+          "Professional staff recruitment through competitive hiring for investigators, forensic auditors, digital forensics specialists",
+          "Digital capabilities deployment: evidence systems, financial tracking software, secure data management",
+          "Performance safeguards: strict code of conduct, minimum two-year service terms, quarterly performance reports"
+        ]
+      },
+      {
+        "timeline": "Years 2-3",
+        "description": "Political Consensus Building",
+        "details": [
+          "Build political consensus for constitutional amendments on budget independence",
+          "Demonstrate effectiveness of Phase 1 reforms to create momentum for constitutional changes",
+          "Reform appointment procedures through constitutional amendment process",
+          "Establish independent panel for merit-based Commissioner selection"
+        ]
+      },
+      {
+        "timeline": "Years 3-5",
+        "description": "Constitutional Amendment and Full Independence",
+        "details": [
+          "Constitutional amendment process for budget independence from Finance Ministry",
+          "Full independence achievement with constitutional protection",
+          "Merit-based appointment system operational with competitive examinations",
+          "Fixed tenure protection preventing political capture"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "Win 80% of corruption cases within 2 years",
+    "Reduce case completion time from 3+ years to 6 months",
+    "Take 90% of major corruption cases to court",
+    "Recover 60% of stolen money in proven corruption cases"
+  ],
+  "legalFoundation": "Articles 238-239 of Constitution 2015, CIAA Act 2048 (1991)"
+}
