@@ -1,0 +1,101 @@
+{
+  "id": "4",
+  "title": "Implement Mandatory Wealth Disclosure for All Politicians",
+  "description": "Force all politicians and candidates to publish their complete assets online so citizens can see how they become rich on government salaries.",
+  "category": "Transparency",
+  "priority": "High",
+  "timeline": "6 months",
+  "problem": {
+    "long": "Politicians become millionaires on government salaries. Where does the money come from? Politicians accumulate substantial wealth on modest government salaries without transparency about sources, enabling corruption and undermining public trust. Current asset declaration systems are confidential rather than public, preventing citizen oversight."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Digital Transparency",
+          "title": "Public Asset Declaration System",
+          "items": [
+            "Public digital portal with all politician asset declarations published online in searchable, downloadable format within 7 days",
+            "Candidate disclosure at nomination with supporting documentation including title deeds, bank statements, purchase invoices",
+            "Complete asset information covering property inside and outside Nepal, business interests, investments",
+            "Real-time updates for any significant asset changes or acquisitions during tenure"
+          ]
+        },
+        {
+          "phase": "Verification and Investigation",
+          "title": "Automated Oversight Mechanisms",
+          "items": [
+            "Automatic red-flag triggers for 50% annual wealth increase or large unexplained purchases",
+            "Multi-institutional verification across CIAA, Election Commission, and Auditor-General",
+            "Cross-checking declarations against tax records, bank data, and public registries",
+            "Annual wealth audits by Auditor-General for Cabinet ministers and high-risk officials"
+          ]
+        },
+        {
+          "phase": "Accountability and Sanctions",
+          "title": "Enforcement Framework",
+          "items": [
+            "Clear sanctions ladder: failure to file = immediate disqualification; false declaration = criminal investigation",
+            "Asset forfeiture for proven false declarations with criminal prosecution",
+            "CIAA investigation authority for all wealth increase red-flags",
+            "Public complaint system for citizens to report suspected asset concealment"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Ukraine",
+        "details": "Electronic asset declaration system processes over 1 million declarations annually with 72% public approval",
+        "impact": "Automatic verification led to prosecution of 5,131 civil servants for corruption by 2020, demonstrating power of digital transparency"
+      },
+      {
+        "country": "Global Comparison",
+        "details": "93% of countries require cabinet members to disclose assets, but only 43% provide public access",
+        "impact": "Disclosure without transparency is ineffective - public scrutiny creates accountability that confidential filing cannot achieve"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Days 1-60",
+        "description": "Immediate Compliance Requirement",
+        "details": [
+          "All current politicians have 60 days to comply with full asset disclosure or face disqualification",
+          "Emergency amendment to Prevention of Corruption Act replacing confidentiality with public disclosure",
+          "Coordination between CIAA, Election Commission, and Auditor-General for verification system",
+          "Legal framework establishment for automatic investigation triggers"
+        ]
+      },
+      {
+        "timeline": "Months 3-6",
+        "description": "Digital Platform Development",
+        "details": [
+          "Central asset declaration portal development with searchable, downloadable format",
+          "Integration with existing government databases for cross-verification",
+          "Public portal operational with complete politician asset information",
+          "Mobile-friendly interface with citizen search and monitoring capabilities"
+        ]
+      },
+      {
+        "timeline": "Months 6-12",
+        "description": "Full System Operation and Monitoring",
+        "details": [
+          "Automatic red-flag system operational for wealth increase monitoring",
+          "Regular audit cycles by Auditor-General for high-risk officials",
+          "Public complaint system for citizen reporting of suspected concealment",
+          "Performance measurement and system optimization based on early results"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "100% politician compliance with asset disclosure within 60 days",
+    "Public portal operational with downloadable data",
+    "Investigate all suspicious wealth increases automatically",
+    "Criminal prosecution for false declarations"
+  ]
+}

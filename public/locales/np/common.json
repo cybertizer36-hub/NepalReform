@@ -1,0 +1,69 @@
+{
+  "sections": {
+    "theProblem": "समस्या",
+    "keySolutions": "मुख्य समाधान",
+    "keyTargets": "मुख्य लक्ष्यहरू",
+    "realWorldEvidence": "वास्तविक विश्व प्रमाण",
+    "implementationOverview": "कार्यान्वयन सिंहावलोकन",
+    "legalFoundation": "कानुनी आधार",
+    "problemDetailed": "समस्या - विस्तृत विश्लेषण",
+    "solutionsPhased": "प्रस्तावित समाधान - चरणबद्ध दृष्टिकोण",
+    "implementationTimeline": "कार्यान्वयन समयसीमा",
+    "performanceTargets": "कार्यसम्पादन लक्ष्यहरू",
+    "communitySuggestions": "सामुदायिक सुझावहरू",
+    "publicSupport": "सार्वजनिक समर्थन",
+    "quickInfo": "द्रुत जानकारी",
+    "navigateReforms": "सुधार नेभिगेट गर्नुहोस्",
+    "shareEngage": "साझेदारी र सहभागिता"
+  },
+  "tabs": {
+    "overview": "सिंहावलोकन",
+    "detailedAnalysis": "विस्तृत विश्लेषण",
+    "summary": "सारांश",
+    "detailedPhases": "विस्तृत चरणहरू",
+    "keyExamples": "मुख्य उदाहरणहरू",
+    "detailedEvidence": "विस्तृत प्रमाण",
+    "quickTimeline": "द्रुत समयसीमा",
+    "detailedRoadmap": "विस्तृत रोडम्याप"
+  },
+  "labels": {
+    "priority": {
+      "label": "प्राथमिकता",
+      "high": "उच्च",
+      "medium": "मध्यम",
+      "low": "कम"
+    },
+    "category": "श्रेणी",
+    "priorityLevel": "प्राथमिकता स्तर",
+    "implementationTimeline": "कार्यान्वयन समयसीमा",
+    "reformNumber": "सुधार #{{number}}",
+    "reformNumberOf": "सुधार नम्बर",
+    "of27": "२७ मध्ये",
+    "implementation": "कार्यान्वयन",
+    "impact": "प्रभाव"
+  },
+  "actions": {
+    "showMore": "थप हेर्नुहोस्",
+    "showLess": "कम देखाउनुहोस्",
+    "fullDetails": "पूर्ण विवरण",
+    "moreSolutions": "थप समाधानहरू",
+    "moreTargets": "थप लक्ष्यहरू"
+  },
+  "navigation": {
+    "backToAllReforms": "सबै सुधारहरूमा फर्कनुहोस्",
+    "previousReform": "अघिल्लो सुधार",
+    "nextReform": "अर्को सुधार",
+    "viewAllReforms": "सबै सुधारहरू हेर्नुहोस्"
+  },
+  "messages": {
+    "summaryNotAvailable": "यो दृश्यमा सारांश उपलब्ध छैन।",
+    "noPhasedDetails": "चरणबद्ध कार्यान्वयन विवरणहरू उपलब्ध छैनन्।",
+    "suggestionsCTA": "यस सुधार प्रस्तावमा आफ्ना विचार र प्रतिक्रिया साझा गर्नुहोस्। अन्य नागरिकहरूका सुझावहरूमा भोट दिएर समुदायसँग संलग्न हुनुहोस्।",
+    "voteHelpText": "सार्वजनिक समर्थन र सहभागिताका आधारमा यस सुधारलाई प्राथमिकता दिन मद्दत गर्न भोट दिनुहोस्।",
+    "shareHelpText": "यस सुधार प्रस्तावको बारेमा चेतना फैलाउन र नेपालको प्रजातान्त्रिक रूपान्तरणमा योगदान दिन मद्दत गर्नुहोस्।"
+  },
+  "footer": {
+    "tagline": "नेपालका युवाहरूलाई लोकतान्त्रिक सुधारहरू आकार दिन सशक्त बनाउने",
+    "copyright": "© 2024 नेक्सलारिस टेक कम्पनी। सबै अधिकार सुरक्षित।"
+  }
+}

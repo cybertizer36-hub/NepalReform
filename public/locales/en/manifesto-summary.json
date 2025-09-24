@@ -1,0 +1,126 @@
+[
+  {
+    "id": "1",
+    "title": "Transform CIAA Into a Truly Independent Anti-Corruption Force",
+    "description": "Transform Nepal's anti-corruption commission into a powerful, independent body that can actually investigate and prosecute corruption cases without political interference.",
+    "category": "Anti-Corruption",
+    "priority": "High",
+    "timeline": "5 years",
+    "problem": {
+      "short": "The CIAA has legal powers but can't use them effectively. Political leaders control who gets appointed, the government controls its budget, and it lacks skilled staff and modern tools to investigate corruption properly."
+    },
+    "solution": {
+      "short": [
+        "Give CIAA power to prosecute cases directly in court",
+        "Allow CIAA to freeze corrupt officials' bank accounts during investigations",
+        "Make CIAA's budget independent from government control",
+        "Select commissioners through competitive exams, not political appointments",
+        "Protect commissioners from being fired for 5-8 years"
+      ]
+    },
+    "performanceTargets": [
+      "Win 80% of corruption cases within 2 years",
+      "Reduce case completion time from 3+ years to 6 months",
+      "Take 90% of major corruption cases to court",
+      "Recover 60% of stolen money in proven corruption cases"
+    ],
+    "realWorldEvidence": {
+      "short": [
+        "Singapore's anti-corruption agency has 98% conviction rate because it's completely independent",
+        "Hong Kong eliminated government corruption within 10 years using an independent commission",
+        "Indonesia's anti-corruption commission achieves 77% conviction rate with major prosecutions"
+      ]
+    },
+    "implementation": {
+      "short": [
+        "First 6 months: Change laws to give CIAA prosecution powers and asset freezing authority",
+        "Months 7-12: Set up special courts and hire qualified investigators",
+        "Years 2-3: Build political support for constitutional changes",
+        "Years 3-5: Complete constitutional amendment for full independence"
+      ]
+    },
+    "legalFoundation": "Articles 238-239 of Constitution 2015, CIAA Act 2048 (1991)"
+  },
+  {
+    "id": "2",
+    "title": "Fresh Elections in 180 Days",
+    "description": "Conduct new parliamentary elections within 6 months with strict rules to ensure only qualified, honest candidates can run and all campaign money is transparent.",
+    "category": "Electoral Reform",
+    "priority": "High",
+    "timeline": "180 days",
+    "problem": {
+      "short": "The current government has lost people's trust. The election system allows criminals and corrupt people to run for office, and voters don't know where campaign money comes from."
+    },
+    "solution": {
+      "short": [
+        "Dissolve parliament and hold elections within 180 days",
+        "Ban candidates with criminal charges or corruption cases from running",
+        "Require all campaign donations and spending to be published online daily",
+        "Only allow individual people to donate money, no corporate donations",
+        "Add 'None of the Above' option - if it wins, hold new elections with new candidates"
+      ]
+    },
+    "performanceTargets": [
+      "Complete background verification for 100% of candidates",
+      "Real-time tracking of all campaign donations and spending",
+      "Zero tolerance for hidden campaign funding",
+      "Complete electoral process within 180 days"
+    ],
+    "realWorldEvidence": {
+      "short": [
+        "Ecuador allows president to dissolve parliament to break political deadlocks",
+        "Canada requires real-time disclosure of donations over $200 within 3 days",
+        "Countries with strict campaign finance rules have higher public trust in elections"
+      ]
+    },
+    "implementation": {
+      "short": [
+        "President dissolves parliament due to political crisis",
+        "Election Commission publishes complete background checks on all candidates",
+        "Change electoral laws to disqualify candidates with pending corruption cases",
+        "Require candidates to submit audited expense reports within 30 days"
+      ]
+    }
+  },
+  {
+    "id": "3",
+    "title": "Decentralize Power from Kathmandu to Provinces and Local Levels",
+    "description": "Give real decision-making power and budget control to provincial and local governments so people don't have to go to Kathmandu for every approval.",
+    "category": "Federalism",
+    "priority": "High",
+    "timeline": "2 years",
+    "problem": {
+      "short": "Everything gets decided in Kathmandu, creating long delays and opportunities for corruption. Every budget, project, and approval has to go through the center, making simple things complicated."
+    },
+    "solution": {
+      "short": [
+        "Implement constitutional powers already given to provinces and local governments",
+        "Give 60% of national budget directly to provinces and local areas",
+        "Let provinces keep 40% of taxes collected in their areas",
+        "Allow municipalities to approve projects up to 50 crore without federal permission",
+        "Let provinces hire and manage their own civil servants"
+      ]
+    },
+    "performanceTargets": [
+      "Transfer 60% of national budget to local levels",
+      "Provinces keep 40% of taxes within 3 years",
+      "All municipalities get 50 crore approval authority",
+      "100% compliance with constitutional decentralization requirements"
+    ],
+    "realWorldEvidence": {
+      "short": [
+        "Indonesia reduced central government dependency from 82% to 48% through decentralization",
+        "Philippines increased local government funds by 55% through decentralization",
+        "Switzerland makes most decisions at local level, creating efficient, clean government"
+      ]
+    },
+    "implementation": {
+      "short": [
+        "Use existing constitutional provisions and change federal laws immediately",
+        "Complete administrative transfer to local governments within 2 years",
+        "Transfer budget authority to provinces and local governments",
+        "Set up provincial civil service systems"
+      ]
+    }
+  }
+]

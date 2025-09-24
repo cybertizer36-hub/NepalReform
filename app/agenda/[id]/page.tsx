@@ -1,4 +1,7 @@
-import { notFound } from "next/navigation"
+"use client"
+
+import { useEffect, useState } from "react"
+import { useParams, notFound } from "next/navigation"
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -10,53 +13,48 @@ import {
   Users, Calendar, Scale, Globe, ChevronRight 
 } from "lucide-react"
 import Link from "next/link"
-import { getManifestoItemById } from "@/lib/manifesto-data"
 import { cn } from "@/lib/utils"
 import { AgendaVoteSection } from "@/components/agenda-vote-section"
 import { SuggestionSection } from "@/components/suggestion-section"
 import { ShareDialog } from "@/components/share-dialog"
-import { createClient } from "@/lib/supabase/server"
+import { useAgendaSummary, useAgendaDetail, CombinedManifestoItem } from "@/hooks/use-agenda-detail"
+import { useTranslation } from "react-i18next"
+import { Skeleton } from "@/components/ui/skeleton"
 
-interface AgendaPageProps {
-  params: Promise<{
-    id: string
-  }>
-}
+export default function AgendaPage() {
+  const params = useParams()
+  const agendaId = params?.id as string
+  const { t } = useTranslation(['common'])
+  const [mounted, setMounted] = useState(false)
 
-async function getAgendaUUID(manifestoId: string) {
-  const supabase = await createClient()
-  const manifestoItem = getManifestoItemById(manifestoId)
-  if (!manifestoItem) return null
+  // Load summary data first (likely cached)
+  const { summaryData, loading: summaryLoading } = useAgendaSummary(agendaId)
+  
+  // Load detailed data and combine with summary
+  const { combinedData, loading: detailLoading, error } = useAgendaDetail(agendaId, summaryData || undefined)
 
-  const { data: agenda } = await supabase
-    .from("agendas")
-    .select("id")
-    .ilike("title", `%${manifestoItem.title.substring(0, 20)}%`)
-    .single()
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
-  if (!agenda) {
-    const namespace = "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
-    const seedString = `manifesto-${manifestoId}`
-    const hash = seedString.split("").reduce((a, b) => {
-      a = (a << 5) - a + b.charCodeAt(0)
-      return a & a
-    }, 0)
-    const uuid = `${Math.abs(hash).toString(16).padStart(8, "0")}-${manifestoId.padStart(4, "0")}-4000-8000-000000000000`
-    return uuid
+  if (!mounted) {
+    return <AgendaPageSkeleton />
   }
-  return agenda.id
-}
 
-export default async function AgendaPage({ params }: AgendaPageProps) {
-  const resolvedParams = await params
-  const item = getManifestoItemById(resolvedParams.id)
-
-  if (!item) {
+  if (error || (!summaryLoading && !detailLoading && !combinedData)) {
     notFound()
   }
 
-  const agendaId = resolvedParams.id
+  if (summaryLoading || detailLoading || !combinedData) {
+    return <AgendaPageSkeleton />
+  }
 
+  return <AgendaPageContent item={combinedData} />
+}
+
+function AgendaPageContent({ item }: { item: CombinedManifestoItem }) {
+  const { t } = useTranslation(['common'])
+  
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -67,7 +65,7 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
           <Link href="/#agendas-section">
             <Button variant="outline" size="sm" className="gap-2 bg-transparent">
               <ArrowLeft className="h-4 w-4" />
-              Back to All Reforms
+              {t('navigation.backToAllReforms', { defaultValue: 'Back to All Reforms' })}
             </Button>
           </Link>
         </div>
@@ -79,7 +77,7 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               {item.category}
             </Badge>
             <Badge variant="outline" className={cn("text-sm font-medium", getPriorityColor(item.priority))}>
-              {item.priority} Priority
+              {getPriorityLabel(item.priority, t)} {t('labels.priority.label', { defaultValue: 'Priority' })}
             </Badge>
             <Badge variant="outline" className="text-sm font-medium bg-blue-100 text-blue-800 border-blue-200">
               <Clock className="w-3 h-3 mr-1" />
@@ -88,7 +86,7 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-            Reform #{item.id}: {item.title}
+            {t('labels.reformNumber', { defaultValue: 'Reform #{{number}}', number: item.id })}: {item.title}
           </h1>
 
           <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl">{item.description}</p>
@@ -103,19 +101,27 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <AlertTriangle className="h-5 w-5 text-destructive" />
-                  The Problem - Detailed Analysis
+                  {t('sections.problemDetailed', { defaultValue: 'The Problem - Detailed Analysis' })}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="overview" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="overview">Overview</TabsTrigger>
-                    <TabsTrigger value="detailed">Detailed Analysis</TabsTrigger>
+                    <TabsTrigger value="overview">{t('tabs.overview', { defaultValue: 'Overview' })}</TabsTrigger>
+                    <TabsTrigger value="detailed">{t('tabs.detailedAnalysis', { defaultValue: 'Detailed Analysis' })}</TabsTrigger>
                   </TabsList>
                   <TabsContent value="overview" className="mt-4">
-                    <div className="p-4 bg-destructive/5 rounded-lg border-l-4 border-l-destructive">
-                      <p className="text-foreground leading-relaxed">{item.problem.short}</p>
-                    </div>
+                    {item.problem.short ? (
+                      <div className="p-4 bg-destructive/5 rounded-lg border-l-4 border-l-destructive">
+                        <p className="text-foreground leading-relaxed">{item.problem.short}</p>
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-muted/50 rounded-lg">
+                        <p className="text-muted-foreground italic">
+                          {t('messages.summaryNotAvailable', { defaultValue: 'Summary not available in this view.' })}
+                        </p>
+                      </div>
+                    )}
                   </TabsContent>
                   <TabsContent value="detailed" className="mt-4">
                     <div className="p-4 bg-destructive/5 rounded-lg border-l-4 border-l-destructive">
@@ -131,27 +137,35 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <CheckCircle className="h-5 w-5 text-primary" />
-                  Proposed Solutions - Phased Approach
+                  {t('sections.solutionsPhased', { defaultValue: 'Proposed Solutions - Phased Approach' })}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="summary" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="summary">Summary</TabsTrigger>
-                    <TabsTrigger value="phases">Detailed Phases</TabsTrigger>
+                    <TabsTrigger value="summary">{t('tabs.summary', { defaultValue: 'Summary' })}</TabsTrigger>
+                    <TabsTrigger value="phases">{t('tabs.detailedPhases', { defaultValue: 'Detailed Phases' })}</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="summary" className="mt-4">
-                    <ul className="space-y-3">
-                      {item.solution.short.map((solution, index) => (
-                        <li key={index} className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg border-l-4 border-l-primary">
-                          <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium mt-0.5">
-                            {index + 1}
-                          </span>
-                          <span className="text-foreground leading-relaxed">{solution}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {item.solution.short && item.solution.short.length > 0 ? (
+                      <ul className="space-y-3">
+                        {item.solution.short.map((solution, index) => (
+                          <li key={index} className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg border-l-4 border-l-primary">
+                            <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium mt-0.5">
+                              {index + 1}
+                            </span>
+                            <span className="text-foreground leading-relaxed">{solution}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="p-4 bg-muted/50 rounded-lg">
+                        <p className="text-muted-foreground italic">
+                          {t('messages.summaryNotAvailable', { defaultValue: 'Summary not available in this view.' })}
+                        </p>
+                      </div>
+                    )}
                   </TabsContent>
                   
                   <TabsContent value="phases" className="mt-4">
@@ -162,7 +176,9 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-muted-foreground">No phased implementation details available.</p>
+                      <p className="text-muted-foreground">
+                        {t('messages.noPhasedDetails', { defaultValue: 'No phased implementation details available.' })}
+                      </p>
                     )}
                   </TabsContent>
                 </Tabs>
@@ -174,24 +190,32 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <Globe className="h-5 w-5 text-green-600" />
-                  Real World Evidence
+                  {t('sections.realWorldEvidence', { defaultValue: 'Real World Evidence' })}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="summary" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="summary">Key Examples</TabsTrigger>
-                    <TabsTrigger value="detailed">Detailed Evidence</TabsTrigger>
+                    <TabsTrigger value="summary">{t('tabs.keyExamples', { defaultValue: 'Key Examples' })}</TabsTrigger>
+                    <TabsTrigger value="detailed">{t('tabs.detailedEvidence', { defaultValue: 'Detailed Evidence' })}</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="summary" className="mt-4">
-                    <div className="space-y-3">
-                      {item.realWorldEvidence.short.map((evidence, index) => (
-                        <div key={index} className="p-3 bg-green-50 rounded-lg border-l-4 border-l-green-500">
-                          <p className="text-foreground leading-relaxed">{evidence}</p>
-                        </div>
-                      ))}
-                    </div>
+                    {item.realWorldEvidence.short && item.realWorldEvidence.short.length > 0 ? (
+                      <div className="space-y-3">
+                        {item.realWorldEvidence.short.map((evidence, index) => (
+                          <div key={index} className="p-3 bg-green-50 rounded-lg border-l-4 border-l-green-500">
+                            <p className="text-foreground leading-relaxed">{evidence}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-muted/50 rounded-lg">
+                        <p className="text-muted-foreground italic">
+                          {t('messages.summaryNotAvailable', { defaultValue: 'Summary not available in this view.' })}
+                        </p>
+                      </div>
+                    )}
                   </TabsContent>
                   
                   <TabsContent value="detailed" className="mt-4">
@@ -206,11 +230,15 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
                           </CardHeader>
                           <CardContent className="space-y-2">
                             <div>
-                              <p className="text-sm font-medium text-muted-foreground mb-1">Implementation:</p>
+                              <p className="text-sm font-medium text-muted-foreground mb-1">
+                                {t('labels.implementation', { defaultValue: 'Implementation' })}:
+                              </p>
                               <p className="text-sm text-foreground leading-relaxed">{evidence.details}</p>
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-muted-foreground mb-1">Impact:</p>
+                              <p className="text-sm font-medium text-muted-foreground mb-1">
+                                {t('labels.impact', { defaultValue: 'Impact' })}:
+                              </p>
                               <p className="text-sm text-foreground leading-relaxed font-medium text-green-700">
                                 {evidence.impact}
                               </p>
@@ -229,27 +257,35 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <Calendar className="h-5 w-5 text-blue-600" />
-                  Implementation Timeline
+                  {t('sections.implementationTimeline', { defaultValue: 'Implementation Timeline' })}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="overview" className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="overview">Quick Timeline</TabsTrigger>
-                    <TabsTrigger value="detailed">Detailed Roadmap</TabsTrigger>
+                    <TabsTrigger value="overview">{t('tabs.quickTimeline', { defaultValue: 'Quick Timeline' })}</TabsTrigger>
+                    <TabsTrigger value="detailed">{t('tabs.detailedRoadmap', { defaultValue: 'Detailed Roadmap' })}</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="overview" className="mt-4">
-                    <div className="space-y-3">
-                      {item.implementation.short.map((step, index) => (
-                        <div key={index} className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border-l-4 border-l-blue-500">
-                          <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
-                            {index + 1}
+                    {item.implementation.short && item.implementation.short.length > 0 ? (
+                      <div className="space-y-3">
+                        {item.implementation.short.map((step, index) => (
+                          <div key={index} className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border-l-4 border-l-blue-500">
+                            <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                              {index + 1}
+                            </div>
+                            <p className="text-foreground leading-relaxed">{step}</p>
                           </div>
-                          <p className="text-foreground leading-relaxed">{step}</p>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-muted/50 rounded-lg">
+                        <p className="text-muted-foreground italic">
+                          {t('messages.summaryNotAvailable', { defaultValue: 'Summary not available in this view.' })}
+                        </p>
+                      </div>
+                    )}
                   </TabsContent>
                   
                   <TabsContent value="detailed" className="mt-4">
@@ -287,7 +323,7 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <Target className="h-5 w-5 text-purple-600" />
-                  Performance Targets
+                  {t('sections.performanceTargets', { defaultValue: 'Performance Targets' })}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -310,7 +346,7 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-xl">
                     <Scale className="h-5 w-5 text-indigo-600" />
-                    Legal Foundation
+                    {t('sections.legalFoundation', { defaultValue: 'Legal Foundation' })}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -326,16 +362,17 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <Users className="h-5 w-5 text-primary" />
-                  Community Suggestions
+                  {t('sections.communitySuggestions', { defaultValue: 'Community Suggestions' })}
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground">
-                Share your ideas and feedback on this reform proposal. Engage with the community by voting on
-                suggestions from other citizens.
+                {t('messages.suggestionsCTA', { 
+                  defaultValue: 'Share your ideas and feedback on this reform proposal. Engage with the community by voting on suggestions from other citizens.' 
+                })}
               </CardContent>
               <CardContent>
                 <div className="max-h-96 overflow-y-auto pr-2">
-                  <SuggestionSection agendaId={agendaId} />
+                  <SuggestionSection agendaId={item.id} />
                 </div>
               </CardContent>
             </Card>
@@ -347,13 +384,15 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <TrendingUp className="h-5 w-5" />
-                  Public Support
+                  {t('sections.publicSupport', { defaultValue: 'Public Support' })}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <AgendaVoteSection agendaId={agendaId} size="default" className="mb-3" />
+                <AgendaVoteSection agendaId={item.id} size="default" className="mb-3" />
                 <p className="text-xs text-muted-foreground">
-                  Vote to help prioritize this reform based on public support and engagement.
+                  {t('messages.voteHelpText', { 
+                    defaultValue: 'Vote to help prioritize this reform based on public support and engagement.' 
+                  })}
                 </p>
               </CardContent>
             </Card>
@@ -361,24 +400,32 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
             {/* Quick Info */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Quick Information</CardTitle>
+                <CardTitle className="text-lg">{t('sections.quickInfo', { defaultValue: 'Quick Information' })}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Category</label>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    {t('labels.category', { defaultValue: 'Category' })}
+                  </label>
                   <p className="text-foreground font-medium">{item.category}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Priority Level</label>
-                  <p className="text-foreground font-medium">{item.priority}</p>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    {t('labels.priorityLevel', { defaultValue: 'Priority Level' })}
+                  </label>
+                  <p className="text-foreground font-medium">{getPriorityLabel(item.priority, t)}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Implementation Timeline</label>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    {t('labels.implementationTimeline', { defaultValue: 'Implementation Timeline' })}
+                  </label>
                   <p className="text-foreground font-medium">{item.timeline}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Reform Number</label>
-                  <p className="text-foreground font-medium">#{item.id} of 27</p>
+                  <label className="text-sm font-medium text-muted-foreground">
+                    {t('labels.reformNumberOf', { defaultValue: 'Reform Number' })}
+                  </label>
+                  <p className="text-foreground font-medium">#{item.id} {t('labels.of27', { defaultValue: 'of 27' })}</p>
                 </div>
               </CardContent>
             </Card>
@@ -386,28 +433,28 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
             {/* Navigation */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Navigate Reforms</CardTitle>
+                <CardTitle className="text-lg">{t('sections.navigateReforms', { defaultValue: 'Navigate Reforms' })}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {Number.parseInt(item.id) > 1 && (
                   <Link href={`/agenda/${Number.parseInt(item.id) - 1}`}>
                     <Button variant="outline" size="sm" className="w-full justify-start bg-transparent">
                       <ArrowLeft className="h-4 w-4 mr-2" />
-                      Previous Reform
+                      {t('navigation.previousReform', { defaultValue: 'Previous Reform' })}
                     </Button>
                   </Link>
                 )}
                 {Number.parseInt(item.id) < 27 && (
                   <Link href={`/agenda/${Number.parseInt(item.id) + 1}`}>
                     <Button variant="outline" size="sm" className="w-full justify-start bg-transparent">
-                      Next Reform
+                      {t('navigation.nextReform', { defaultValue: 'Next Reform' })}
                       <ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
                     </Button>
                   </Link>
                 )}
                 <Link href="/#agendas-section">
                   <Button variant="secondary" size="sm" className="w-full">
-                    View All Reforms
+                    {t('navigation.viewAllReforms', { defaultValue: 'View All Reforms' })}
                   </Button>
                 </Link>
               </CardContent>
@@ -418,14 +465,19 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Users className="h-5 w-5" />
-                  Share & Engage
+                  {t('sections.shareEngage', { defaultValue: 'Share & Engage' })}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <p className="text-sm text-muted-foreground">
-                  Help spread awareness about this reform proposal and contribute to Nepal's democratic transformation.
+                  {t('messages.shareHelpText', { 
+                    defaultValue: 'Help spread awareness about this reform proposal and contribute to Nepal\'s democratic transformation.' 
+                  })}
                 </p>
-                <ShareDialog title={`Reform #${item.id}: ${item.title}`} description={item.description} />
+                <ShareDialog 
+                  title={`${t('labels.reformNumber', { number: item.id, defaultValue: 'Reform #{{number}}' })}: ${item.title}`} 
+                  description={item.description} 
+                />
               </CardContent>
             </Card>
           </div>
@@ -439,8 +491,12 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
               <img src="/nepal-flag-logo.png" alt="NepalReforms Logo" className="w-8 h-8 object-contain" />
               <span className="text-lg font-semibold text-foreground">NepalReforms</span>
             </div>
-            <p className="text-sm text-muted-foreground">Empowering Nepal's youth to shape democratic reforms</p>
-            <p className="text-xs text-muted-foreground">© 2024 Nexalaris Tech Company. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">
+              {t('footer.tagline', { defaultValue: 'Empowering Nepal\'s youth to shape democratic reforms' })}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {t('footer.copyright', { defaultValue: '© 2024 Nexalaris Tech Company. All rights reserved.' })}
+            </p>
           </div>
         </div>
       </footer>
@@ -448,29 +504,57 @@ export default async function AgendaPage({ params }: AgendaPageProps) {
   )
 }
 
-export async function generateStaticParams() {
-  return Array.from({ length: 27 }, (_, i) => ({
-    id: (i + 1).toString(),
-  }))
+function AgendaPageSkeleton() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-6">
+          <Skeleton className="h-10 w-48" />
+        </div>
+        
+        <div className="mb-8">
+          <div className="flex gap-2 mb-4">
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-6 w-24" />
+          </div>
+          <Skeleton className="h-12 w-3/4 mb-4" />
+          <Skeleton className="h-6 w-full max-w-4xl" />
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-2 space-y-8">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Card key={i}>
+                <CardHeader>
+                  <Skeleton className="h-6 w-64" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-32 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="space-y-6">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Card key={i}>
+                <CardHeader>
+                  <Skeleton className="h-6 w-32" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-24 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </main>
+    </div>
+  )
 }
-
-export async function generateMetadata({ params }: AgendaPageProps) {
-  const resolvedParams = await params
-  const item = getManifestoItemById(resolvedParams.id)
-
-  if (!item) {
-    return {
-      title: "Reform Not Found",
-    }
-  }
-
-  return {
-    title: `Reform #${item.id}: ${item.title} | NepalReforms`,
-    description: item.description,
-  }
-}
-
-export const revalidate = 300
 
 function getCategoryColor(category: string) {
   const colors = {
@@ -507,4 +591,9 @@ function getPriorityColor(priority: string) {
     Low: "bg-green-100 text-green-800 border-green-200",
   }
   return colors[priority as keyof typeof colors] || "bg-gray-100 text-gray-800 border-gray-200"
+}
+
+function getPriorityLabel(priority: string, t: any) {
+  const priorityKey = priority.toLowerCase() as 'high' | 'medium' | 'low';
+  return t(`labels.priority.${priorityKey}`, { defaultValue: priority });
 }

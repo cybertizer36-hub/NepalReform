@@ -1,0 +1,107 @@
+{
+  "id": "21",
+  "title": "Make All Government Decisions Transparent",
+  "description": "Broadcast all official meetings live, publish decision summaries within 48 hours, and guarantee citizen access to government information within 15 days.",
+  "category": "Transparency",
+  "priority": "High",
+  "timeline": "1 year",
+  "problem": {
+    "long": "Government decisions made behind closed doors without public input or oversight while citizens have no access to information about what their representatives discuss or decide. Article 27 guarantees Right to Information and the Constitution mandates transparency, but implementation lacks live broadcasting, public participation mechanisms, and timely information access."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Live Democratic Process",
+          "title": "Real-Time Government Transparency",
+          "items": [
+            "Broadcast all official meetings: Cabinet, Parliament, provincial assemblies, municipal councils live-streamed",
+            "48-hour decision summaries: bullet-point summaries of key discussions and decisions published",
+            "Digital Transparency Portal: permanent public access to all meeting records, voting patterns, decision rationales",
+            "Real-time updates: social media and SMS notifications for major decisions affecting citizens"
+          ]
+        },
+        {
+          "phase": "Enhanced Information Access",
+          "title": "Guaranteed Citizen Information Rights",
+          "items": [
+            "15-day information guarantee: all citizens receive requested government information within 15 working days",
+            "Written denial justification: any information denial includes detailed legal reasoning subject to review",
+            "Proactive disclosure requirements: budgets, contracts, appointments, policies published automatically",
+            "Multiple language access: Nepali, English, and major local languages for key documents"
+          ]
+        },
+        {
+          "phase": "Public Participation Mechanisms",
+          "title": "Citizen Engagement and Oversight",
+          "items": [
+            "Citizen input periods: 30-day public comment requirement for major policy changes",
+            "Town hall requirements: monthly public meetings in every constituency for direct engagement",
+            "Online feedback systems: digital platforms for continuous citizen input on government performance",
+            "Regular satisfaction surveys: quarterly public polling on government transparency and responsiveness"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Finland",
+        "details": "Open government initiative publishes all non-classified information online with comprehensive access",
+        "impact": "Achieves world's highest government trust ratings and citizen satisfaction through complete transparency"
+      },
+      {
+        "country": "Estonia",
+        "details": "Digital transparency platform allows citizens to access all government processes in real-time",
+        "impact": "Contributes to 85% citizen satisfaction with government services through comprehensive digital access"
+      },
+      {
+        "country": "Uruguay",
+        "details": "Mandatory meeting broadcasts and decision transparency implemented across government levels",
+        "impact": "Led to significant reduction in corruption and increased democratic participation through open governance"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-6",
+        "description": "Infrastructure and Broadcasting Setup",
+        "details": [
+          "Broadcasting infrastructure upgrade for live streaming within 6 months",
+          "Digital platform development integrating existing systems into comprehensive transparency portal",
+          "Legal reforms to Right to Information Act and Good Governance Act with stronger disclosure requirements",
+          "Multi-language accessibility framework development for inclusive information access"
+        ]
+      },
+      {
+        "timeline": "Months 6-12",
+        "description": "System Integration and Training",
+        "details": [
+          "Training programs for all officials on transparency requirements and citizen engagement",
+          "Public participation mechanisms implementation with 30-day comment periods",
+          "Town hall meeting system establishment in every constituency",
+          "Online feedback systems deployment for continuous citizen input"
+        ]
+      },
+      {
+        "timeline": "Months 12-18",
+        "description": "Full Transparency Implementation",
+        "details": [
+          "80% of official meetings broadcast live with 48-hour decision summary publication",
+          "15-day information guarantee operational with written denial justification system",
+          "Complete elimination of closed-door decision making except for national security",
+          "Regular satisfaction surveys and performance optimization based on citizen engagement metrics"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "80% of official meetings broadcast live within 1 year",
+    "95% of information requests fulfilled within 15 days",
+    "60% increase in citizen engagement with government processes",
+    "Complete elimination of closed-door decision making"
+  ],
+  "legalFoundation": "Article 27 guarantees Right to Information. Constitution mandates transparency in governance"
+}

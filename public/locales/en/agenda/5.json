@@ -1,0 +1,97 @@
+{
+  "id": "5",
+  "title": "Set Strict Qualifications for Government Ministers and Members of Parliament",
+  "description": "Require government ministers to have education and experience relevant to their jobs instead of choosing them based only on political loyalty.",
+  "category": "Governance",
+  "priority": "High",
+  "timeline": "1 year",
+  "problem": {
+    "long": "Ministers and MPs are often chosen through political bargaining rather than expertise, leading to a mismatch that undermines governance, wastes resources, and prevents the Constitution's promise of accountable, effective leadership from being realized."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Legislative Framework",
+          "title": "Ministerial Qualifications Act",
+          "items": [
+            "Parliament passes law requiring sectoral expertise for specific portfolios through simple majority",
+            "Education OR Experience standard: Bachelor's degree + 3 years proven experience OR 10+ years sector experience",
+            "Specific requirements: Health Minister needs medical/public health background, Finance Minister requires economics/finance education or banking experience",
+            "Parliamentary justification requirement: PM must justify all ministerial appointments to Parliament in writing",
+            "Minimum 5 years leadership experience requirement for all ministerial positions"
+          ]
+        },
+        {
+          "phase": "Implementation and Enforcement",
+          "title": "Application and Monitoring",
+          "items": [
+            "Immediate implementation for all new appointments with published justification requirements",
+            "Fair baseline compensation aligned with senior civil service levels to attract qualified candidates",
+            "Public verification system for claimed qualifications and experience",
+            "Parliamentary oversight committee to review and approve ministerial qualifications"
+          ]
+        },
+        {
+          "phase": "Constitutional Protection",
+          "title": "Long-term Institutional Security",
+          "items": [
+            "Long-term goal of constitutional amendment for permanent protection of qualification requirements",
+            "Build political consensus for constitutional entrenchment of competency standards",
+            "Prevent future governments from easily reversing qualification requirements",
+            "Establish precedent of merit-based appointments in executive branch"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "United Kingdom",
+        "details": "UK cabinet shows 91% university-educated members despite no formal constitutional requirements",
+        "impact": "Demonstrates how political incentives naturally drive qualification levels when public and media scrutiny demands competence in governance"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-6",
+        "description": "Legislative Process and Legal Framework",
+        "details": [
+          "Draft and introduce Ministerial Qualifications Act in Parliament with specific sectoral requirements",
+          "Build parliamentary coalition for passage through simple majority rather than constitutional amendment",
+          "Define clear qualification standards for each ministerial portfolio with flexibility for equivalent experience",
+          "Establish verification mechanisms for claimed qualifications and experience"
+        ]
+      },
+      {
+        "timeline": "Months 7-12",
+        "description": "Implementation and Application",
+        "details": [
+          "Immediate implementation for all new ministerial appointments with published qualification verification",
+          "Parliamentary justification system operational requiring written explanation for all appointments",
+          "Fair compensation system aligned with senior civil service to attract qualified candidates",
+          "Public database of ministerial qualifications and justifications for transparency"
+        ]
+      },
+      {
+        "timeline": "Years 2-5",
+        "description": "Institutional Strengthening and Constitutional Protection",
+        "details": [
+          "Build political consensus for constitutional amendment providing permanent protection",
+          "Monitor effectiveness of qualification requirements on governance outcomes",
+          "Expand qualification requirements to other senior positions based on success",
+          "Constitutional amendment process to prevent future reversal of competency standards"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "100% of ministers meet qualification requirements within 1 year",
+    "Parliamentary justification published for all appointments",
+    "Competitive compensation aligned with senior civil service",
+    "Zero appointments based only on party loyalty"
+  ]
+}

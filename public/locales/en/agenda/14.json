@@ -1,0 +1,101 @@
+{
+  "id": "14",
+  "title": "Make Security Services Merit-Based with Health Checks",
+  "description": "Choose security personnel based on capability rather than loyalty, with transparent performance tracking, rotation limits, and mandatory health evaluations.",
+  "category": "Security Reform",
+  "priority": "Medium",
+  "timeline": "5 years",
+  "problem": {
+    "long": "Security personnel are chosen for loyalty rather than capability, undermining professionalism and operational effectiveness. Political patronage drives appointments while lack of routine health and integrity checks results in officers with substance abuse, untreated stress disorders, or compromised fitness remaining in positions that risk public safety."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Merit-Based Selection System",
+          "title": "Professional Appointment and Promotion",
+          "items": [
+            "Merit-based promotions through PSC-administered exams and structured performance reviews for all senior positions",
+            "Transparent scorecards published online with security-sensitive data redacted for public accountability",
+            "Independent oversight through Public Service Commission examiners and civil-society observers",
+            "Diversified expertise recruitment from varied technical backgrounds to cover security challenges"
+          ]
+        },
+        {
+          "phase": "Health and Integrity Standards",
+          "title": "Comprehensive Health and Fitness Requirements",
+          "items": [
+            "Routine examinations: annual mental health checks and quarterly drug/alcohol screening for all officers",
+            "Physical fitness tests for promotion eligibility with standardized assessment criteria",
+            "Psychological evaluation for stress management and decision-making under pressure",
+            "Health monitoring integration into annual performance reviews and promotion decisions"
+          ]
+        },
+        {
+          "phase": "Accountability and Protection",
+          "title": "Rotation, Oversight, and Whistleblower Protection",
+          "items": [
+            "Rotation and tenure limits: maximum 3 years per post with no repeat posting in same city/province within 5 years",
+            "Whistleblower protection with legal safeguards for officers reporting political interference",
+            "Civilian oversight through Auditor-General, Human Rights Commission, and Parliamentary committees",
+            "Digital HR platform for transparent performance tracking and career management"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Singapore",
+        "details": "Public Service Commission independence established in 1951 created one of world's most efficient bureaucracies",
+        "impact": "Competitive scholarship system with service bonds and private-sector competitive salaries contributed to 100x GDP per capita increase 1959-2009"
+      },
+      {
+        "country": "Estonia",
+        "details": "Digital civil service reconstruction after independence achieved comprehensive reform",
+        "impact": "99% online service availability while eliminating corruption in routine government services through professional management"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 0-12",
+        "description": "Immediate Administrative Reforms",
+        "details": [
+          "Amend Police Rules to require PSC-run exams and transparent performance reviews",
+          "Ministry of Home Affairs rotation directive with 3-year maximum tenure implementation",
+          "Mandatory annual health and fitness checks with psychological evaluation integration",
+          "Performance scorecard publication system with security-appropriate transparency"
+        ]
+      },
+      {
+        "timeline": "Years 1-3",
+        "description": "Institutional Capacity Expansion",
+        "details": [
+          "Expand Public Service Commission mandate to cover all senior promotions across security services",
+          "Security & Civil Service Promotions Advisory Panel establishment for top leadership vetting",
+          "Health and integrity checks integration into annual performance reviews",
+          "Whistleblower protection enforcement in Police and Civil Service Acts"
+        ]
+      },
+      {
+        "timeline": "Years 3-5",
+        "description": "Digital Integration and Oversight Enhancement",
+        "details": [
+          "Digital HR and health-monitoring platform deployment for comprehensive tracking",
+          "Civilian oversight bodies' reporting expansion to include health, fitness, and integrity compliance",
+          "Performance measurement system optimization based on public trust and service delivery metrics",
+          "Full professional management system operation with continuous improvement"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "100% senior positions filled through competitive exams by Year 2",
+    "95% compliance with annual health evaluations",
+    "40% reduction in public complaints against security services",
+    "60% improvement in public trust ratings"
+  ]
+}

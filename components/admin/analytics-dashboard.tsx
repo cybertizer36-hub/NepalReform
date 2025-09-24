@@ -24,6 +24,8 @@ import {
 } from "recharts"
 import { Users, FileText, MessageSquare, Vote, TrendingUp, Calendar, Eye, Activity } from "lucide-react"
 import { manifestoData } from "@/lib/manifesto-data"
+import { Profile } from "./user-management"
+import type { Suggestion } from "./suggestion-management"
 
 interface AnalyticsData {
   users: {
@@ -114,12 +116,12 @@ export function AnalyticsDashboard() {
 
       // Process user data
       const users = profilesData.data || []
-      const activeUsers = users.filter(u => u.is_active !== false)
+      const activeUsers = users.filter((u: Profile) => u.is_active !== false)
       const thisMonthStart = new Date()
       thisMonthStart.setDate(1)
-      const newUsersThisMonth = users.filter(u => new Date(u.created_at) >= thisMonthStart)
+      const newUsersThisMonth = users.filter((u: Profile) => new Date(u.created_at) >= thisMonthStart)
       
-      const roleGroups = users.reduce((acc: any, user) => {
+      const roleGroups = users.reduce((acc: any, user: Profile) => {
         const role = user.role || "user"
         acc[role] = (acc[role] || 0) + 1
         return acc
@@ -127,13 +129,13 @@ export function AnalyticsDashboard() {
 
       // Process suggestions data
       const suggestions = suggestionsData.data || []
-      const statusGroups = suggestions.reduce((acc: any, s) => {
+      const statusGroups = suggestions.reduce((acc: any, s: Suggestion) => {
         acc[s.status] = (acc[s.status] || 0) + 1
         return acc
       }, {})
 
       // Count suggestions by agenda
-      const suggestionsByAgenda = suggestions.reduce((acc: any, s) => {
+      const suggestionsByAgenda = suggestions.reduce((acc: any, s: Suggestion) => {
         if (s.agenda_id) {
           acc[s.agenda_id] = (acc[s.agenda_id] || 0) + 1
         }
@@ -146,7 +148,13 @@ export function AnalyticsDashboard() {
       const totalVotes = suggestionVotes.length + agendaVotes.length
 
       // Count votes by agenda
-      const votesByAgenda = agendaVotes.reduce((acc: any, v) => {
+      type AgendaVote = {
+        id: string;
+        vote_type: string;
+        agenda_id?: string;
+        created_at?: string;
+      };
+      const votesByAgenda = agendaVotes.reduce((acc: any, v: AgendaVote) => {
         if (v.agenda_id) {
           acc[v.agenda_id] = (acc[v.agenda_id] || 0) + 1
         }
@@ -155,21 +163,27 @@ export function AnalyticsDashboard() {
 
       // Process activity data
       const activities = activityData.data || []
-      const actionCounts = activities.reduce((acc: any, a) => {
+      type Activity = {
+        id: string;
+        action: string;
+        created_at?: string;
+      };
+      const actionCounts = activities.reduce((acc: any, a: Activity) => {
         acc[a.action] = (acc[a.action] || 0) + 1
         return acc
       }, {})
 
       // Group activities by day
-      const dailyActivities = activities.reduce((acc: any, a) => {
-        const date = new Date(a.created_at).toLocaleDateString()
-        acc[date] = (acc[date] || 0) + 1
-        return acc
+      const dailyActivities = activities.reduce((acc: Record<string, number>, a: Activity) => {
+        const date = new Date(a.created_at ?? '').toLocaleDateString();
+        acc[date] = (acc[date] || 0) + 1;
+        return acc;
       }, {})
 
       // Process opinions data
       const opinions = opinionsData.data || []
-      const categoryGroups = opinions.reduce((acc: any, o) => {
+      type Opinion = { category?: string };
+      const categoryGroups = opinions.reduce((acc: Record<string, number>, o: Opinion) => {
         const category = o.category || "General"
         acc[category] = (acc[category] || 0) + 1
         return acc

@@ -17,12 +17,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
-import { getAllCategories } from "@/lib/manifesto-data"
 import { useHydration } from "@/hooks/use-hydration"
-import { useManifestoData, useVotes } from "@/hooks/use-cached-data"
+import { useVotes } from "@/hooks/use-cached-data"
 import { CacheManager } from "@/lib/cache/cache-manager"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ManifestoItem } from "@/lib/manifesto-data"
+import { useManifestoData, ManifestoSummaryItem } from "@/hooks/use-manifesto-data"
 
 // Define Vote interface locally
 interface Vote {
@@ -42,203 +41,225 @@ interface FilterState {
 export function ManifestoList() {
   const isHydrated = useHydration()
   const [randomSeed, setRandomSeed] = useState<number | null>(null)
-  // Use cached data hooks
-  const { data: manifestoDataRaw = [], isLoading, error } = useManifestoData()
-  // Defensive conversion and fallback
-  const manifestoData: ManifestoItem[] = Array.isArray(manifestoDataRaw) ? manifestoDataRaw : [];
-  const { data: votesDataRaw = [] } = useVotes()
-  const votesData: Vote[] = Array.isArray(votesDataRaw) ? votesDataRaw : [];
+  // Add error state
+  const [error, setError] = useState<Error | null>(null)
 
-  // Load filter preferences from cache on mount
-  const [filters, setFilters] = useState<FilterState>(() => {
-    if (typeof window !== 'undefined') {
-      const savedFilters = CacheManager.getLocal<FilterState>(CacheManager.KEYS.FILTER_PREFERENCES)
-      if (savedFilters) {
-        return savedFilters
-      }
-    }
-    
-    const timelineValues = manifestoData && manifestoData.length > 0
-      ? (() => {
-          const timelines = manifestoData.map((item) => {
-            if (!item.timeline) return 1;
-            const match = item.timeline.match(/(\d+)/)
-            return match ? Number.parseInt(match[1]) : 1
-          })
-          return [Math.min(...timelines), Math.max(...timelines)]
-        })()
-      : [0, 5]
-    
-    return {
-      searchQuery: "",
-      selectedCategories: [],
-      selectedPriorities: [],
-      timelineRange: timelineValues as [number, number],
-      showAdvancedFilters: false,
-    }
+  // Use the new i18n-aware hook for summary data
+  const { manifestoData, loading: isLoading, getAllCategories } = useManifestoData()
+  
+  const { data: votesDataRaw = [] } = useVotes()
+  
+  const [filters, setFilters] = useState<FilterState>({
+    searchQuery: "",
+    selectedCategories: [],
+    selectedPriorities: [],
+    timelineRange: [6, 60], // months
+    showAdvancedFilters: false
   })
 
-  // Save filter preferences to cache when they change
+  // Error boundary effect
   useEffect(() => {
-    if (isHydrated && filters) {
-      CacheManager.setLocal(CacheManager.KEYS.FILTER_PREFERENCES, filters, CacheManager.TTL.USER_DATA)
+    if (error) {
+      console.error("Error in ManifestoList:", error)
     }
-  }, [filters, isHydrated])
+  }, [error])
 
-  // Only set random seed after hydration to prevent mismatch
+  // Initialize random seed for shuffle functionality
   useEffect(() => {
-    if (isHydrated) {
+    if (manifestoData.length > 0 && randomSeed === null) {
       setRandomSeed(Math.random())
     }
-  }, [isHydrated])
+  }, [manifestoData.length, randomSeed])
 
-  const timelineValues = useMemo(() => {
-    if (!Array.isArray(manifestoData) || manifestoData.length === 0) return [0, 5]
-    const timelines = manifestoData.map((item) => {
-      if (!item.timeline) return 1;
-      const match = item.timeline.match(/(\d+)/)
-      return match ? Number.parseInt(match[1]) : 1
+  // Helper function to convert timeline to months
+  const getTimelineInMonths = (timeline: string): number => {
+    const timelineMap: Record<string, number> = {
+      "180 days": 6,
+      "6 months": 6,
+      "1 year": 12,
+      "18 months": 18,
+      "2 years": 24,
+      "3 years": 36,
+      "5 years": 60,
+    }
+    return timelineMap[timeline] || 12
+  }
+
+  // Memoized computations
+  const allCategories = useMemo(() => {
+    try {
+      return getAllCategories()
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Failed to get categories"))
+      return []
+    }
+  }, [getAllCategories])
+
+  const allPriorities = useMemo(() => ["High", "Medium", "Low"], [])
+
+  const filteredData = useMemo(() => {
+    try {
+      if (!manifestoData.length) return []
+
+      return manifestoData
+        .filter((item: ManifestoSummaryItem) => {
+          // Search filter
+          if (filters.searchQuery) {
+            const searchLower = filters.searchQuery.toLowerCase()
+            const matchesTitle = item.title.toLowerCase().includes(searchLower)
+            const matchesDescription = item.description.toLowerCase().includes(searchLower)
+            const matchesCategory = item.category.toLowerCase().includes(searchLower)
+            if (!matchesTitle && !matchesDescription && !matchesCategory) {
+              return false
+            }
+          }
+
+          // Category filter
+          if (filters.selectedCategories.length > 0 && !filters.selectedCategories.includes(item.category)) {
+            return false
+          }
+
+          // Priority filter
+          if (filters.selectedPriorities.length > 0 && !filters.selectedPriorities.includes(item.priority)) {
+            return false
+          }
+
+          // Timeline filter
+          const itemTimelineInMonths = getTimelineInMonths(item.timeline)
+          if (itemTimelineInMonths < filters.timelineRange[0] || itemTimelineInMonths > filters.timelineRange[1]) {
+            return false
+          }
+
+          return true
+        })
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Failed to filter data"))
+      return []
+    }
+  }, [manifestoData, filters])
+
+  // Get vote counts
+  const voteCountsMap = useMemo(() => {
+    const votesData = Array.isArray(votesDataRaw) ? votesDataRaw : []
+    const map = new Map<string, { likes: number; dislikes: number }>()
+    
+    votesData.forEach((vote: Vote) => {
+      const current = map.get(vote.manifesto_id) || { likes: 0, dislikes: 0 }
+      if (vote.vote_type === "like") {
+        current.likes += 1
+      } else if (vote.vote_type === "dislike") {
+        current.dislikes += 1
+      }
+      map.set(vote.manifesto_id, current)
     })
-    return [Math.min(...timelines), Math.max(...timelines)]
-  }, [manifestoData])
+    
+    return map
+  }, [votesDataRaw])
 
-  const categories = useMemo(() => {
-    if (!Array.isArray(manifestoData) || manifestoData.length === 0) return []
-    return getAllCategories()
-  }, [manifestoData])
-
-  const priorities = ["High", "Medium", "Low"]
-
-  const shuffleArray = <T,>(array: T[], seed: number): T[] => {
-    const shuffled = [...array]
-    let currentIndex = shuffled.length
-    let randomIndex: number
-
-    const seededRandom = (seed: number) => {
-      const x = Math.sin(seed) * 10000
-      return x - Math.floor(x)
+  // Sorted data with vote counts
+  const sortedData = useMemo(() => {
+    if (!filteredData.length) return []
+    
+    try {
+      return [...filteredData].sort((a: ManifestoSummaryItem, b: ManifestoSummaryItem) => {
+        const aVotes = voteCountsMap.get(a.id) || { likes: 0, dislikes: 0 }
+        const bVotes = voteCountsMap.get(b.id) || { likes: 0, dislikes: 0 }
+        
+        const aScore = aVotes.likes - aVotes.dislikes
+        const bScore = bVotes.likes - bVotes.dislikes
+        
+        return bScore - aScore
+      })
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Failed to sort data"))
+      return filteredData
     }
+  }, [filteredData, voteCountsMap])
 
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(seededRandom(seed + currentIndex) * currentIndex)
-      currentIndex--
-      ;[shuffled[currentIndex], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[currentIndex]]
+  // Shuffle functionality
+  const shuffledData = useMemo(() => {
+    if (randomSeed === null || !sortedData.length) return sortedData
+    
+    try {
+      const shuffled = [...sortedData]
+      let m = shuffled.length
+      
+      // Seeded Fisher-Yates shuffle
+      while (m) {
+        const i = Math.floor((randomSeed * 1000000) % m--)
+        const temp = shuffled[m]
+        shuffled[m] = shuffled[i]
+        shuffled[i] = temp
+      }
+      
+      return shuffled
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error("Failed to shuffle data"))
+      return sortedData
     }
+  }, [sortedData, randomSeed])
 
-    return shuffled
-  }
-
-  const filteredItems = useMemo(() => {
-    if (!Array.isArray(manifestoData) || manifestoData.length === 0) return []
-    const filtered = manifestoData.filter((item: ManifestoItem) => {
-      // Defensive property access
-      if (!item || typeof item !== 'object') return false;
-      // Search query filter
-      const searchMatch =
-        (!filters.searchQuery || filters.searchQuery === "") ||
-        (item.title && item.title.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
-        (item.description && item.description.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
-        (item.problem?.short && item.problem.short.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
-        (item.problem?.long && item.problem.long.toLowerCase().includes(filters.searchQuery.toLowerCase()))
-      // Category filter
-      const categoryMatch =
-        !Array.isArray(filters.selectedCategories) || filters.selectedCategories.length === 0 || (item.category && filters.selectedCategories.includes(item.category))
-      // Priority filter
-      const priorityMatch =
-        !Array.isArray(filters.selectedPriorities) || filters.selectedPriorities.length === 0 || (item.priority && filters.selectedPriorities.includes(item.priority))
-      // Timeline filter
-      const timelineMatch = (() => {
-        if (!item.timeline) return true;
-        const match = item.timeline.match(/(\d+)/)
-        const timelineYears = match ? Number.parseInt(match[1]) : 1
-        return timelineYears >= filters.timelineRange[0] && timelineYears <= filters.timelineRange[1]
-      })()
-      return searchMatch && categoryMatch && priorityMatch && timelineMatch
-    })
-
-    // Defensive vote counting
-    const itemsWithVotes = filtered.map((item: ManifestoItem) => ({
-      ...item,
-      voteCount: Array.isArray(votesData)
-        ? votesData.filter((vote: Vote) => vote.manifesto_id === item.id).length
-        : 0,
-    }))
-
-    if (isHydrated && randomSeed !== null) {
-      return shuffleArray(itemsWithVotes, randomSeed)
-    }
-    return itemsWithVotes
-  }, [filters, randomSeed, isHydrated, manifestoData, votesData])
-
-  const updateSearchQuery = (query: string) => {
-    setFilters((prev) => ({ ...prev, searchQuery: query }))
-  }
-
-  const toggleCategory = (category: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      selectedCategories: prev.selectedCategories.includes(category)
-        ? prev.selectedCategories.filter((c) => c !== category)
-        : [...prev.selectedCategories, category],
-    }))
-  }
-
-  const togglePriority = (priority: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      selectedPriorities: prev.selectedPriorities.includes(priority)
-        ? prev.selectedPriorities.filter((p) => p !== priority)
-        : [...prev.selectedPriorities, priority],
-    }))
-  }
-
-  const updateTimelineRange = (range: [number, number]) => {
-    setFilters((prev) => ({ ...prev, timelineRange: range }))
-  }
-
-  const clearAllFilters = () => {
+  // Handler functions
+  const clearFilters = () => {
     setFilters({
       searchQuery: "",
       selectedCategories: [],
       selectedPriorities: [],
-      timelineRange: [timelineValues[0], timelineValues[1]],
-      showAdvancedFilters: false,
+      timelineRange: [6, 60],
+      showAdvancedFilters: false
     })
   }
 
-  const toggleAdvancedFilters = () => {
-    setFilters((prev) => ({ ...prev, showAdvancedFilters: !prev.showAdvancedFilters }))
+  const shuffleData = () => {
+    setRandomSeed(Math.random())
+    
+    // Clear cache to force re-render
+    try {
+      CacheManager.clearAll()
+    } catch (err) {
+      console.warn("Failed to clear cache:", err)
+    }
   }
 
-  const hasActiveFilters =
-    filters.searchQuery !== "" ||
-    filters.selectedCategories.length > 0 ||
-    filters.selectedPriorities.length > 0 ||
-    filters.timelineRange[0] !== timelineValues[0] ||
-    filters.timelineRange[1] !== timelineValues[1]
+  const getTimelineLabel = (months: number): string => {
+    if (months < 12) return `${months} months`
+    const years = Math.floor(months / 12)
+    const remainingMonths = months % 12
+    if (remainingMonths === 0) return `${years} ${years === 1 ? 'year' : 'years'}`
+    return `${years}y ${remainingMonths}m`
+  }
 
-  // Loading state with skeleton
-  if (isLoading) {
+  const hasActiveFilters = filters.searchQuery || 
+    filters.selectedCategories.length > 0 || 
+    filters.selectedPriorities.length > 0 || 
+    filters.timelineRange[0] !== 6 || 
+    filters.timelineRange[1] !== 60
+
+  // Loading state
+  if (!isHydrated || isLoading) {
     return (
       <div className="space-y-6">
-        <div className="space-y-4 bg-card/50 p-6 rounded-lg border">
-          <Skeleton className="h-10 w-full" />
-          <div className="flex gap-2">
-            <Skeleton className="h-8 w-24" />
-            <Skeleton className="h-8 w-24" />
-            <Skeleton className="h-8 w-24" />
-          </div>
+        {/* Filter skeleton */}
+        <div className="flex flex-wrap gap-4 items-center">
+          <Skeleton className="h-10 w-64" />
+          <Skeleton className="h-10 w-32" />
+          <Skeleton className="h-10 w-32" />
         </div>
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-card rounded-lg border p-6">
-            <Skeleton className="h-6 w-3/4 mb-2" />
-            <Skeleton className="h-4 w-full mb-4" />
-            <div className="flex gap-2">
-              <Skeleton className="h-6 w-20" />
-              <Skeleton className="h-6 w-20" />
+        
+        {/* Vertical stack skeleton */}
+        <div className="space-y-6">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="space-y-4 p-6 border rounded-lg">
+              <div className="flex gap-2">
+                <Skeleton className="h-5 w-20" />
+                <Skeleton className="h-5 w-20" />
+              </div>
+              <Skeleton className="h-6 w-full" />
+              <Skeleton className="h-16 w-full" />
+              <Skeleton className="h-20 w-full" />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     )
   }
@@ -246,273 +267,214 @@ export function ManifestoList() {
   // Error state
   if (error) {
     return (
-      <div className="text-center py-12 space-y-4">
-        <div className="mx-auto w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center">
-          <X className="h-6 w-6 text-destructive" />
+      <div className="text-center py-12">
+        <div className="text-red-500 mb-4">
+          <X className="h-12 w-12 mx-auto mb-2" />
+          <h3 className="text-lg font-semibold">Something went wrong</h3>
+          <p className="text-sm text-muted-foreground mt-1">{error.message}</p>
         </div>
-        <div className="space-y-2">
-          <h3 className="text-lg font-semibold">Error loading reforms</h3>
-          <p className="text-muted-foreground max-w-md mx-auto">
-            {error.message || "Something went wrong while loading the reform proposals."}
-          </p>
-        </div>
-        <Button 
-          variant="outline" 
-          onClick={() => window.location.reload()} 
-          className="mt-4"
-        >
-          <RotateCcw className="h-4 w-4 mr-2" />
-          Retry
+        <Button onClick={() => setError(null)} variant="outline">
+          Try Again
         </Button>
       </div>
     )
   }
 
+  // Empty state
+  if (!manifestoData.length) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-muted-foreground mb-4">
+          <Search className="h-12 w-12 mx-auto mb-2" />
+          <h3 className="text-lg font-semibold">No reforms available</h3>
+          <p className="text-sm mt-1">Check back later for updates.</p>
+        </div>
+      </div>
+    )
+  }
+
+  const displayData = shuffledData
+
   return (
     <div className="space-y-6">
-      <div className="space-y-4 bg-card/50 p-6 rounded-lg border">
-        {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search reform proposals..."
-            value={filters.searchQuery}
-            onChange={(e) => updateSearchQuery(e.target.value)}
-            className="pl-10 pr-10"
-          />
-          {filters.searchQuery && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => updateSearchQuery("")}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
-            >
-              <X className="h-3 w-3" />
-            </Button>
-          )}
-        </div>
-
-        {/* Quick Filters */}
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm font-medium text-muted-foreground">Quick Filters:</span>
+      {/* Search and Filters */}
+      <div className="space-y-4">
+        <div className="flex flex-wrap gap-4 items-center">
+          {/* Search Input */}
+          <div className="relative flex-1 min-w-[200px]">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              placeholder="Search reforms, categories, or keywords..."
+              value={filters.searchQuery}
+              onChange={(e) => setFilters(prev => ({ ...prev, searchQuery: e.target.value }))}
+              className="pl-10 pr-10"
+            />
+            {filters.searchQuery && (
+              <button
+                onClick={() => setFilters(prev => ({ ...prev, searchQuery: "" }))}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
           </div>
-
-          {/* Category Filter */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant={filters.selectedCategories.length > 0 ? "default" : "outline"}
-                size="sm"
-                className="relative"
-              >
-                Categories
-                {filters.selectedCategories.length > 0 && (
-                  <Badge variant="secondary" className="ml-2 px-1 py-0 text-xs">
-                    {filters.selectedCategories.length}
-                  </Badge>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>Categories</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {categories.map((category) => (
-                <DropdownMenuItem key={category} className="flex items-center space-x-2">
-                  <Checkbox
-                    checked={filters.selectedCategories.includes(category)}
-                    onCheckedChange={() => toggleCategory(category)}
-                  />
-                  <span>{category}</span>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* Priority Filter */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant={filters.selectedPriorities.length > 0 ? "default" : "outline"}
-                size="sm"
-                className="relative"
-              >
-                Priority
-                {filters.selectedPriorities.length > 0 && (
-                  <Badge variant="secondary" className="ml-2 px-1 py-0 text-xs">
-                    {filters.selectedPriorities.length}
-                  </Badge>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48">
-              <DropdownMenuLabel>Priority Levels</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {priorities.map((priority) => (
-                <DropdownMenuItem key={priority} className="flex items-center space-x-2">
-                  <Checkbox
-                    checked={filters.selectedPriorities.includes(priority)}
-                    onCheckedChange={() => togglePriority(priority)}
-                  />
-                  <span className="flex items-center gap-2">
-                    <div
-                      className={`w-2 h-2 rounded-full ${
-                        priority === "High" ? "bg-red-500" : priority === "Medium" ? "bg-yellow-500" : "bg-green-500"
-                      }`}
-                    />
-                    {priority} Priority
-                  </span>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
 
           {/* Advanced Filters Toggle */}
           <Button
             variant="outline"
             size="sm"
-            onClick={toggleAdvancedFilters}
-            className="flex items-center gap-2 bg-transparent"
+            onClick={() => setFilters(prev => ({ ...prev, showAdvancedFilters: !prev.showAdvancedFilters }))}
+            className="gap-2"
           >
             <SlidersHorizontal className="h-4 w-4" />
-            Advanced
+            Filters
+            {hasActiveFilters && (
+              <Badge variant="secondary" className="ml-1 h-4 text-xs px-1">
+                {[
+                  filters.selectedCategories.length,
+                  filters.selectedPriorities.length,
+                  filters.searchQuery ? 1 : 0,
+                  (filters.timelineRange[0] !== 6 || filters.timelineRange[1] !== 60) ? 1 : 0
+                ].filter(Boolean).reduce((a, b) => a + b, 0)}
+              </Badge>
+            )}
           </Button>
 
-          {/* Clear Filters */}
-          {hasActiveFilters && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={clearAllFilters}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-            >
-              <RotateCcw className="h-3 w-3" />
-              Clear All
+          {/* Quick Actions */}
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={shuffleData} className="gap-2">
+              <RotateCcw className="h-4 w-4" />
+              Shuffle
             </Button>
-          )}
+            
+            {hasActiveFilters && (
+              <Button variant="outline" size="sm" onClick={clearFilters} className="gap-2">
+                <X className="h-4 w-4" />
+                Clear
+              </Button>
+            )}
+          </div>
         </div>
 
-        {/* Advanced Filters */}
+        {/* Advanced Filters Collapsible */}
         <Collapsible open={filters.showAdvancedFilters}>
-          <CollapsibleContent className="space-y-4 pt-4 border-t">
-            {/* Timeline Range Slider */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium">Implementation Timeline</label>
-                <span className="text-sm text-muted-foreground">
-                  {filters.timelineRange[0]} - {filters.timelineRange[1]} years
-                </span>
-              </div>
-              <Slider
-                value={filters.timelineRange}
-                onValueChange={(value) => updateTimelineRange(value as [number, number])}
-                max={timelineValues[1]}
-                min={timelineValues[0]}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>
-                  {timelineValues[0]} year{timelineValues[0] !== 1 ? "s" : ""}
-                </span>
-                <span>{timelineValues[1]} years</span>
+          <CollapsibleContent>
+            <div className="grid gap-6 p-4 border rounded-lg bg-muted/30">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {/* Category Filter */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Categories</label>
+                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                    {allCategories.map((category) => (
+                      <div key={category} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={category}
+                          checked={filters.selectedCategories.includes(category)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setFilters(prev => ({
+                                ...prev,
+                                selectedCategories: [...prev.selectedCategories, category]
+                              }))
+                            } else {
+                              setFilters(prev => ({
+                                ...prev,
+                                selectedCategories: prev.selectedCategories.filter(c => c !== category)
+                              }))
+                            }
+                          }}
+                        />
+                        <label htmlFor={category} className="text-sm">
+                          {category}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Priority Filter */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Priority</label>
+                  <div className="space-y-2">
+                    {allPriorities.map((priority) => (
+                      <div key={priority} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={priority}
+                          checked={filters.selectedPriorities.includes(priority)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setFilters(prev => ({
+                                ...prev,
+                                selectedPriorities: [...prev.selectedPriorities, priority]
+                              }))
+                            } else {
+                              setFilters(prev => ({
+                                ...prev,
+                                selectedPriorities: prev.selectedPriorities.filter(p => p !== priority)
+                              }))
+                            }
+                          }}
+                        />
+                        <label htmlFor={priority} className="text-sm">
+                          {priority}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Timeline Filter */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Implementation Timeline: {getTimelineLabel(filters.timelineRange[0])} - {getTimelineLabel(filters.timelineRange[1])}
+                  </label>
+                  <Slider
+                    value={filters.timelineRange}
+                    onValueChange={(value) => setFilters(prev => ({ ...prev, timelineRange: value as [number, number] }))}
+                    min={6}
+                    max={60}
+                    step={6}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                    <span>6 months</span>
+                    <span>5 years</span>
+                  </div>
+                </div>
               </div>
             </div>
           </CollapsibleContent>
         </Collapsible>
-
-        {/* Active Filters Display */}
-        {hasActiveFilters && (
-          <div className="flex items-center gap-2 flex-wrap pt-2 border-t">
-            <span className="text-sm text-muted-foreground">Active filters:</span>
-
-            {filters.searchQuery && (
-              <Badge variant="secondary" className="text-xs flex items-center gap-1">
-                Search: "{filters.searchQuery}"
-                <X className="h-3 w-3 cursor-pointer hover:text-foreground" onClick={() => updateSearchQuery("")} />
-              </Badge>
-            )}
-
-            {filters.selectedCategories.map((category) => (
-              <Badge key={category} variant="secondary" className="text-xs flex items-center gap-1">
-                {category}
-                <X className="h-3 w-3 cursor-pointer hover:text-foreground" onClick={() => toggleCategory(category)} />
-              </Badge>
-            ))}
-
-            {filters.selectedPriorities.map((priority) => (
-              <Badge key={priority} variant="secondary" className="text-xs flex items-center gap-1">
-                {priority} Priority
-                <X className="h-3 w-3 cursor-pointer hover:text-foreground" onClick={() => togglePriority(priority)} />
-              </Badge>
-            ))}
-
-            {(filters.timelineRange[0] !== timelineValues[0] || filters.timelineRange[1] !== timelineValues[1]) && (
-              <Badge variant="secondary" className="text-xs flex items-center gap-1">
-                Timeline: {filters.timelineRange[0]}-{filters.timelineRange[1]} years
-                <X
-                  className="h-3 w-3 cursor-pointer hover:text-foreground"
-                  onClick={() => updateTimelineRange([timelineValues[0], timelineValues[1]])}
-                />
-              </Badge>
-            )}
-          </div>
-        )}
       </div>
 
       {/* Results Summary */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">
-          Showing {Array.isArray(filteredItems) ? filteredItems.length : 0} of {Array.isArray(manifestoData) ? manifestoData.length : 0} reform proposals
+      <div className="flex justify-between items-center text-sm text-muted-foreground">
+        <span>
+          Showing {displayData.length} of {manifestoData.length} reforms
           {hasActiveFilters && " (filtered)"}
-          {Array.isArray(votesData) && votesData.length > 0 && ` • ${votesData.length} total votes`}
-        </p>
-        {Array.isArray(filteredItems) && filteredItems.length > 0 && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-red-500" />
-              High: {filteredItems.filter((item: ManifestoItem & { voteCount: number }) => item.priority === "High").length}
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-yellow-500" />
-              Medium: {filteredItems.filter((item: ManifestoItem & { voteCount: number }) => item.priority === "Medium").length}
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-green-500" />
-              Low: {filteredItems.filter((item: ManifestoItem & { voteCount: number }) => item.priority === "Low").length}
-            </div>
-          </div>
-        )}
+        </span>
+        <span>
+          Sorted by community votes
+        </span>
       </div>
 
-      {/* Results */}
-      <div className="space-y-6">
-        {Array.isArray(filteredItems) && filteredItems.map((item: ManifestoItem & { voteCount: number }) => (
-          <ManifestoCard key={item.id} item={item} />
-        ))}
-      </div>
-
-      {/* No Results State */}
-      {filteredItems.length === 0 && manifestoData.length > 0 && (
-        <div className="text-center py-12 space-y-4">
-          <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
-            <Search className="h-6 w-6 text-muted-foreground" />
+      {/* Results List */}
+      {displayData.length > 0 ? (
+        <div className="space-y-6">
+          {displayData.map((item: ManifestoSummaryItem) => (
+            <ManifestoCard key={item.id} item={item} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12">
+          <div className="text-muted-foreground mb-4">
+            <Search className="h-12 w-12 mx-auto mb-2" />
+            <h3 className="text-lg font-semibold">No reforms match your filters</h3>
+            <p className="text-sm mt-1">Try adjusting your search criteria or clearing filters.</p>
           </div>
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold">No reform proposals found</h3>
-            <p className="text-muted-foreground max-w-md mx-auto">
-              {hasActiveFilters
-                ? "Try adjusting your filters or search terms to find what you're looking for."
-                : "No reform proposals are currently available."}
-            </p>
-          </div>
-          {hasActiveFilters && (
-            <Button variant="outline" onClick={clearAllFilters} className="mt-4 bg-transparent">
-              <RotateCcw className="h-4 w-4 mr-2" />
-              Clear All Filters
-            </Button>
-          )}
+          <Button onClick={clearFilters} variant="outline">
+            Clear All Filters
+          </Button>
         </div>
       )}
     </div>

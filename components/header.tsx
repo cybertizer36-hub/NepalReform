@@ -11,6 +11,28 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { ClientOnly } from "@/components/client-only"
 import { useHydration } from "@/hooks/use-hydration"
+import { LanguageToggle } from "@/components/language-toggle"
+
+// Locally define Supabase's AuthChangeEvent type union (from internal source)
+type AuthChangeEvent =
+  | "SIGNED_IN"
+  | "SIGNED_OUT"
+  | "USER_UPDATED"
+  | "USER_DELETED"
+  | "PASSWORD_RECOVERY"
+  | "TOKEN_REFRESHED"
+  | "MFA_CHALLENGE_VERIFIED"
+  | "MFA_VERIFIED"
+  | "MFA_ENROLL";
+// Minimal Session type interface (can be expanded if needed)
+interface Session {
+  user: {
+    id: string;
+    email: string;
+    // Add more fields if required
+  };
+  // Add other session properties here as needed, based on project usage
+}
 
 export function Header() {
   const [user, setUser] = useState<any>(null)
@@ -33,9 +55,11 @@ export function Header() {
     // Listen for auth state changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-    })
+    } = supabase.auth.onAuthStateChange(
+      (_event: AuthChangeEvent, session: Session | null) => {
+        setUser(session?.user ?? null)
+      }
+    )
 
     return () => subscription.unsubscribe()
   }, [supabase.auth, isHydrated])
@@ -149,11 +173,11 @@ export function Header() {
                 Home
               </Link>
               <Link
-                href="/#agendas-section"
+                href="https://lawcommission.gov.np/content/13437/nepal-s-constitution/"
                 className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 <BookOpen className="h-4 w-4" />
-                27 Reforms
+                Constitution
               </Link>
               <Link
                 href="/testimonials"
@@ -225,12 +249,16 @@ export function Header() {
             </nav>
 
             <AuthSection />
+            <LanguageToggle />
           </div>
 
-          {/* Mobile Menu Button */}
-          <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+          {/* Mobile Language Toggle and Menu Button */}
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageToggle />
+            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

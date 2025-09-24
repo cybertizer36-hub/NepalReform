@@ -161,7 +161,8 @@ export const AgendaList = memo(() => {
 
       // Fetch vote counts for all agendas using optimized batch API
       if (data) {
-        await fetchVoteCounts(data.map((a) => a.id))
+        const agendaArray: Agenda[] = data as Agenda[];
+        await fetchVoteCounts(agendaArray.map((a: Agenda) => a.id))
       }
     } catch (error) {
       console.error("Error fetching agendas:", error)
@@ -426,5 +427,3 @@ export const AgendaList = memo(() => {
     </div>
   )
 })
-
-AgendaList.displayName = "AgendaList"

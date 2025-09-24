@@ -1,0 +1,107 @@
+{
+  "id": "3",
+  "title": "Decentralize Power from Kathmandu to Provinces and Local Levels",
+  "description": "Give real decision-making power and budget control to provincial and local governments so people don't have to go to Kathmandu for every approval.",
+  "category": "Federalism",
+  "priority": "High",
+  "timeline": "2 years",
+  "problem": {
+    "long": "Too much power concentrated in Kathmandu creates corruption bottlenecks. Every decision, every budget, every project approval goes through the center, creating opportunities for bribes and delays. Despite constitutional provisions for federalism in Schedules 5-9, implementation remains centralized. Citizens face bureaucratic delays for basic services, while local governments lack authority and resources to address community needs directly."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Constitutional Implementation",
+          "title": "Enforce Existing Decentralization Provisions",
+          "items": [
+            "Enforce constitutional decentralization through existing Schedules 5-9 that grant provinces and local governments exclusive powers",
+            "Address jurisdictional ambiguities within constitutional schedules for health, education, and infrastructure",
+            "Implement immediate administrative decentralization within 2 years using existing authority",
+            "Transfer decision-making authority for day-to-day operations to appropriate government levels"
+          ]
+        },
+        {
+          "phase": "Fiscal Decentralization",
+          "title": "Budget and Revenue Transfer",
+          "items": [
+            "60% budget decentralization with direct allocation to provinces and local levels",
+            "Ring-fenced sector transfers to prevent federal reclaim of allocated funds",
+            "40% provincial tax retention from income tax, VAT share, and natural resource royalties",
+            "50 crore local approval authority for municipalities without federal sign-off",
+            "Provincial revenue-sharing mandates with transparent allocation formulas"
+          ]
+        },
+        {
+          "phase": "Administrative Autonomy",
+          "title": "Provincial and Local Government Capacity",
+          "items": [
+            "Provincial civil service recruitment and management independent from federal control",
+            "Federal role limited to monitoring performance rather than controlling day-to-day decisions",
+            "Strategic project coordination maintained for national-level infrastructure",
+            "Local government capacity building for effective service delivery"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Indonesia",
+        "details": "'Big Bang' decentralization in 2001 transferred major powers directly to local governments",
+        "impact": "Reduced central dependency from 82% to 48% of subnational revenue by 2020. Local governments became more responsive and efficient with direct accountability to citizens"
+      },
+      {
+        "country": "Philippines",
+        "details": "Local Government Code with Mandanas Ruling increased local transfers significantly",
+        "impact": "Increased local transfers by 55% to ₱1.08 trillion (4.8% of GDP) in 2022, giving local governments real power and resources for development"
+      },
+      {
+        "country": "Switzerland",
+        "details": "Federal system where apart from foreign affairs and defense, most decisions made at cantonal and municipal levels",
+        "impact": "Creates one of world's least corrupt and most efficient governments through local accountability and reduced central bottlenecks"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-6",
+        "description": "Legal Framework and Administrative Preparation",
+        "details": [
+          "Enforce existing constitutional provisions through amended federal laws",
+          "Clarify jurisdictional ambiguities in Schedules 5-9 through legal interpretation",
+          "Prepare administrative systems for power and budget transfer",
+          "Establish coordination mechanisms between federal, provincial, and local levels"
+        ]
+      },
+      {
+        "timeline": "Months 7-18",
+        "description": "Fiscal and Administrative Transfer",
+        "details": [
+          "Immediate administrative decentralization with authority transfer to local levels",
+          "Begin budget allocation transfer with 60% direct allocation to subnational governments",
+          "Implement 40% provincial tax retention system for locally collected revenues",
+          "Establish 50 crore approval authority for all municipalities"
+        ]
+      },
+      {
+        "timeline": "Months 19-24",
+        "description": "Capacity Building and System Optimization",
+        "details": [
+          "Establish provincial civil service systems for recruitment and management",
+          "Complete budget allocation authority transfer to provinces and local governments",
+          "Monitor implementation effectiveness and adjust systems as needed",
+          "Ensure 100% compliance with constitutional decentralization mandates"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "Transfer 60% of national budget to local levels",
+    "Provinces keep 40% of taxes within 3 years",
+    "All municipalities get 50 crore approval authority",
+    "100% compliance with constitutional decentralization requirements"
+  ]
+}

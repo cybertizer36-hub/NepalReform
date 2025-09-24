@@ -1,0 +1,101 @@
+{
+  "id": "7",
+  "title": "Digitize All Government Services",
+  "description": "Create a unified digital system where citizens can access all government services online 24/7, eliminating corruption and bureaucratic delays.",
+  "category": "Digital Governance",
+  "priority": "High",
+  "timeline": "2 years",
+  "problem": {
+    "long": "Although Nepal has made considerable progress in digitizing major government functions—such as budgetary systems, revenue collection, passports, driving licenses, immigration, and national ID—these systems remain fragmented and lack interoperability."
+  },
+  "solution": {
+    "long": {
+      "phases": [
+        {
+          "phase": "Infrastructure Development",
+          "title": "Digital Public Infrastructure",
+          "items": [
+            "National Digital Framework with shared standards and decentralized ownership allowing each government entity to maintain systems with interoperability",
+            "National E-Governance Service Center (NESGC) under Ministry of Communications & IT for design standards and cybersecurity",
+            "Secure data servers with geo-distributed network, disaster recovery, and annual third-party security audits",
+            "Digital financial infrastructure with universal payment gateways for fee collection and welfare distribution"
+          ]
+        },
+        {
+          "phase": "Service Integration",
+          "title": "Unified Citizen Services",
+          "items": [
+            "Unified One-Stop Portal (Nepal.gov.np) expansion for all government services with end-to-end digital processing",
+            "National Digital Identity integration across all services for single source of truth",
+            "Data-sharing layer with secure APIs eliminating duplicate submissions and manual verifications",
+            "AI-powered citizen support center with 24/7 virtual assistance and multi-language accessibility"
+          ]
+        },
+        {
+          "phase": "Accountability and Inclusion",
+          "title": "Governance and Access",
+          "items": [
+            "Legal reforms to Good Governance Act and Right to Information Act with prosecutorial provisions",
+            "Assisted Digital Service Desks at ward offices for citizens lacking digital literacy",
+            "Mandatory publication of eligibility, required documents, fees, and timelines for every service",
+            "Innovation sandboxes for testing AI, blockchain, and advanced analytics safely"
+          ]
+        }
+      ]
+    }
+  },
+  "realWorldEvidence": {
+    "long": [
+      {
+        "country": "Estonia",
+        "details": "Achieved 100% online service availability using institutional frameworks similar to proposed NESGC",
+        "impact": "Saves citizens 1,400 years of working time annually while achieving 95% citizen trust in government financial management"
+      },
+      {
+        "country": "India",
+        "details": "JAM Trinity (banking + biometric + mobile) eliminated fraud while processing massive transaction volumes",
+        "impact": "Eliminated 25 million false beneficiaries saving ₹3.5 lakh crore, while processing 40% of global real-time payments"
+      }
+    ]
+  },
+  "implementation": {
+    "long": [
+      {
+        "timeline": "Months 1-6",
+        "description": "Infrastructure and Standards Establishment",
+        "details": [
+          "NESGC establishment under Ministry of Communications & IT with cybersecurity protocols",
+          "National digital framework development with shared standards for interoperability",
+          "Nepal.gov.np portal expansion planning with user-centric design principles",
+          "Legal framework preparation for Good Governance Act and Right to Information Act amendments"
+        ]
+      },
+      {
+        "timeline": "Months 7-18",
+        "description": "System Integration and Capacity Building",
+        "details": [
+          "Ministry integration with data-sharing APIs and secure interconnected systems",
+          "Civil servant training on digital governance through Nepal Administrative Staff College",
+          "Municipal digital help desk deployment with trained staff for citizen assistance",
+          "AI-powered citizen support center development with multi-language capabilities"
+        ]
+      },
+      {
+        "timeline": "Months 19-24",
+        "description": "Full Service Launch and Accountability",
+        "details": [
+          "100% government services available online with automatic timeline tracking",
+          "Accountability mechanisms with penalty systems for service delivery delays",
+          "Digital governance authority establishment for monitoring service quality",
+          "Innovation sandbox implementation for testing advanced technologies safely"
+        ]
+      }
+    ]
+  },
+  "performanceTargets": [
+    "100% government services available online within 24 months",
+    "90% of service requests completed within published timelines",
+    "24/7 virtual assistant handles 80% of citizen questions",
+    "Complete elimination of duplicate document submissions"
+  ]
+}

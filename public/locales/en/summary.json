@@ -1,0 +1,1118 @@
+{
+  "manifestoData": [
+    {
+      "id": "1",
+      "title": "Transform CIAA Into a Truly Independent Anti-Corruption Force",
+      "description": "Transform Nepal's anti-corruption commission into a powerful, independent body that can actually investigate and prosecute corruption cases without political interference.",
+      "category": "Anti-Corruption",
+      "priority": "High",
+      "timeline": "5 years",
+      "problem": {
+        "short": "The CIAA has legal powers but can't use them effectively. Political leaders control who gets appointed, the government controls its budget, and it lacks skilled staff and modern tools to investigate corruption properly."
+      },
+      "solution": {
+        "short": [
+          "Give CIAA power to prosecute cases directly in court",
+          "Allow CIAA to freeze corrupt officials' bank accounts during investigations",
+          "Make CIAA's budget independent from government control",
+          "Select commissioners through competitive exams, not political appointments",
+          "Protect commissioners from being fired for 5-8 years"
+        ]
+      },
+      "performanceTargets": [
+        "Win 80% of corruption cases within 2 years",
+        "Reduce case completion time from 3+ years to 6 months",
+        "Take 90% of major corruption cases to court",
+        "Recover 60% of stolen money in proven corruption cases"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Singapore's anti-corruption agency has 98% conviction rate because it's completely independent",
+          "Hong Kong eliminated government corruption within 10 years using an independent commission",
+          "Indonesia's anti-corruption commission achieves 77% conviction rate with major prosecutions"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "First 6 months: Change laws to give CIAA prosecution powers and asset freezing authority",
+          "Months 7-12: Set up special courts and hire qualified investigators",
+          "Years 2-3: Build political support for constitutional changes",
+          "Years 3-5: Complete constitutional amendment for full independence"
+        ]
+      },
+      "legalFoundation": "Articles 238-239 of Constitution 2015, CIAA Act 2048 (1991)"
+    },
+    {
+      "id": "2",
+      "title": "Fresh Elections in 180 Days",
+      "description": "Conduct new parliamentary elections within 6 months with strict rules to ensure only qualified, honest candidates can run and all campaign money is transparent.",
+      "category": "Electoral Reform",
+      "priority": "High",
+      "timeline": "180 days",
+      "problem": {
+        "short": "The current government has lost people's trust. The election system allows criminals and corrupt people to run for office, and voters don't know where campaign money comes from."
+      },
+      "solution": {
+        "short": [
+          "Dissolve parliament and hold elections within 180 days",
+          "Ban candidates with criminal charges or corruption cases from running",
+          "Require all campaign donations and spending to be published online daily",
+          "Only allow individual people to donate money, no corporate donations",
+          "Add 'None of the Above' option - if it wins, hold new elections with new candidates"
+        ]
+      },
+      "performanceTargets": [
+        "Complete background verification for 100% of candidates",
+        "Real-time tracking of all campaign donations and spending",
+        "Zero tolerance for hidden campaign funding",
+        "Complete electoral process within 180 days"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Ecuador allows president to dissolve parliament to break political deadlocks",
+          "Canada requires real-time disclosure of donations over $200 within 3 days",
+          "Countries with strict campaign finance rules have higher public trust in elections"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "President dissolves parliament due to political crisis",
+          "Election Commission publishes complete background checks on all candidates",
+          "Change electoral laws to disqualify candidates with pending corruption cases",
+          "Require candidates to submit audited expense reports within 30 days"
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "title": "Decentralize Power from Kathmandu to Provinces and Local Levels",
+      "description": "Give real decision-making power and budget control to provincial and local governments so people don't have to go to Kathmandu for every approval.",
+      "category": "Federalism",
+      "priority": "High",
+      "timeline": "2 years",
+      "problem": {
+        "short": "Everything gets decided in Kathmandu, creating long delays and opportunities for corruption. Every budget, project, and approval has to go through the center, making simple things complicated."
+      },
+      "solution": {
+        "short": [
+          "Implement constitutional powers already given to provinces and local governments",
+          "Give 60% of national budget directly to provinces and local areas",
+          "Let provinces keep 40% of taxes collected in their areas",
+          "Allow municipalities to approve projects up to 50 crore without federal permission",
+          "Let provinces hire and manage their own civil servants"
+        ]
+      },
+      "performanceTargets": [
+        "Transfer 60% of national budget to local levels",
+        "Provinces keep 40% of taxes within 3 years",
+        "All municipalities get 50 crore approval authority",
+        "100% compliance with constitutional decentralization requirements"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Indonesia reduced central government dependency from 82% to 48% through decentralization",
+          "Philippines increased local government funds by 55% through decentralization",
+          "Switzerland makes most decisions at local level, creating efficient, clean government"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Use existing constitutional provisions and change federal laws immediately",
+          "Complete administrative transfer to local governments within 2 years",
+          "Transfer budget authority to provinces and local governments",
+          "Set up provincial civil service systems"
+        ]
+      }
+    },
+    {
+      "id": "4",
+      "title": "Implement Mandatory Wealth Disclosure for All Politicians",
+      "description": "Force all politicians and candidates to publish their complete assets online so citizens can see how they become rich on government salaries.",
+      "category": "Transparency",
+      "priority": "High",
+      "timeline": "6 months",
+      "problem": {
+        "short": "Politicians become millionaires while earning modest government salaries, but nobody knows where their wealth comes from. This enables corruption and destroys public trust."
+      },
+      "solution": {
+        "short": [
+          "Publish all politician assets online within 7 days in searchable format",
+          "Require candidates to declare all assets before they can run for office",
+          "Demand supporting documents like property deeds and bank statements",
+          "Automatically investigate anyone whose wealth increases by 50% in one year",
+          "Have multiple agencies cross-check declarations against tax and bank records"
+        ]
+      },
+      "performanceTargets": [
+        "100% politician compliance with asset disclosure within 60 days",
+        "Public portal operational with downloadable data",
+        "Investigate all suspicious wealth increases automatically",
+        "Criminal prosecution for false declarations"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Ukraine's digital asset system processes over 1 million declarations annually",
+          "93% of countries require cabinet asset disclosure, but only 43% make it public",
+          "Digital transparency led to prosecution of 5,131 civil servants for corruption by 2020"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Give current politicians 60 days to comply or face disqualification",
+          "Launch public portal within 6 months",
+          "Change laws to require public disclosure instead of confidential filing",
+          "Create central portal coordinated by anti-corruption agencies"
+        ]
+      }
+    },
+    {
+      "id": "5",
+      "title": "Set Strict Qualifications for Government Ministers and Members of Parliament",
+      "description": "Require government ministers to have education and experience relevant to their jobs instead of choosing them based only on political loyalty.",
+      "category": "Governance",
+      "priority": "High",
+      "timeline": "1 year",
+      "problem": {
+        "short": "Ministers and MPs are chosen through political deals rather than qualifications, leading to poor governance and waste of public resources."
+      },
+      "solution": {
+        "short": [
+          "Pass law requiring ministers to have relevant education or experience",
+          "Require either: Bachelor's degree + 3 years experience OR 10+ years sector experience",
+          "Health Minister must have medical or public health background",
+          "Finance Minister must have economics, finance, or banking experience",
+          "Prime Minister must justify all ministerial appointments to Parliament in writing"
+        ]
+      },
+      "performanceTargets": [
+        "100% of ministers meet qualification requirements within 1 year",
+        "Parliamentary justification published for all appointments",
+        "Competitive compensation aligned with senior civil service",
+        "Zero appointments based only on party loyalty"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "UK cabinet has 91% university-educated members despite no formal requirements",
+          "India's 2014 cabinet had 91% graduates through political pressure for competence",
+          "Political systems naturally improve when voters demand qualified leaders"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Pass Ministerial Qualifications Act through Parliament (simple majority needed)",
+          "Apply immediately to all new appointments",
+          "Work toward constitutional amendment for permanent protection",
+          "Set fair compensation to attract qualified people"
+        ]
+      }
+    },
+    {
+      "id": "6",
+      "title": "Constitutional Reform for Stable Governance",
+      "description": "Create independent oversight of government appointments, strengthen anti-corruption powers, and work toward long-term constitutional changes for political stability.",
+      "category": "Constitutional Reform",
+      "priority": "High",
+      "timeline": "5 years",
+      "problem": {
+        "short": "Nepal's parliamentary system creates constant instability, frequent government collapses, and allows unqualified party loyalists to become ministers without independent review."
+      },
+      "solution": {
+        "short": [
+          "Create independent commission to review all ministerial appointments publicly",
+          "Require education and experience standards for all ministers",
+          "Give anti-corruption commission independent prosecution powers",
+          "Allow overseas Nepalis to vote in elections",
+          "Long-term goal: Direct presidential elections separate from legislature"
+        ]
+      },
+      "performanceTargets": [
+        "Independent commission reviews all ministerial appointments publicly",
+        "100% ministerial appointments meet qualification standards",
+        "Anti-corruption commission gets prosecution powers within 12 months",
+        "Build political consensus for constitutional amendments"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Singapore's merit-based appointment system contributed to 100x GDP growth over 60 years",
+          "South Korea's 1987 constitutional reforms created stable democratic institutions",
+          "Estonia combined immediate reforms with long-term constitutional development"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Phase 1 (0-12 months): Create appointment commission, pass qualification laws",
+          "Phase 2 (2-5 years): Build political consensus for constitutional amendments",
+          "Show that immediate reforms work before proposing constitutional changes",
+          "Gradual implementation with measurable results at each phase"
+        ]
+      }
+    },
+    {
+      "id": "7",
+      "title": "Digitize All Government Services",
+      "description": "Create a unified digital system where citizens can access all government services online 24/7, eliminating corruption and bureaucratic delays.",
+      "category": "Digital Governance",
+      "priority": "High",
+      "timeline": "2 years",
+      "problem": {
+        "short": "Government systems don't work together, forcing citizens to submit the same documents multiple times. Many services are still manual, creating delays and opportunities for corruption."
+      },
+      "solution": {
+        "short": [
+          "Connect all government computer systems so they can share information",
+          "Create national digital standards and cybersecurity center",
+          "Build single website (Nepal.gov.np) for all government services",
+          "Use national ID cards for all government services",
+          "Provide 24/7 AI chatbot to help citizens navigate services"
+        ]
+      },
+      "performanceTargets": [
+        "100% government services available online within 24 months",
+        "90% of service requests completed within published timelines",
+        "24/7 virtual assistant handles 80% of citizen questions",
+        "Complete elimination of duplicate document submissions"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Estonia provides 100% of services online, saving citizens 1,400 years annually",
+          "India's digital system eliminated 25 million fake beneficiaries, saving ₹3.5 lakh crore",
+          "Digital signatures alone save €2,700 per year for institutions"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-6: Set up digital standards center and expand government portal",
+          "Months 7-18: Connect all ministries, train staff, deploy help systems",
+          "Months 19-24: Launch full service availability and accountability systems",
+          "Change laws to require efficient service delivery with penalties for delays"
+        ]
+      }
+    },
+    {
+      "id": "8",
+      "title": "Create Transparent Public Contracting",
+      "description": "Reform government procurement to eliminate corruption by requiring independent verification, fair bidding processes, and real-time public tracking of all contracts.",
+      "category": "Procurement Reform",
+      "priority": "High",
+      "timeline": "2 years",
+      "problem": {
+        "short": "Government contracts often go to pre-selected companies through biased specifications and corrupt practices. The lowest bidder system often results in poor quality work."
+      },
+      "solution": {
+        "short": [
+          "Have independent auditors verify all bid documents to ensure fairness",
+          "Award contracts based on average bid price, not just lowest price",
+          "Require electronic bidding for all contracts above Rs. 500,000",
+          "Publish all contract details and payments online in real-time",
+          "Enforce strict penalties and automatic bans for companies that fail to deliver"
+        ]
+      },
+      "performanceTargets": [
+        "Average 3+ bidders per contract for all government projects",
+        "15% cost savings compared to previous years",
+        "80% of projects completed on time as contracted",
+        "90% of citizen complaints resolved within 30 days"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Rwanda's digital system increased bidders per tender from 2.1 to 4.2 participants",
+          "Estonia achieved 96% electronic procurement with 40% time reduction",
+          "Georgia's reforms reduced infrastructure costs by 30-50% while eliminating cartels"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-6: Upgrade procurement systems and change laws",
+          "Months 7-12: Roll out starting with central ministries",
+          "Year 2: Full implementation including local governments with monitoring",
+          "Independent audits by Auditor General of all major contracts"
+        ]
+      }
+    },
+    {
+      "id": "9",
+      "title": "Break Monopolies and Strengthen Consumer Protection",
+      "description": "Stop monopolistic business practices through strong competition enforcement, temporary import relaxation, and consumer protection courts in every district.",
+      "category": "Competition Policy",
+      "priority": "Medium",
+      "timeline": "2 years",
+      "problem": {
+        "short": "Business associations control prices and supply chains without competition. Weak enforcement allows cartels to operate freely, making everything expensive for ordinary people."
+      },
+      "solution": {
+        "short": [
+          "Give Competition Commission power to investigate and punish cartels",
+          "Temporarily allow easier imports of monopolized goods to increase competition",
+          "Create Small Importer License for individuals and small businesses",
+          "Set up consumer courts in every district with penalty powers",
+          "Heavy fines for businesses selling above Maximum Retail Price"
+        ]
+      },
+      "performanceTargets": [
+        "30% average price reduction in essential goods within 18 months",
+        "500% increase in registered small importers",
+        "50% reduction in consumer complaints about monopolistic pricing",
+        "Consumer courts operational in 100% of districts"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "South Korea's competition enforcement after 1997 coincided with economic growth acceleration",
+          "India's Competition Act 2002 supported economic liberalization and GDP growth",
+          "Countries with strong competition policy show higher manufacturing growth"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 0-6: Issue temporary import relaxation order and digital permit system",
+          "Months 7-12: Track imports with monitoring and safety audits",
+          "Year 1: Assess impact on competition and prices",
+          "Year 2: Full evaluation and policy adjustment based on results"
+        ]
+      }
+    },
+    {
+      "id": "10",
+      "title": "Reform Public Transportation with Smart Urban Planning",
+      "description": "Create efficient public transport through dedicated bus lanes, massive electric bus expansion, intelligent traffic systems, and integrated payment systems.",
+      "category": "Transportation",
+      "priority": "Medium",
+      "timeline": "3 years",
+      "problem": {
+        "short": "Traffic chaos, pollution, and unreliable public transport create daily hardships for citizens and hurt the economy through lost time and health costs."
+      },
+      "solution": {
+        "short": [
+          "Build dedicated lanes: 2 for electric buses, 2 for walking/cycling, 2 for private vehicles",
+          "Expand Sajha Yatayat: 1 electric bus per 500-1,000 urban residents",
+          "Install intelligent traffic lights that give priority to buses using GPS",
+          "Create unified payment system with cards and mobile apps for all transport",
+          "Provide real-time GPS tracking so people know when buses will arrive"
+        ]
+      },
+      "performanceTargets": [
+        "40% reduction in average commute times within 3 years",
+        "80% of urban residents within 500m of reliable public transport",
+        "50% reduction in private vehicle use during peak hours",
+        "90% on-time performance for scheduled services"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Bogotá's bus system reduced travel time by 32% and air pollution by 40%",
+          "Curitiba's bus system serves 70-80% of commuters at $200,000 per km vs. $90 million for subways",
+          "Lagos bus system reduced travel time by 40% and CO₂ by 13% while cutting fares 30%"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Year 1: Plan routes, conduct environmental studies, buy bus fleets",
+          "Year 2: Build major routes, install GPS systems, launch integrated ticketing",
+          "Year 3: Full network operation, optimize performance, plan expansion"
+        ]
+      }
+    },
+    {
+      "id": "11",
+      "title": "Transform Education for All Nepalis",
+      "description": "Transform education through expanded government schools, qualified teachers, practical skills training, and digital learning to ensure every child gets quality education.",
+      "category": "Education",
+      "priority": "High",
+      "timeline": "5 years",
+      "problem": {
+        "short": "Rural areas lack quality schools while private schools exploit families. Government schools have unqualified teachers and outdated curricula that don't prepare students for jobs."
+      },
+      "solution": {
+        "short": [
+          "Build model government schools with proper facilities in underserved areas",
+          "Require all teachers to re-qualify every 5 years with proper training",
+          "Add practical skills to curriculum: coding, agriculture, carpentry, hospitality",
+          "Create digital learning platform with e-books and recorded lessons",
+          "Regulate private schools with fee transparency and mandatory free seats for poor students"
+        ]
+      },
+      "performanceTargets": [
+        "95% primary enrollment in underserved areas within 5 years",
+        "All teachers certified under new standards by year 5",
+        "50% reduction in private school fee complaints",
+        "25% improvement in standardized test scores"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Kenya eliminated school fees in 2003 and doubled primary enrollment to 99%",
+          "Finland became world leader in education through focus on teacher training",
+          "Brazil increased per-student spending 40% while reducing inequality between regions",
+          "Rwanda increased young women's university enrollment by 167%"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Year 1: Map underserved areas, start teacher requalification, establish regulatory authority",
+          "Years 2-3: Build model schools, reform curriculum, enforce private school rules",
+          "Years 4-5: Full system operation, measure quality improvements, optimize performance"
+        ]
+      }
+    },
+    {
+      "id": "12",
+      "title": "Promote Local Production and Innovation, Ensure Quality",
+      "description": "Reduce import dependency by supporting local businesses through public-private investment funds, tax incentives, supply chain help, and university partnerships.",
+      "category": "Economic Development",
+      "priority": "Medium",
+      "timeline": "3 years",
+      "problem": {
+        "short": "Nepal imports too much and produces too little. Local businesses face high costs, bureaucracy, and unreliable energy, while farmers lack legal protection and market access."
+      },
+      "solution": {
+        "short": [
+          "Create Industrial Growth Fund that invests in local companies with private partners",
+          "Give tax breaks to companies that meet local content and employment targets",
+          "Help farmers with forward purchase agreements and quality grading centers",
+          "Fund university-industry research projects through competitive grants",
+          "Ensure transparent, competitive selection for all support programs"
+        ]
+      },
+      "performanceTargets": [
+        "50% increase in local content of manufactured goods within 5 years",
+        "200 new manufacturing jobs per 10 crore fund investment",
+        "30% increase in university-industry collaborative projects",
+        "25% reduction in key raw material import dependency"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Malaysia achieved 7.3% annual GDP growth through coordinated public investment",
+          "Chile diversified beyond mining through upstream/downstream industrial linkages",
+          "OECD analysis shows conditional incentives work better than unconditional ones"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-6: Set up Industrial Growth Fund and design tax incentive framework",
+          "Year 1: Make first investments, pilot raw material programs",
+          "Years 2-3: Scale successful models, evaluate performance, optimize systems"
+        ]
+      }
+    },
+    {
+      "id": "13",
+      "title": "Reform Student Politics into Civic Education",
+      "description": "Ban political party control of student unions and replace with independent student councils while teaching proper civic education in all schools and universities.",
+      "category": "Education Reform",
+      "priority": "Medium",
+      "timeline": "3 years",
+      "problem": {
+        "short": "Student unions act as branches of political parties, leading to violence, strikes, and property damage. Students graduate without understanding how democracy actually works."
+      },
+      "solution": {
+        "short": [
+          "Ban student unions from being controlled by political parties",
+          "Replace party-backed unions with independent elected student councils",
+          "Create punishment system: suspension, fines, community service for violence",
+          "Integrate student councils with National Youth Council for governance training",
+          "Teach comprehensive civic education from secondary through university levels"
+        ]
+      },
+      "performanceTargets": [
+        "80% reduction in campus violence incidents within 2 years",
+        "90% of graduates demonstrate basic constitutional knowledge",
+        "50 student-led civic projects launched annually",
+        "Zero incidents of party-political interference in campus governance"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Germany's student government system keeps student unions separate from party politics",
+          "Finland's civic education produces citizens with highest political knowledge globally",
+          "South Korea channeled student activism into constructive civic engagement after democratization"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-6: Change education regulations, help universities adopt new codes",
+          "Year 1: Hold independent student council elections, develop civic curriculum",
+          "Years 2-3: Connect student councils to youth governance, establish pathways to public service"
+        ]
+      }
+    },
+    {
+      "id": "14",
+      "title": "Make Security Services Merit-Based with Health Checks",
+      "description": "Choose security personnel based on capability rather than loyalty, with transparent performance tracking, rotation limits, and mandatory health evaluations.",
+      "category": "Security Reform",
+      "priority": "Medium",
+      "timeline": "5 years",
+      "problem": {
+        "short": "Security personnel are chosen for political loyalty rather than capability. Lack of health checks and long tenures in same positions undermine professionalism and public safety."
+      },
+      "solution": {
+        "short": [
+          "Fill all senior security positions through competitive exams and performance reviews",
+          "Publish performance scorecards online with security-sensitive information removed",
+          "Limit postings to maximum 3 years in same location",
+          "Require annual mental health checks and quarterly drug/alcohol screening",
+          "Protect officers who report political interference through legal safeguards"
+        ]
+      },
+      "performanceTargets": [
+        "100% senior positions filled through competitive exams by Year 2",
+        "95% compliance with annual health evaluations",
+        "40% reduction in public complaints against security services",
+        "60% improvement in public trust ratings"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Singapore's merit-based public service contributed to world's most efficient bureaucracy",
+          "Estonia's digital civil service achieved 99% online service availability",
+          "Merit-based systems correlate with reduced corruption and improved public trust"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 0-12: Change police rules, introduce rotation requirements, start health checks",
+          "Years 1-3: Expand Public Service Commission authority, create advisory panels",
+          "Years 3-5: Digital HR platform, expand civilian oversight"
+        ]
+      }
+    },
+    {
+      "id": "15",
+      "title": "Attract Quality Foreign Investment with Strong Safeguards",
+      "description": "Create clear investment rules that attract quality foreign investment while protecting national interests through transparent screening and community benefit requirements.",
+      "category": "Investment Policy",
+      "priority": "Medium",
+      "timeline": "3 years",
+      "problem": {
+        "short": "Nepal loses good investors due to unclear rules and bureaucracy, while lacking safeguards against exploitative investment that doesn't benefit local communities."
+      },
+      "solution": {
+        "short": [
+          "Create single, clear investment manual with all rules and timelines",
+          "Set up investment screening unit to evaluate projects for national security and community impact",
+          "Require community consent and benefit sharing for resource extraction projects",
+          "Mandate technology transfer commitments for strategic sector investments",
+          "Focus on attracting technology development and value-added manufacturing"
+        ]
+      },
+      "performanceTargets": [
+        "50% increase in quality foreign investment within 3 years",
+        "100% of strategic investments include technology transfer commitments",
+        "75% improvement in investment approval timeline transparency",
+        "Zero exploitative resource extraction without community benefits"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "37 countries maintain strong foreign investment while protecting critical sectors",
+          "Singapore combines open markets with strategic screening for quality investment",
+          "Canada's investment review process shows how transparent conditional approval works"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-3: Set up screening unit and publish investment manual",
+          "Months 4-6: Create community benefit templates and technology transfer frameworks",
+          "Year 1: Full screening system operation with first conditional approvals"
+        ]
+      }
+    },
+    {
+      "id": "16",
+      "title": "Make Proportional Representation More Democratic",
+      "description": "Reform PR candidate selection through open party primaries and regional constituencies while maintaining constitutional inclusion requirements for marginalized communities.",
+      "category": "Electoral Reform",
+      "priority": "Medium",
+      "timeline": "3 years",
+      "problem": {
+        "short": "Party leaders choose PR representatives without voter input, weakening democratic accountability while still needing to ensure inclusion for marginalized communities."
+      },
+      "solution": {
+        "short": [
+          "Require parties to hold open primaries where members vote for PR candidates",
+          "Create regional PR constituencies instead of single national list",
+          "Add accountability measures with public reporting and recall provisions",
+          "Keep constitutional quotas for marginalized communities as required",
+          "Strengthen community input in PR candidate selection processes"
+        ]
+      },
+      "performanceTargets": [
+        "100% PR nominations through open party primaries",
+        "Regional representation for all PR constituencies",
+        "Enhanced accountability mechanisms for all MPs",
+        "Maintained constitutional inclusion requirements"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Germany's system combines local accountability with proportional inclusion",
+          "New Zealand reformed party list processes to increase democratic input",
+          "Scotland's system maintains accountability while ensuring diverse representation"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Constitutional amendment required for major changes",
+          "Immediate reforms through Election Commission regulations",
+          "Strengthen election commission authority for accountability enforcement",
+          "Build political consensus for deeper constitutional reforms"
+        ]
+      }
+    },
+    {
+      "id": "17",
+      "title": "End Permanent Government Jobs Without Performance",
+      "description": "Create accountability systems for government employees through performance management, citizen complaints, and consequences for poor service while maintaining fair process.",
+      "category": "Civil Service Reform",
+      "priority": "High",
+      "timeline": "3 years",
+      "problem": {
+        "short": "Government employees work without fear of consequences, leading to poor service and corruption. Citizens suffer while officials remain comfortable regardless of performance."
+      },
+      "solution": {
+        "short": [
+          "Create national citizen complaint portal with case tracking and resolution timelines",
+          "Set quarterly performance targets for all frontline government workers",
+          "Modernize recruitment to test practical skills, not just multiple choice questions",
+          "Allow citizens to sue government officials personally for negligence through fast courts",
+          "Protect against false complaints with strong due process and legal representation"
+        ]
+      },
+      "performanceTargets": [
+        "80% improvement in citizen satisfaction with government services within 3 years",
+        "90% of service requests completed within published timelines",
+        "50% reduction in corruption complaints",
+        "95% of government employees meet digital literacy standards"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "New Zealand's civil service transformation improved efficiency while maintaining due process",
+          "Singapore's performance-based system ranks among world's most efficient governments",
+          "Georgia's reforms increased public satisfaction from 5% to over 70% after 2003"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-3: Launch complaint portal, start performance reviews, test digital skills",
+          "Months 4-6: Complete legal framework, set up fast-track courts",
+          "Year 1: Full accountability system operation with performance-based actions"
+        ]
+      }
+    },
+    {
+      "id": "18",
+      "title": "End Political Appointments in Government",
+      "description": "Fill all senior government positions through competitive examinations and experience requirements instead of political loyalty and party connections.",
+      "category": "Civil Service Reform",
+      "priority": "High",
+      "timeline": "1 year",
+      "problem": {
+        "short": "All top government jobs go to political loyalists rather than qualified people, creating incompetent administration that serves party interests instead of citizens."
+      },
+      "solution": {
+        "short": [
+          "Require competitive written and practical exams for all senior positions",
+          "Demand minimum 8 years relevant experience with proven performance record",
+          "Use independent selection panels with technical experts, no active politicians",
+          "Publish candidate qualifications and selection reasons publicly",
+          "Give officials fixed tenure protection so they can't be fired arbitrarily"
+        ]
+      },
+      "performanceTargets": [
+        "100% senior appointments through competitive examination within 1 year",
+        "50% improvement in government service delivery within 2 years",
+        "90% reduction in political interference complaints within 3 years",
+        "Complete elimination of party-based appointments"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Singapore's merit-based civil service contributed to 100x GDP growth from 1959-2009",
+          "South Korea's 1980s reforms eliminated political appointments, enabling economic miracle",
+          "Botswana's merit-based appointments created Africa's most effective government"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Immediate order ending political appointments within 30 days",
+          "Public Service Commission enforces merit requirements",
+          "Evaluation period for current appointees with competency tests",
+          "Change Civil Service Act to remove party-based trade unions"
+        ]
+      },
+      "legalFoundation": "Article 51 mandates competent governance. Civil Service Act 2049 requires merit-based recruitment"
+    },
+    {
+      "id": "19",
+      "title": "Make Courts Truly Independent",
+      "description": "Ensure judicial independence through merit-based judge appointments, transparent accountability, and constitutional protections from political interference.",
+      "category": "Judicial Reform",
+      "priority": "High",
+      "timeline": "5 years",
+      "problem": {
+        "short": "Judges appointed through political connections compromise court independence. Lack of transparency in judicial conduct undermines rule of law and public trust."
+      },
+      "solution": {
+        "short": [
+          "Create independent commission with retired judges and legal scholars to select new judges",
+          "Select judges through written exams, case analysis, and public interviews",
+          "Require annual asset declarations and performance transparency for all judges",
+          "Give judges fixed tenure security and financial independence from executive control",
+          "Create enforcement mechanisms to ensure court orders are actually implemented"
+        ]
+      },
+      "performanceTargets": [
+        "90% public confidence in judicial independence within 5 years",
+        "100% asset declaration compliance by all judges",
+        "50% reduction in case processing times",
+        "Zero tolerance for political interference in judicial appointments"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Chile's 1990s judicial reforms enabled prosecution of military officials and politicians",
+          "South Africa's independent judiciary prosecuted corruption across all political parties",
+          "Botswana's independent judiciary consistently ranks among world's most trusted"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Set up Independent Judicial Appointment Commission within 6 months",
+          "Gradual transition with new process for future vacancies",
+          "Public education campaigns on importance of judicial independence",
+          "Constitutional reforms to strengthen judicial council structure"
+        ]
+      },
+      "legalFoundation": "Article 126 guarantees judicial independence. Articles 128-138 establish Supreme Court authority"
+    },
+    {
+      "id": "20",
+      "title": "Track All Government Spending in Real-Time",
+      "description": "Create digital system where every government transaction is published online within 24 hours so citizens can see how their tax money is spent.",
+      "category": "Financial Transparency",
+      "priority": "High",
+      "timeline": "18 months",
+      "problem": {
+        "short": "Citizens have no idea how their tax money is spent. Government financial transactions happen in secret, enabling massive corruption and waste of public resources."
+      },
+      "solution": {
+        "short": [
+          "Publish every government transaction online within 24 hours with complete details",
+          "Show amount, purpose, beneficiary, and approval authority for all spending",
+          "Require all senior officials to publish annual asset declarations online",
+          "Provide mobile-friendly interface with SMS alerts for major spending in citizen's area",
+          "Cross-check all declarations against tax records and bank data automatically"
+        ]
+      },
+      "performanceTargets": [
+        "100% government transactions online within 18 months",
+        "90% citizen awareness of spending in their area within 2 years",
+        "50% reduction in financial irregularities through transparency pressure",
+        "Real-time public access to all non-sensitive financial data"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Estonia publishes all transactions in real-time, achieving 95% citizen trust in government",
+          "Brazil's transparency portal enabled citizen oversight that discovered major corruption",
+          "South Korea's digital budget tracking exposed corruption and improved democratic accountability"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Launch digital platform integrating existing systems within 12 months",
+          "Train all financial officers on transparent reporting requirements",
+          "Build audit capacity in Auditor General and provincial offices",
+          "Change laws to mandate real-time disclosure of all transactions"
+        ]
+      },
+      "legalFoundation": "Right to Information Act 2007 requires proactive disclosure. Article 27 guarantees information access"
+    },
+    {
+      "id": "21",
+      "title": "Make All Government Decisions Transparent",
+      "description": "Broadcast all official meetings live, publish decision summaries within 48 hours, and guarantee citizen access to government information within 15 days.",
+      "category": "Transparency",
+      "priority": "High",
+      "timeline": "1 year",
+      "problem": {
+        "short": "Government decisions are made behind closed doors without public input. Citizens have no idea what their representatives discuss or decide on their behalf."
+      },
+      "solution": {
+        "short": [
+          "Broadcast all official meetings live except for national security matters",
+          "Publish bullet-point summaries of key discussions and decisions within 48 hours",
+          "Guarantee all citizen information requests answered within 15 working days",
+          "Require 30-day public comment periods for all major policy changes",
+          "Provide information in Nepali, English, and major local languages"
+        ]
+      },
+      "performanceTargets": [
+        "80% of official meetings broadcast live within 1 year",
+        "95% of information requests fulfilled within 15 days",
+        "60% increase in citizen engagement with government processes",
+        "Complete elimination of closed-door decision making"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Finland's open government achieves world's highest government trust ratings",
+          "Estonia's digital transparency contributes to 85% citizen satisfaction with government",
+          "Uruguay's mandatory meeting broadcasts significantly reduced corruption"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Upgrade broadcasting infrastructure for live streaming within 6 months",
+          "Develop digital platform integrating existing systems",
+          "Train all officials on transparency requirements and citizen engagement",
+          "Change Right to Information Act to strengthen disclosure requirements"
+        ]
+      },
+      "legalFoundation": "Article 27 guarantees Right to Information. Constitution mandates transparency in governance"
+    },
+    {
+      "id": "22",
+      "title": "Add 'None of the Above' Option in All Elections",
+      "description": "Allow voters to reject all candidates by choosing 'None of the Above' - if NOTA wins, hold fresh elections with entirely new candidates.",
+      "category": "Electoral Reform",
+      "priority": "Medium",
+      "timeline": "6 months",
+      "problem": {
+        "short": "Citizens are forced to choose between inadequate candidates with no way to reject all options, reducing democratic legitimacy and voter satisfaction."
+      },
+      "solution": {
+        "short": [
+          "Add NOTA option on all ballots for every election and position",
+          "Hold fresh election with new candidates if NOTA wins plurality",
+          "Ban all original candidates from running in the re-election",
+          "Count and publish NOTA votes just like any other candidate",
+          "Educate voters about NOTA option and its democratic purpose"
+        ]
+      },
+      "performanceTargets": [
+        "NOTA option available in all elections within 6 months",
+        "90% voter awareness of NOTA option within 1 year",
+        "Measurable improvement in candidate quality as parties respond to NOTA pressure",
+        "Enhanced democratic legitimacy through meaningful voter choice"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "India's NOTA option since 2013 gives voters meaningful choice and improves candidate quality",
+          "Nevada (USA) has used NOTA since 1975, forcing parties to reconsider candidate selection",
+          "Colombia's blank vote option empowers citizens to express dissatisfaction democratically"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Election Commission issues ballot design requirements including NOTA within 3 months",
+          "Launch voter education campaign on NOTA option and its significance",
+          "Train election officials on proper counting and reporting of NOTA votes",
+          "Create legal framework for re-election procedures when NOTA wins"
+        ]
+      },
+      "legalFoundation": "Article 17 protects freedom of expression including right to reject. Supreme Court mandate requires NOTA implementation"
+    },
+    {
+      "id": "23",
+      "title": "Limit Prime Ministers to Two Terms Maximum",
+      "description": "Amend constitution to prevent any individual from serving as Prime Minister for more than two terms (10 years total) to ensure leadership renewal.",
+      "category": "Constitutional Reform",
+      "priority": "Medium",
+      "timeline": "2 years",
+      "problem": {
+        "short": "Concentration of power in a single leader for extended periods undermines democratic renewal and creates opportunities for corruption and institutional capture."
+      },
+      "solution": {
+        "short": [
+          "Set maximum of two terms with no individual serving more than 10 years total",
+          "Count non-consecutive terms toward the limit",
+          "Serving more than half a parliamentary term counts as full term",
+          "Apply term limits from amendment enactment, not retroactively",
+          "Follow constitutional amendment process requiring 2/3 Parliamentary majority"
+        ]
+      },
+      "performanceTargets": [
+        "Constitutional amendment passed within 2 years",
+        "Clear succession planning encouraged in political parties",
+        "Enhanced institutional development beyond individual personalities",
+        "Regular leadership renewal ensuring democratic vitality"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "United States two-term limit ensures regular executive renewal since 1951",
+          "South Korea's single five-year term prevents power entrenchment",
+          "Mexico's six-year single term contributed to political stability since 1917"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Constitutional amendment process requiring 2/3 Parliamentary majority",
+          "Consult provincial assemblies to build consensus",
+          "2-year process for full constitutional amendment completion",
+          "Public education campaign on democratic benefits of term limits"
+        ]
+      },
+      "legalFoundation": "Article 76 governs Prime Minister appointment. Constitutional amendment process under Article 274"
+    },
+    {
+      "id": "24",
+      "title": "Reform Government Property Management",
+      "description": "Transform disposal of seized vehicles and government property through transparent systems, educational donations, and revenue generation while protecting owner rights.",
+      "category": "Public Administration",
+      "priority": "Low",
+      "timeline": "18 months",
+      "problem": {
+        "short": "Thousands of seized vehicles rot in police stations while students lack practical learning materials. Poor property management creates corruption opportunities and wastes resources."
+      },
+      "solution": {
+        "short": [
+          "Set 6-month deadline for vehicle reclaim, then automatic public disposal",
+          "Create digital registry with photos and case status for all seized vehicles",
+          "Protect genuine owners' right to reclaim before disposal with proper documentation",
+          "Donate non-roadworthy vehicles to technical schools for student training",
+          "Sell roadworthy vehicles through transparent public online auctions"
+        ]
+      },
+      "performanceTargets": [
+        "90% reduction in police station vehicle storage within 18 months",
+        "100 vehicles donated to educational institutions annually",
+        "50% increase in transparency of public property disposal",
+        "Significant revenue generation for road safety fund"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Germany and Japan donate seized vehicles to technical universities for research",
+          "India's technical institutes receive impounded vehicles for EV conversion projects",
+          "Philippines' transparent auction system eliminated corruption while generating revenue"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Launch digital registry operational within 6 months",
+          "Establish educational partnerships with technical institutions",
+          "Set up transparent auction system integrated with government platforms",
+          "Create legal framework for transparent disposal procedures"
+        ]
+      },
+      "legalFoundation": "Public Property Protection Act provides disposal authority. Education Act enables educational institution partnerships"
+    },
+    {
+      "id": "25",
+      "title": "Transform Healthcare System for Universal Coverage",
+      "description": "Revolutionize healthcare through strengthened rural infrastructure, qualified health workers, digital health systems, and universal insurance coverage for all Nepalis.",
+      "category": "Healthcare",
+      "priority": "High",
+      "timeline": "5 years",
+      "problem": {
+        "short": "Rural and marginalized communities face severe healthcare gaps due to underfunded facilities, lack of qualified doctors, poor infrastructure, creating preventable deaths and inequality."
+      },
+      "solution": {
+        "short": [
+          "Upgrade Primary Health Centers with essential medicines, labs, maternity care, and telemedicine",
+          "Train and deploy doctors, nurses, and community health workers to rural areas with incentives",
+          "Create digital health platform with electronic health records and telemedicine services",
+          "Expand government health insurance to all low-income and rural households",
+          "Strengthen preventive services with vaccination, nutrition, and mental health programs"
+        ]
+      },
+      "performanceTargets": [
+        "95% population within 30 minutes of primary health facility within 5 years",
+        "50% reduction in catastrophic out-of-pocket health spending",
+        "90% health insurance enrollment among low-income households",
+        "80% of health facilities using digital health records"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Thailand's Universal Coverage reduced catastrophic health spending by 30%",
+          "Sri Lanka achieved strong health outcomes despite low per-capita spending through equity focus",
+          "Rwanda integrated digital health, reducing child mortality by over 60% in a decade",
+          "Ethiopia's Health Extension Program trained 40,000 female health workers"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Year 1: Map health facilities, start health worker training, initiate digital platform",
+          "Years 2-3: Construct health posts, expand services, enforce insurance coverage",
+          "Years 4-5: Full system operation, nationwide digital coverage, universal rural access"
+        ]
+      },
+      "legalFoundation": "Article 35 guarantees health rights. National Health Policy 2019 and Health Insurance Act 2017"
+    },
+    {
+      "id": "26",
+      "title": "Overhaul Social Protection System",
+      "description": "Transform fragmented social protection into comprehensive life-cycle security covering health, education, employment, and caregiving with enhanced inclusion and sustainability.",
+      "category": "Social Protection",
+      "priority": "High",
+      "timeline": "5 years",
+      "problem": {
+        "short": "Social protection is fragmented, underfunded, and inadequate. Children, working-age people, and informal workers lack protection, while benefits are too small and system is unresponsive to crises."
+      },
+      "solution": {
+        "short": [
+          "Universalize child grants and extend coverage to informal workers",
+          "Raise benefit levels and rebalance spending from pensions to children and working-age groups",
+          "Create shock-responsive systems that adapt quickly to disasters and economic crises",
+          "Strengthen legal frameworks guaranteeing universal social protection programmes",
+          "Ensure sustainable financing through balanced contributory and non-contributory schemes"
+        ]
+      },
+      "performanceTargets": [
+        "50% population coverage by 2027, moving towards 60% by 2030",
+        "Universalize Child Grant nationwide reaching all children under five",
+        "2,500,000 active contributors to Social Security Fund by 2028/29",
+        "40% of social protection budget benefits children, women, and working-age people"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Brazil's Bolsa Família demonstrates large-scale child transfers with strong registry systems",
+          "Ethiopia's PSNP provides multi-year transfers with shock-responsive design for disasters",
+          "Indonesia extended health insurance to informal workers through subsidies",
+          "South Africa's Child Support Grant shows predictable transfers reduce poverty significantly"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Operationalize Integrated National Social Protection Framework immediately",
+          "Upgrade to unified beneficiary registry linked with national ID system",
+          "Phase in expansion of child grants and contributory options for informal workers",
+          "Create inter-agency Social Protection Council for coordination"
+        ]
+      },
+      "legalFoundation": "Article 51 mandates social security. Social Security Act 2017 and Contribution-Based Social Security Act 2017"
+    },
+    {
+      "id": "27",
+      "title": "Reform Financial Management System",
+      "description": "Modernize public financial management through integrated systems, citizen budget portals, scientific budgeting, and strengthened oversight to eliminate waste and enhance accountability.",
+      "category": "Financial Management",
+      "priority": "High",
+      "timeline": "2 years",
+      "problem": {
+        "short": "Financial management suffers from fragmented systems, weak accountability, oversized budgets, low spending rates, and limited public scrutiny enabling inefficiency and corruption."
+      },
+      "solution": {
+        "short": [
+          "Connect all government financial systems so they work together and share information",
+          "Create citizen budget portal showing real-time ward-level budget and spending data",
+          "Replace National Planning Commission with Finance Ministry planning division",
+          "Enforce strict budget limits and prevent staff transfers during fiscal years",
+          "Establish Parliamentary Budget Office and make performance audits mandatory"
+        ]
+      },
+      "performanceTargets": [
+        "Complete system interoperability within 2 years",
+        "Real-time ward-level budget data accessible to all citizens",
+        "Scientific budgeting with evidence-based projections",
+        "50% improvement in budget execution efficiency"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "South Korea, Chile, and Philippines have citizen budget portals enabling real-time transparency",
+          "India and Philippines show mandatory performance audits improve project outcomes",
+          "Kenya and Rwanda demonstrate digitized procurement reduces corruption",
+          "New Zealand's hard budget constraints achieve higher execution rates"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Complete system integration and launch citizen portal within 1-2 years",
+          "Reform procurement with digitized processes and legal protections",
+          "Restructure planning and enforce budget discipline through institutional changes",
+          "Establish Parliamentary Budget Office with enhanced oversight powers"
+        ]
+      },
+      "legalFoundation": "Financial Procedure Act 2019 and Public Finance Management Act provide comprehensive framework"
+    }
+  ]
+}
