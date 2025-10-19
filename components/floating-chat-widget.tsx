@@ -82,11 +82,7 @@ const FloatingChatWidget: React.FC = () => {
           className="fixed z-[9999] transition-all duration-300 transform top-0 left-0 right-0 w-full h-[calc(100vh-7rem)] sm:top-auto sm:bottom-6 sm:right-24 sm:left-auto sm:w-[min(420px,calc(100vw-120px))] sm:h-[min(640px,calc(100vh-48px))]"
         >
           {/* Iframe Container - Full Window */}
-          <div className="w-full h-full bg-white shadow-2xl overflow-hidden ring-1 ring-black/10
-                          /* Mobile: rounded bottom only */
-                          rounded-b-2xl
-                          /* Desktop: fully rounded */
-                          sm:rounded-2xl">
+          <div className="w-full h-full bg-white shadow-2xl overflow-hidden ring-1 ring-black/10 rounded-b-2xl sm:rounded-2xl">
             {loading ? (
               // Loading state while checking authentication
               <div className="flex items-center justify-center h-full bg-gradient-to-br from-green-50 to-blue-50">
