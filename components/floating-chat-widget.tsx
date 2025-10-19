@@ -32,7 +32,7 @@ const FloatingChatWidget: React.FC = () => {
 
   // Navigate to sign in page
   const handleSignIn = useCallback(() => {
-    router.push('/auth/signin')
+    router.push('/auth/login')
   }, [router])
 
   // Handle ESC key to close chat
