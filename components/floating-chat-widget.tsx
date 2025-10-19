@@ -79,7 +79,7 @@ const FloatingChatWidget: React.FC = () => {
       {/* Chat Window - NO HEADER, just iframe */}
       {isOpen && (
         <div
-          className="fixed bottom-6 right-24 z-[9999] transition-all duration-300 transform"
+          className="fixed bottom-6 right-24 z-[9999] transition-all duration-300 transform mobile-chat-container"
           style={{
             width: 'min(420px, calc(100vw - 120px))',
             height: 'min(640px, calc(100vh - 48px))',
@@ -156,7 +156,7 @@ const FloatingChatWidget: React.FC = () => {
       {/* Mobile Styles */}
       <style jsx>{`
         @media (max-width: 640px) {
-          /* Hide toggle button when chat is open on mobile */
+          /* Keep close button at bottom right */
           button[aria-label="Close chat"] {
             position: fixed !important;
             bottom: 1.5rem !important;
@@ -173,23 +173,25 @@ const FloatingChatWidget: React.FC = () => {
             right: 1.5rem !important;
           }
           
-          /* Make chat window fullscreen on mobile */
-          div[style*="420px"] {
+          /* Position chat window at top with reduced height to avoid button */
+          .mobile-chat-container {
             position: fixed !important;
-            inset: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            bottom: 0 !important;
+            top: 0 !important;
+            left: 0 !important;
             right: 0 !important;
+            bottom: auto !important;
+            width: 100vw !important;
+            /* Reduce height to leave space for close button at bottom */
+            height: calc(100vh - 7rem) !important;
+            max-width: 100% !important;
+            max-height: calc(100vh - 7rem) !important;
             margin: 0 !important;
           }
           
-          /* Remove border radius on mobile for true fullscreen */
-          div[style*="420px"] > div {
-            border-radius: 0 !important;
-            height: 100vh !important;
+          /* Adjust border radius on mobile */
+          .mobile-chat-container > div {
+            border-radius: 0 0 1rem 1rem !important;
+            height: 100% !important;
           }
         }
         
