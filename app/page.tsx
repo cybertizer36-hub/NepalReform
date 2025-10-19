@@ -1,6 +1,5 @@
-// Server wrapper to apply route segment config
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// Allow static generation with revalidation for better performance
+export const revalidate = 60 // Revalidate every 60 seconds
 
 import HomeClient from './home-client'
 

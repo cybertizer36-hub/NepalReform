@@ -6,7 +6,29 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 let translationsLoaded = false;
 let loadingPromise: Promise<void> | null = null;
 
-// Function to load translations before i18n initialization
+// Initialize i18n synchronously with empty resources first
+if (!i18n.isInitialized) {
+  i18n
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+      fallbackLng: 'en',
+      lng: 'en',
+      debug: false,
+      supportedLngs: ['en', 'np'],
+      interpolation: { escapeValue: false },
+      detection: {
+        order: ['localStorage', 'navigator', 'htmlTag'],
+        caches: ['localStorage'],
+      },
+      resources: {
+        en: { common: {}, manifesto: {} },
+        np: { common: {}, manifesto: {} }
+      }
+    });
+}
+
+// Function to load translations asynchronously in background
 async function loadTranslations() {
   if (translationsLoaded) return;
   if (loadingPromise) return loadingPromise;
@@ -19,70 +41,20 @@ async function loadTranslations() {
         fetch('/locales/np/common.json').then(r => r.json())
       ]);
 
-      // Initialize i18n with loaded translations
-      if (!i18n.isInitialized) {
-        await i18n
-          .use(LanguageDetector)
-          .use(initReactI18next)
-          .init({
-            fallbackLng: 'en',
-            lng: 'en', // default language
-            debug: false,
-            supportedLngs: ['en', 'np'],
-            
-            interpolation: {
-              escapeValue: false,
-            },
-
-            detection: {
-              order: ['localStorage', 'navigator', 'htmlTag'],
-              caches: ['localStorage'],
-            },
-
-            resources: {
-              en: {
-                common: enCommon,
-                manifesto: {}, // Will be loaded dynamically
-              },
-              np: {
-                common: npCommon,
-                manifesto: {}, // Will be loaded dynamically
-              }
-            }
-          });
-      }
+      // Add translations to existing i18n instance
+      i18n.addResourceBundle('en', 'common', enCommon, true, true);
+      i18n.addResourceBundle('np', 'common', npCommon, true, true);
 
       translationsLoaded = true;
     } catch (error) {
       console.error('Failed to load translations:', error);
-      // Initialize with empty translations as fallback
-      if (!i18n.isInitialized) {
-        await i18n
-          .use(LanguageDetector)
-          .use(initReactI18next)
-          .init({
-            fallbackLng: 'en',
-            lng: 'en',
-            debug: false,
-            supportedLngs: ['en', 'np'],
-            interpolation: { escapeValue: false },
-            detection: {
-              order: ['localStorage', 'navigator', 'htmlTag'],
-              caches: ['localStorage'],
-            },
-            resources: {
-              en: { common: {}, manifesto: {} },
-              np: { common: {}, manifesto: {} }
-            }
-          });
-      }
     }
   })();
 
   return loadingPromise;
 }
 
-// Load translations immediately (for client-side)
+// Load translations immediately in background (for client-side)
 if (typeof window !== 'undefined') {
   loadTranslations();
 }

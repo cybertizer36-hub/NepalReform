@@ -98,15 +98,29 @@ export interface ManifestoDetailItem {
   legalFoundation?: string;
 }
 
+// Cache manifesto data in memory to avoid reloading
+const manifestoCache: Record<string, ManifestoSummaryItem[]> = {};
+
 export function useManifestoData() {
   const { i18n } = useTranslation();
-  const [manifestoData, setManifestoData] = useState<ManifestoSummaryItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [manifestoData, setManifestoData] = useState<ManifestoSummaryItem[]>(() => {
+    // Initialize with cached data if available
+    return manifestoCache[i18n.language] || [];
+  });
+  const [loading, setLoading] = useState(!manifestoCache[i18n.language]);
 
   useEffect(() => {
+    // If data is already cached, don't reload
+    if (manifestoCache[i18n.language]) {
+      setManifestoData(manifestoCache[i18n.language]);
+      setLoading(false);
+      return;
+    }
+
     const loadData = async () => {
       setLoading(true);
       const data = await loadManifestoSummaryData(i18n.language);
+      manifestoCache[i18n.language] = data; // Cache the data
       setManifestoData(data);
       setLoading(false);
     };

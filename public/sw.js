@@ -1,15 +1,16 @@
 // Nepal Reforms Service Worker
 // Handles offline functionality and caching
 
-const CACHE_NAME = 'nepal-reforms-v1'
-const DYNAMIC_CACHE = 'nepal-reforms-dynamic-v1'
+const CACHE_NAME = 'nepal-reforms-v2'
+const DYNAMIC_CACHE = 'nepal-reforms-dynamic-v2'
 
 // Assets to cache on install
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
+  '/site.webmanifest',
   '/nrlogo7.png',
-  '/og-image.png',
+  '/hero.webp',
 ]
 
 // Install event - cache static assets
@@ -17,9 +18,16 @@ self.addEventListener('install', (event) => {
   console.log('Service Worker: Installing...')
   
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(CACHE_NAME).then(async (cache) => {
       console.log('Service Worker: Caching static assets')
-      return cache.addAll(STATIC_ASSETS)
+      await Promise.all(
+        STATIC_ASSETS.map((url) =>
+          cache.add(url).catch((err) => {
+            // Skip assets that fail to cache to avoid install failure
+            console.warn('Service Worker: Failed to cache', url, err)
+          })
+        )
+      )
     })
   )
   

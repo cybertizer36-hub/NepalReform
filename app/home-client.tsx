@@ -2,10 +2,20 @@
 
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
-import { ManifestoList } from "@/components/manifesto-list"
-import { TestimonialCarousel } from "@/components/testimonial-carousel"
 import Link from "next/link"
 import { useTranslation } from "react-i18next"
+import dynamic from "next/dynamic"
+
+// Lazy load heavy components
+const ManifestoList = dynamic(
+  () => import("@/components/manifesto-list").then(mod => ({ default: mod.ManifestoList })),
+  { ssr: true, loading: () => <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div> }
+)
+
+const TestimonialCarousel = dynamic(
+  () => import("@/components/testimonial-carousel").then(mod => ({ default: mod.TestimonialCarousel })),
+  { ssr: true }
+)
 
 export default function HomeClient() {
   const { t } = useTranslation('common')

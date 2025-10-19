@@ -7,7 +7,6 @@ import { Suspense } from "react"
 import { Providers } from "./providers"
 import { OfflineSync } from "@/components/offline-sync"
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration"
-import FloatingChatWidget from "@/components/floating-chat-widget"
 import { Toaster } from "sonner"
 import "./globals.css"
 
@@ -115,7 +114,6 @@ export default function RootLayout({
           <ServiceWorkerRegistration />
           <OfflineSync />
           <Suspense fallback={null}>{children}</Suspense>
-          <FloatingChatWidget />
           <Toaster position="bottom-right" richColors />
         </Providers>
         <Analytics />

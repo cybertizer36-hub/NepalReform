@@ -1,30 +1,21 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import i18n, { loadManifestoData, loadTranslations } from '@/lib/i18n';
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [isReady, setIsReady] = useState(false);
-
   useEffect(() => {
-    // Ensure translations are loaded before rendering children
-    const initializeTranslations = async () => {
-      // Load common translations first
-      await loadTranslations();
-      
-      // Then load manifesto data for the current language
-      const currentLang = i18n.language || 'en';
-      await loadManifestoData(currentLang);
-      
-      setIsReady(true);
-    };
-
-    initializeTranslations();
+    // Load translations asynchronously without blocking render
+    loadTranslations().catch(err => {
+      console.error('Failed to load translations:', err);
+    });
 
     // Listen for language changes
     const handleLanguageChange = (lng: string) => {
-      loadManifestoData(lng);
+      loadManifestoData(lng).catch(err => {
+        console.error('Failed to load manifesto data:', err);
+      });
     };
 
     i18n.on('languageChanged', handleLanguageChange);
@@ -34,8 +25,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Show loading state or render immediately
-  // We render immediately to prevent flash, but translations will be ready soon
+  // Render immediately without blocking - translations will load in background
   return (
     <I18nextProvider i18n={i18n}>
       {children}
