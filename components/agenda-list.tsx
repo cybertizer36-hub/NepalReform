@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useTranslation } from "react-i18next"
 
 // Try to import react-window components with fallback
 let FixedSizeList: any = null
@@ -70,6 +71,7 @@ const AgendaItem = memo(({ index, style, data }: { index: number; style: any; da
 AgendaItem.displayName = "AgendaItem"
 
 export const AgendaList = memo(() => {
+  const { t } = useTranslation('common')
   const [agendas, setAgendas] = useState<Agenda[]>([])
   const [userVotes, setUserVotes] = useState<{ [agendaId: string]: "like" | "dislike" }>({})
   const [voteCounts, setVoteCounts] = useState<VoteCounts>({})
@@ -307,20 +309,20 @@ export const AgendaList = memo(() => {
         <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-2">
             <Filter className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm font-medium text-muted-foreground">Filters:</span>
+            <span className="text-sm font-medium text-muted-foreground">{t('filters.label')}</span>
           </div>
 
           {/* Category Filter */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant={selectedCategory ? "default" : "outline"} size="sm">
-                {selectedCategory || "All Categories"}
+                {selectedCategory || t('filters.allCategories')}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Categories</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('filters.categories')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handleCategoryChange(null)}>All Categories</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleCategoryChange(null)}>{t('filters.allCategories')}</DropdownMenuItem>
               {categories.map((category) => (
                 <DropdownMenuItem key={category} onClick={() => handleCategoryChange(category)}>
                   {category}
@@ -333,16 +335,16 @@ export const AgendaList = memo(() => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant={selectedPriority ? "default" : "outline"} size="sm">
-                {selectedPriority ? `${selectedPriority} Priority` : "All Priorities"}
+                {selectedPriority ? `${selectedPriority} ${t('opinions.prioritySuffix')}` : t('filters.allPriorities')}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Priority Levels</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('filters.priorityLevels')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handlePriorityChange(null)}>All Priorities</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handlePriorityChange(null)}>{t('filters.allPriorities')}</DropdownMenuItem>
               {priorities.map((priority) => (
                 <DropdownMenuItem key={priority} onClick={() => handlePriorityChange(priority)}>
-                  {priority} Priority
+                  {priority} {t('opinions.prioritySuffix')}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -352,13 +354,13 @@ export const AgendaList = memo(() => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant={selectedStatus ? "default" : "outline"} size="sm">
-                {selectedStatus || "All Statuses"}
+                {selectedStatus || t('filters.allStatuses')}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Status</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('filters.status')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handleStatusChange(null)}>All Statuses</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleStatusChange(null)}>{t('filters.allStatuses')}</DropdownMenuItem>
               {statuses.map((status) => (
                 <DropdownMenuItem key={status} onClick={() => handleStatusChange(status)}>
                   {status}
@@ -370,7 +372,7 @@ export const AgendaList = memo(() => {
           {/* Clear Filters */}
           {hasActiveFilters && (
             <Button variant="ghost" size="sm" onClick={clearFilters}>
-              Clear Filters
+              {t('filters.clearFilters')}
             </Button>
           )}
         </div>
@@ -378,20 +380,20 @@ export const AgendaList = memo(() => {
         {/* Active Filters Display */}
         {hasActiveFilters && (
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm text-muted-foreground">Active filters:</span>
+            <span className="text-sm text-muted-foreground">{t('filters.activeFilters')}</span>
             {selectedCategory && (
               <Badge variant="secondary" className="text-xs">
-                Category: {selectedCategory}
+                {t('filters.categoryPrefix')} {selectedCategory}
               </Badge>
             )}
             {selectedPriority && (
               <Badge variant="secondary" className="text-xs">
-                Priority: {selectedPriority}
+                {t('filters.priorityPrefix')} {selectedPriority}
               </Badge>
             )}
             {selectedStatus && (
               <Badge variant="secondary" className="text-xs">
-                Status: {selectedStatus}
+                {t('filters.statusPrefix')} {selectedStatus}
               </Badge>
             )}
           </div>
@@ -415,11 +417,11 @@ export const AgendaList = memo(() => {
       {filteredAgendas.length === 0 && (
         <div className="text-center py-12">
           <p className="text-muted-foreground">
-            {hasActiveFilters ? "No agendas match the selected filters." : "No agendas found."}
+            {hasActiveFilters ? t('filters.noMatchesMessage') : t('filters.noAgendasMessage')}
           </p>
           {hasActiveFilters && (
             <Button variant="outline" size="sm" onClick={clearFilters} className="mt-2 bg-transparent">
-              Clear Filters
+              {t('filters.clearFilters')}
             </Button>
           )}
         </div>

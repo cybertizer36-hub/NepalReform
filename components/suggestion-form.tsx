@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Send, Loader2 } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 interface SuggestionFormProps {
   agendaId: string
@@ -16,6 +17,7 @@ interface SuggestionFormProps {
 }
 
 export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormProps) {
+  const { t } = useTranslation('common')
   const [content, setContent] = useState("")
   const [authorName, setAuthorName] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -62,7 +64,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
     }
 
     if (!content.trim() || !authorName.trim()) {
-      setError("Please fill in all fields")
+      setError(t('suggestions.errorRequired'))
       return
     }
 
@@ -83,13 +85,13 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || "Failed to submit suggestion")
+        throw new Error(errorData.error || t('suggestions.errorSubmit'))
       }
 
       const result = await response.json()
       
       // Show success message
-      setSuccessMessage(result.message || "Thank you for your suggestion!")
+      setSuccessMessage(result.message || t('suggestions.successMessage'))
       
       // Reset form
       setContent("")
@@ -101,7 +103,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
       onSuggestionAdded?.()
     } catch (err) {
       console.error("Error submitting suggestion:", err)
-      setError(err instanceof Error ? err.message : "Failed to submit suggestion")
+      setError(err instanceof Error ? err.message : t('suggestions.errorSubmit'))
       setTimeout(() => setError(null), 5000)
     } finally {
       setIsSubmitting(false)
@@ -114,7 +116,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
         <CardContent className="pt-6">
           <div className="text-center space-y-4">
             <Loader2 className="h-6 w-6 animate-spin mx-auto" />
-            <p className="text-muted-foreground">Loading...</p>
+            <p className="text-muted-foreground">{t('suggestions.loading')}</p>
           </div>
         </CardContent>
       </Card>
@@ -126,9 +128,9 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
       <Card className="border-dashed border-2 border-muted-foreground/25">
         <CardContent className="pt-6">
           <div className="text-center space-y-4">
-            <p className="text-muted-foreground">Sign in to share your suggestions</p>
+            <p className="text-muted-foreground">{t('suggestions.signInPrompt')}</p>
             <Button asChild>
-              <a href="/auth/login">Sign In</a>
+              <a href="/auth/login">{t('suggestions.signInButton')}</a>
             </Button>
           </div>
         </CardContent>
@@ -141,7 +143,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
       <CardHeader>
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
           <Send className="h-5 w-5 text-primary" />
-          Share Your Suggestion
+          {t('suggestions.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -152,7 +154,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
               onClick={() => setError(null)}
               className="text-xs underline hover:no-underline mt-1"
             >
-              Dismiss
+              {t('suggestions.dismiss')}
             </button>
           </div>
         )}
@@ -164,7 +166,7 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
               onClick={() => setSuccessMessage(null)}
               className="text-xs underline hover:no-underline mt-1 text-green-700"
             >
-              Dismiss
+              {t('suggestions.dismiss')}
             </button>
           </div>
         )}
@@ -172,11 +174,11 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="author-name" className="text-sm font-medium">
-              Your Name
+              {t('suggestions.yourName')}
             </Label>
             <Input
               id="author-name"
-              placeholder="How should we identify you?"
+              placeholder={t('suggestions.namePlaceholder')}
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
               required
@@ -187,11 +189,11 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
 
           <div className="space-y-2">
             <Label htmlFor="suggestion-content" className="text-sm font-medium">
-              Your Suggestion
+              {t('suggestions.yourSuggestion')}
             </Label>
             <Textarea
               id="suggestion-content"
-              placeholder="Share your thoughts, ideas, or improvements for this reform agenda..."
+              placeholder={t('suggestions.suggestionPlaceholder')}
               value={content}
               onChange={(e) => setContent(e.target.value)}
               required
@@ -209,12 +211,12 @@ export function SuggestionForm({ agendaId, onSuggestionAdded }: SuggestionFormPr
             {isSubmitting ? (
               <>
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Submitting...
+                {t('suggestions.submitting')}
               </>
             ) : (
               <>
                 <Send className="h-4 w-4 mr-2" />
-                Submit Suggestion
+                {t('suggestions.submit')}
               </>
             )}
           </Button>

@@ -7,23 +7,30 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import Image from "next/image"
-
-const words = ["Read", "Challenge", "Improve"]
+import { useTranslation } from "react-i18next"
 
 export function HeroSection() {
+  const { t } = useTranslation('common')
   const scrollToAgendas = () => {
     const agendasSection = document.getElementById("agendas-section")
     agendasSection?.scrollIntoView({ behavior: "smooth" })
   }
 
   const [index, setIndex] = useState(0)
+  
+  // Get animated words from translations
+  const words = [
+    t('hero.read'),
+    t('hero.challenge'),
+    t('hero.improve')
+  ]
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length)
     }, 2000) // change word every 2s
     return () => clearInterval(interval)
-  }, [])
+  }, [words.length])
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-16 sm:py-24">
@@ -73,20 +80,20 @@ export function HeroSection() {
               </h1>
             </div>
             <p className="text-xl sm:text-2xl text-muted-foreground font-medium">
-              Your Voice in Nepal's Democratic Future
+              {t('hero.subtitle')}
             </p>
           </div>
 
           {/* Description */}
           <div className="max-w-3xl mx-auto space-y-4 bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-sm">
             <p className="text-lg text-foreground leading-relaxed font-medium">
-              Nepal's democracy is at a crossroads. This platform is where citizens shape the future, through ideas, debate, and action. From tackling corruption to rethinking elections, your voice can turn protest into progress.
+              {t('hero.description1')}
             </p>
             <p className="text-base text-foreground/90">
-              Born from the bold energy of Gen Z, and strengthened by the wisdom and support of experts, professionals, and concerned Nepalis of all ages and sectors, this movement is bigger than any one generation.
+              {t('hero.description2')}
             </p>
             <p className="text-base text-foreground/90">
-              This manifesto isn't just words, it's a roadmap for a just, accountable Nepal.
+              {t('hero.description3')}
             </p>
           </div>
 
@@ -107,7 +114,7 @@ export function HeroSection() {
             </div>
 
             <div className="text-lg md:text-xl font-bold">
-              let&apos;s make it real
+              {t('hero.makeItReal')}
             </div>
           </div>
 
@@ -119,7 +126,7 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">20+</div>
-                <div className="text-sm text-foreground/80">Reform Agendas</div>
+                <div className="text-sm text-foreground/80">{t('hero.stats.reforms')}</div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-center bg-white/40 backdrop-blur-sm rounded-lg px-4 py-2">
@@ -128,7 +135,7 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">∞</div>
-                <div className="text-sm text-foreground/80">Suggestions</div>
+                <div className="text-sm text-foreground/80">{t('hero.stats.suggestions')}</div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-center bg-white/40 backdrop-blur-sm rounded-lg px-4 py-2">
@@ -137,7 +144,7 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">100%</div>
-                <div className="text-sm text-foreground/80">Democratic</div>
+                <div className="text-sm text-foreground/80">{t('hero.stats.democratic')}</div>
               </div>
             </div>
           </div>
@@ -167,7 +174,7 @@ export function HeroSection() {
                 className="relative z-10 px-8 py-3 text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
               >
                 <Link href="mailto:suggestions@nepalreforms.com">
-                  Email Us
+                  {t('hero.emailUs')}
                 </Link>
               </Button>
             </motion.div>
@@ -179,7 +186,7 @@ export function HeroSection() {
               onClick={scrollToAgendas}
               className="px-8 py-3 text-base font-medium bg-white/50 backdrop-blur-sm hover:bg-white/70 border-white/60"
             >
-              Explore Agendas
+              {t('hero.exploreAgendas')}
               <ArrowDown className="ml-2 h-5 w-5" />
             </Button>
           </div>

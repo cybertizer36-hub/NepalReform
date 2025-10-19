@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { AgendaVoteSection } from "@/components/agenda-vote-section"
+import { useTranslation } from "react-i18next"
 
 interface AgendaCardProps {
   agenda: {
@@ -29,6 +30,7 @@ interface AgendaCardProps {
 }
 
 export function AgendaCard({ agenda }: AgendaCardProps) {
+  const { t } = useTranslation('common')
   const [isExpanded, setIsExpanded] = useState(false)
 
   const getCategoryColor = (category: string) => {
@@ -75,7 +77,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
                 {agenda.category}
               </Badge>
               <Badge variant="outline" className={cn("text-xs font-medium", getPriorityColor(agenda.priority_level))}>
-                {agenda.priority_level} Priority
+                {agenda.priority_level} {t('opinions.prioritySuffix')}
               </Badge>
               <Badge variant="outline" className={cn("text-xs font-medium", getStatusColor(agenda.status))}>
                 {agenda.status}
@@ -90,7 +92,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
 
         {/* Key Points - Always Visible */}
         <div className="space-y-2">
-          <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Key Points</h4>
+          <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.keyPoints')}</h4>
           <ul className="space-y-1">
             {agenda.key_points.slice(0, 3).map((point, index) => (
               <li key={index} className="flex items-start gap-2 text-sm text-foreground">
@@ -99,7 +101,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
               </li>
             ))}
             {agenda.key_points.length > 3 && !isExpanded && (
-              <li className="text-sm text-muted-foreground italic">+{agenda.key_points.length - 3} more points...</li>
+              <li className="text-sm text-muted-foreground italic">+{agenda.key_points.length - 3} {t('actions.morePoints')}...</li>
             )}
           </ul>
         </div>
@@ -113,7 +115,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
             ))}
             {agenda.tags.length > 4 && !isExpanded && (
               <Badge variant="secondary" className="text-xs">
-                +{agenda.tags.length - 4} more
+                +{agenda.tags.length - 4} {t('actions.moreTags')}
               </Badge>
             )}
           </div>
@@ -125,7 +127,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
         <CardContent className="pt-0 space-y-6">
           {/* Problem Statement - Always shown when expanded */}
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Problem Statement</h4>
+            <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.problemStatement')}</h4>
             <p className="text-foreground leading-relaxed bg-muted/50 p-4 rounded-lg border-l-2 border-l-destructive">
               {agenda.problem_statement}
             </p>
@@ -134,7 +136,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
           {/* Complete Key Points */}
           {agenda.key_points.length > 3 && (
             <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">All Key Points</h4>
+              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.allKeyPoints')}</h4>
               <ul className="space-y-2">
                 {agenda.key_points.map((point, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-foreground">
@@ -149,7 +151,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
           {agenda.proposed_solutions && agenda.proposed_solutions.length > 0 && (
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                Proposed Solutions
+                {t('sections.proposedSolutions')}
               </h4>
               <ul className="space-y-2">
                 {agenda.proposed_solutions.map((solution, index) => (
@@ -165,7 +167,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
           {/* Description */}
           <div className="space-y-3">
             <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-              Detailed Description
+              {t('sections.detailedDescription')}
             </h4>
             <p className="text-foreground leading-relaxed">{agenda.description}</p>
           </div>
@@ -173,7 +175,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
           {agenda.implementation_timeline && (
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                Implementation Timeline
+                {t('sections.implementationTimeline')}
               </h4>
               <p className="text-foreground leading-relaxed bg-blue-50 p-4 rounded-lg border-l-2 border-l-blue-500">
                 {agenda.implementation_timeline}
@@ -183,7 +185,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
 
           {agenda.expected_outcomes && agenda.expected_outcomes.length > 0 && (
             <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Expected Outcomes</h4>
+              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.expectedOutcomes')}</h4>
               <ul className="space-y-2">
                 {agenda.expected_outcomes.map((outcome, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-foreground">
@@ -197,7 +199,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
 
           {agenda.stakeholders && agenda.stakeholders.length > 0 && (
             <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Key Stakeholders</h4>
+              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.keyStakeholders')}</h4>
               <div className="flex flex-wrap gap-2">
                 {agenda.stakeholders.map((stakeholder, index) => (
                   <Badge key={index} variant="outline" className="text-xs">
@@ -210,7 +212,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
 
           {agenda.tags && agenda.tags.length > 4 && (
             <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">All Tags</h4>
+              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.allTags')}</h4>
               <div className="flex flex-wrap gap-2">
                 {agenda.tags.map((tag, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
@@ -223,7 +225,7 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
 
           {agenda.references && agenda.references.length > 0 && (
             <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">References</h4>
+              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.references')}</h4>
               <ul className="space-y-2">
                 {agenda.references.map((reference, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-foreground">
