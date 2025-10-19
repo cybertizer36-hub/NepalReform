@@ -40,7 +40,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const isHydrated = useHydration()
   const supabase = createClient()
-  const { t } = useTranslation('common')
+  const { t, ready } = useTranslation('common')
 
   useEffect(() => {
     if (!isHydrated) return
@@ -81,6 +81,32 @@ export function Header() {
     const nepaliUrl =
       "https://nokrhvgrfcletinhsalt.supabase.co/storage/v1/object/sign/Manifestobucket/Nepali_language_Manifesto.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yZTMwMzU3Mi0zYTNmLTRjYmQtOTg1NC0yZjQyYWI4YmE4MTkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5pZmVzdG9idWNrZXQvTmVwYWxpX2xhbmd1YWdlX01hbmlmZXN0by5wZGYiLCJpYXQiOjE3NTc2MTQzMTYsImV4cCI6MTc4OTE1MDMxNn0.7jJXfea5IKF9S709YBKssa_FWzkIg5u213gErQMojr4"
     window.open(nepaliUrl, "_blank")
+  }
+
+  // Show loading placeholder if translations aren't ready
+  if (!ready || !isHydrated) {
+    return (
+      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link href="/" className="flex items-center gap-3">
+                <div className="w-10 h-10 relative">
+                  <Image
+                    src="/nepal-flag-logo.png"
+                    alt="NepalReforms Logo"
+                    fill
+                    className="object-contain rounded-none"
+                  />
+                </div>
+                <h1 className="text-xl font-bold text-foreground hidden sm:block">NepalReforms</h1>
+              </Link>
+            </div>
+            <div className="w-40 h-8 animate-pulse bg-gray-200 rounded" />
+          </div>
+        </div>
+      </header>
+    )
   }
 
   // Auth component with hydration-safe rendering

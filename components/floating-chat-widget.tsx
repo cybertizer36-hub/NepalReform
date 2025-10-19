@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { MessageCircle, X, ExternalLink, LogIn } from 'lucide-react'
+import { MessageCircle, X, LogIn } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 
@@ -24,11 +24,6 @@ const FloatingChatWidget: React.FC = () => {
       setIsLoaded(true)
     }
   }, [isOpen, isLoaded, user])
-
-  // Open chatbot in new tab
-  const openInNewTab = useCallback(() => {
-    window.open(CHATBOT_URL.replace('?embedded=true', ''), '_blank', 'noopener,noreferrer')
-  }, [])
 
   // Navigate to sign in page
   const handleSignIn = useCallback(() => {
@@ -90,16 +85,6 @@ const FloatingChatWidget: React.FC = () => {
             height: 'min(640px, calc(100vh - 48px))',
           }}
         >
-          {/* External Link Button - Top Right OUTSIDE (shifted further out) */}
-          <button
-            onClick={openInNewTab}
-            className="absolute -top-5 -right-5 z-[10001] flex items-center justify-center w-12 h-12 bg-white text-gray-600 rounded-full shadow-lg hover:shadow-xl border-2 border-gray-200 hover:bg-gradient-to-br hover:from-purple-500 hover:to-indigo-600 hover:text-white hover:border-transparent transform hover:scale-110 hover:rotate-12 transition-all duration-300"
-            aria-label="Open in new tab"
-            title="Open in new tab"
-          >
-            <ExternalLink size={20} />
-          </button>
-
           {/* Iframe Container - Full Window */}
           <div className="w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/10">
             {loading ? (
@@ -171,33 +156,49 @@ const FloatingChatWidget: React.FC = () => {
       {/* Mobile Styles */}
       <style jsx>{`
         @media (max-width: 640px) {
-          button[aria-label="Open chat"],
+          /* Hide toggle button when chat is open on mobile */
           button[aria-label="Close chat"] {
+            position: fixed !important;
+            bottom: 1.5rem !important;
+            right: 1.5rem !important;
             width: 3.5rem !important;
             height: 3.5rem !important;
-            bottom: 1.25rem !important;
-            right: 1.25rem !important;
+            z-index: 10002 !important;
           }
           
+          button[aria-label="Open chat"] {
+            width: 3.5rem !important;
+            height: 3.5rem !important;
+            bottom: 1.5rem !important;
+            right: 1.5rem !important;
+          }
+          
+          /* Make chat window fullscreen on mobile */
           div[style*="420px"] {
             position: fixed !important;
             inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
+            width: 100vw !important;
+            height: 100vh !important;
             max-width: 100% !important;
             max-height: 100% !important;
             bottom: 0 !important;
+            right: 0 !important;
+            margin: 0 !important;
           }
           
+          /* Remove border radius on mobile for true fullscreen */
           div[style*="420px"] > div {
             border-radius: 0 !important;
+            height: 100vh !important;
           }
-          
-          button[aria-label="Open in new tab"] {
-            top: 1rem !important;
-            right: 1rem !important;
-            width: 3rem !important;
-            height: 3rem !important;
+        }
+        
+        /* Tablet optimization */
+        @media (min-width: 641px) and (max-width: 1024px) {
+          div[style*="420px"] {
+            width: min(380px, calc(100vw - 100px)) !important;
+            height: calc(100vh - 80px) !important;
+            bottom: 1.5rem !important;
           }
         }
         

@@ -1,16 +1,32 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 
-export const runtime = "nodejs"
-
 export async function updateSession(request: NextRequest) {
+  // Fast-path: if Supabase env vars are missing or placeholders during build, skip any network calls
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const isPlaceholderEnv =
+    !supabaseUrl ||
+    !supabaseAnonKey ||
+    supabaseUrl === "https://placeholder.supabase.co" ||
+    supabaseAnonKey.includes("placeholder")
+
+  // Identify if this path actually needs auth/session work
+  const protectedRoutes = ["/dashboard", "/profile", "/admin", "/create-opinion", "/protected"]
+  const isProtectedRoute = protectedRoutes.some((route) => request.nextUrl.pathname.startsWith(route))
+
+  if (isPlaceholderEnv || !isProtectedRoute) {
+    // Return early without touching Supabase to prevent build-time timeouts
+    return NextResponse.next({ request })
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   })
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl!,
+    supabaseAnonKey!,
     {
       cookies: {
         getAll() {
@@ -43,9 +59,6 @@ export async function updateSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser()
-
-  const protectedRoutes = ["/dashboard", "/profile", "/admin", "/create-opinion", "/protected"]
-  const isProtectedRoute = protectedRoutes.some((route) => request.nextUrl.pathname.startsWith(route))
 
   if (
     isProtectedRoute &&
