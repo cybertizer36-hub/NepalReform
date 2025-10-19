@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button"
 import type { User } from "@supabase/supabase-js"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export function AuthButton() {
+  const { t } = useTranslation('common')
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -41,7 +43,7 @@ export function AuthButton() {
   if (loading) {
     return (
       <Button variant="ghost" disabled>
-        Loading...
+        {t('suggestions.loading')}
       </Button>
     )
   }
@@ -49,9 +51,9 @@ export function AuthButton() {
   if (user) {
     return (
       <div className="flex items-center gap-4">
-        <span className="text-sm text-muted-foreground">Welcome, {user.email}</span>
+        <span className="text-sm text-muted-foreground">{t('auth.welcome')}, {user.email}</span>
         <Button variant="outline" onClick={handleSignOut}>
-          Sign Out
+          {t('header.signOut')}
         </Button>
       </div>
     )
@@ -60,9 +62,9 @@ export function AuthButton() {
   return (
     <div className="flex items-center gap-2">
       <Button variant="ghost" onClick={() => router.push("/auth/login")}>
-        Login
+        {t('header.signIn')}
       </Button>
-      <Button onClick={() => router.push("/auth/sign-up")}>Sign Up</Button>
+      <Button onClick={() => router.push("/auth/sign-up")}>{t('auth.signUp')}</Button>
     </div>
   )
 }

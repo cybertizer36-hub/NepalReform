@@ -22,6 +22,7 @@ import { useVotes } from "@/hooks/use-cached-data"
 import { CacheManager } from "@/lib/cache/cache-manager"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useManifestoData, ManifestoSummaryItem } from "@/hooks/use-manifesto-data"
+import { useTranslation } from 'react-i18next'
 
 // Define Vote interface locally
 interface Vote {
@@ -39,6 +40,7 @@ interface FilterState {
 }
 
 export function ManifestoList() {
+  const { t } = useTranslation('common')
   const isHydrated = useHydration()
   const [randomSeed, setRandomSeed] = useState<number | null>(null)
   // Add error state
@@ -222,11 +224,15 @@ export function ManifestoList() {
   }
 
   const getTimelineLabel = (months: number): string => {
-    if (months < 12) return `${months} months`
+    if (months < 12) return t('manifestoList.timelineMonths', { months })
     const years = Math.floor(months / 12)
     const remainingMonths = months % 12
-    if (remainingMonths === 0) return `${years} ${years === 1 ? 'year' : 'years'}`
-    return `${years}y ${remainingMonths}m`
+    if (remainingMonths === 0) {
+      return years === 1 
+        ? t('manifestoList.timelineYears', { years })
+        : t('manifestoList.timelineYearsPlural', { years })
+    }
+    return t('manifestoList.timelineYearsMonths', { years, months: remainingMonths })
   }
 
   const hasActiveFilters = filters.searchQuery || 
@@ -270,11 +276,11 @@ export function ManifestoList() {
       <div className="text-center py-12">
         <div className="text-red-500 mb-4">
           <X className="h-12 w-12 mx-auto mb-2" />
-          <h3 className="text-lg font-semibold">Something went wrong</h3>
+          <h3 className="text-lg font-semibold">{t('manifestoList.errorTitle')}</h3>
           <p className="text-sm text-muted-foreground mt-1">{error.message}</p>
         </div>
         <Button onClick={() => setError(null)} variant="outline">
-          Try Again
+          {t('manifestoList.tryAgain')}
         </Button>
       </div>
     )
@@ -286,8 +292,8 @@ export function ManifestoList() {
       <div className="text-center py-12">
         <div className="text-muted-foreground mb-4">
           <Search className="h-12 w-12 mx-auto mb-2" />
-          <h3 className="text-lg font-semibold">No reforms available</h3>
-          <p className="text-sm mt-1">Check back later for updates.</p>
+          <h3 className="text-lg font-semibold">{t('manifestoList.noReformsTitle')}</h3>
+          <p className="text-sm mt-1">{t('manifestoList.noReformsDescription')}</p>
         </div>
       </div>
     )
@@ -304,7 +310,7 @@ export function ManifestoList() {
           <div className="relative flex-1 min-w-[200px]">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
-              placeholder="Search reforms, categories, or keywords..."
+              placeholder={t('manifestoList.searchPlaceholder')}
               value={filters.searchQuery}
               onChange={(e) => setFilters(prev => ({ ...prev, searchQuery: e.target.value }))}
               className="pl-10 pr-10"
@@ -327,7 +333,7 @@ export function ManifestoList() {
             className="gap-2"
           >
             <SlidersHorizontal className="h-4 w-4" />
-            Filters
+            {t('manifestoList.filters')}
             {hasActiveFilters && (
               <Badge variant="secondary" className="ml-1 h-4 text-xs px-1">
                 {[
@@ -344,13 +350,13 @@ export function ManifestoList() {
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={shuffleData} className="gap-2">
               <RotateCcw className="h-4 w-4" />
-              Shuffle
+              {t('manifestoList.shuffle')}
             </Button>
             
             {hasActiveFilters && (
               <Button variant="outline" size="sm" onClick={clearFilters} className="gap-2">
                 <X className="h-4 w-4" />
-                Clear
+                {t('manifestoList.clear')}
               </Button>
             )}
           </div>
@@ -363,7 +369,7 @@ export function ManifestoList() {
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {/* Category Filter */}
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Categories</label>
+                  <label className="text-sm font-medium mb-2 block">{t('manifestoList.categories')}</label>
                   <div className="space-y-2 max-h-40 overflow-y-auto">
                     {allCategories.map((category) => (
                       <div key={category} className="flex items-center space-x-2">
@@ -394,7 +400,7 @@ export function ManifestoList() {
 
                 {/* Priority Filter */}
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Priority</label>
+                  <label className="text-sm font-medium mb-2 block">{t('manifestoList.priority')}</label>
                   <div className="space-y-2">
                     {allPriorities.map((priority) => (
                       <div key={priority} className="flex items-center space-x-2">
@@ -426,7 +432,7 @@ export function ManifestoList() {
                 {/* Timeline Filter */}
                 <div>
                   <label className="text-sm font-medium mb-2 block">
-                    Implementation Timeline: {getTimelineLabel(filters.timelineRange[0])} - {getTimelineLabel(filters.timelineRange[1])}
+                    {t('manifestoList.timeline')} {getTimelineLabel(filters.timelineRange[0])} - {getTimelineLabel(filters.timelineRange[1])}
                   </label>
                   <Slider
                     value={filters.timelineRange}
@@ -437,8 +443,8 @@ export function ManifestoList() {
                     className="w-full"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>6 months</span>
-                    <span>5 years</span>
+                    <span>{t('manifestoList.timelineMonths', { months: 6 })}</span>
+                    <span>{t('manifestoList.timelineYearsPlural', { years: 5 })}</span>
                   </div>
                 </div>
               </div>
@@ -450,11 +456,11 @@ export function ManifestoList() {
       {/* Results Summary */}
       <div className="flex justify-between items-center text-sm text-muted-foreground">
         <span>
-          Showing {displayData.length} of {manifestoData.length} reforms
-          {hasActiveFilters && " (filtered)"}
+          {t('manifestoList.showing', { count: displayData.length, total: manifestoData.length })}
+          {hasActiveFilters && ` ${t('manifestoList.filtered')}`}
         </span>
         <span>
-          Sorted by community votes
+          {t('manifestoList.sortedBy')}
         </span>
       </div>
 
@@ -469,11 +475,11 @@ export function ManifestoList() {
         <div className="text-center py-12">
           <div className="text-muted-foreground mb-4">
             <Search className="h-12 w-12 mx-auto mb-2" />
-            <h3 className="text-lg font-semibold">No reforms match your filters</h3>
-            <p className="text-sm mt-1">Try adjusting your search criteria or clearing filters.</p>
+            <h3 className="text-lg font-semibold">{t('manifestoList.noMatchesTitle')}</h3>
+            <p className="text-sm mt-1">{t('manifestoList.noMatchesDescription')}</p>
           </div>
           <Button onClick={clearFilters} variant="outline">
-            Clear All Filters
+            {t('manifestoList.clearAllFilters')}
           </Button>
         </div>
       )}

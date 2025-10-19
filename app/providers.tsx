@@ -6,6 +6,13 @@ import { useState, useEffect } from 'react'
 import { CacheManager } from '@/lib/cache/cache-manager'
 import { AuthProvider } from '@/contexts/auth-context'
 import { I18nProvider } from '@/components/i18n-provider'
+import dynamic from 'next/dynamic'
+
+// Dynamically import FloatingChatWidget to avoid SSR issues
+const FloatingChatWidget = dynamic(
+  () => import('@/components/floating-chat-widget'),
+  { ssr: false }
+)
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -38,6 +45,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <I18nProvider>
         <AuthProvider>
           {children}
+          <FloatingChatWidget />
           {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools initialIsOpen={false} position="bottom" />
           )}

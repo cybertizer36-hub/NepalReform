@@ -1,0 +1,108 @@
+/* Floating Chat Widget - Modern & Classy Design */
+
+/* Additional animations and utilities that complement Tailwind */
+
+/* Smooth entrance animation for chat button */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Glow effect for close button */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.6);
+  }
+}
+
+/* Ensure smooth transitions */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom scrollbar for iframe if needed */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  button {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .floating-chat-widget,
+  button[aria-label="Open chat"],
+  button[aria-label="Close chat"],
+  button[aria-label="Open in new tab"] {
+    display: none !important;
+  }
+}
+
+/* Dark mode adjustments (if your app supports it) */
+@media (prefers-color-scheme: dark) {
+  button[aria-label="Open in new tab"] {
+    background: #374151 !important;
+    color: #e5e7eb !important;
+    border-color: #4b5563 !important;
+  }
+  
+  button[aria-label="Open in new tab"]:hover {
+    background: linear-gradient(to bottom right, #8b5cf6, #6366f1) !important;
+    color: white !important;
+  }
+}
+
+/* Focus visible for better keyboard navigation */
+button:focus-visible {
+  outline: 3px solid #22c55e;
+  outline-offset: 3px;
+}
+
+/* Ensure proper z-index layering */
+.chat-widget-layer {
+  z-index: 9999;
+}
+
+.chat-button-layer {
+  z-index: 10000;
+}
+
+.chat-controls-layer {
+  z-index: 10001;
+}

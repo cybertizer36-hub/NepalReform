@@ -14,22 +14,24 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2, Plus, X, Send } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { useTranslation } from "react-i18next"
 
-const CATEGORIES = [
-  "Governance",
-  "Democracy",
-  "Justice",
-  "Federalism",
-  "Administration",
-  "Economy",
-  "Education",
-  "Healthcare",
-  "Infrastructure",
+const CATEGORY_KEYS = [
+  "governance",
+  "democracy",
+  "justice",
+  "federalism",
+  "administration",
+  "economy",
+  "education",
+  "healthcare",
+  "infrastructure",
 ]
 
-const PRIORITY_LEVELS = ["High", "Medium", "Low"]
+const PRIORITY_KEYS = ["high", "medium", "low"]
 
 export function OpinionForm() {
+  const { t } = useTranslation('common')
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -128,11 +130,11 @@ export function OpinionForm() {
         // Don't fail the request if email fails
       }
 
-      toast.success("Opinion submitted successfully! It will be reviewed before publication.")
+      toast.success(t('opinions.successMessage'))
       router.push("/")
     } catch (error) {
       console.error("Error submitting opinion:", error)
-      toast.error("Failed to submit opinion. Please try again.")
+      toast.error(t('opinions.errorMessage'))
     } finally {
       setIsSubmitting(false)
     }
@@ -181,7 +183,7 @@ export function OpinionForm() {
         className="w-full"
       >
         <Plus className="h-4 w-4 mr-2" />
-        Add {label.slice(0, -1)}
+        {t('opinions.addItem', { item: label.slice(0, -1) })}
       </Button>
     </div>
   )
@@ -191,7 +193,7 @@ export function OpinionForm() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Send className="h-5 w-5 text-primary" />
-          Share Your Agenda
+          {t('opinions.formTitle')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -200,20 +202,20 @@ export function OpinionForm() {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="md:col-span-2 space-y-2">
               <Label htmlFor="title" className="text-sm font-medium">
-                Agenda Title *
+                {t('opinions.agendaTitle')}
               </Label>
               <Input
                 id="title"
                 value={formData.title}
                 onChange={(e) => handleInputChange("title", e.target.value)}
-                placeholder="Enter a clear, descriptive title for your opinion"
+                placeholder={t('opinions.agendaTitlePlaceholder')}
                 required
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="category" className="text-sm font-medium">
-                Category *
+                {t('opinions.categoryRequired')}
               </Label>
               <Select
                 value={formData.category}
@@ -221,12 +223,12 @@ export function OpinionForm() {
                 required
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder={t('opinions.selectCategory')} />
                 </SelectTrigger>
                 <SelectContent>
-                  {CATEGORIES.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
+                  {CATEGORY_KEYS.map((key) => (
+                    <SelectItem key={key} value={t(`opinions.categories.${key}`)}>
+                      {t(`opinions.categories.${key}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -235,7 +237,7 @@ export function OpinionForm() {
 
             <div className="space-y-2">
               <Label htmlFor="priority" className="text-sm font-medium">
-                Priority Level
+                {t('opinions.priorityLevel')}
               </Label>
               <Select
                 value={formData.priority_level}
@@ -245,9 +247,9 @@ export function OpinionForm() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {PRIORITY_LEVELS.map((priority) => (
-                    <SelectItem key={priority} value={priority}>
-                      {priority} Priority
+                  {PRIORITY_KEYS.map((key) => (
+                    <SelectItem key={key} value={t(`labels.priority.${key}`)}>
+                      {t(`labels.priority.${key}`)} {t('opinions.prioritySuffix')}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -258,13 +260,13 @@ export function OpinionForm() {
           {/* Problem Statement */}
           <div className="space-y-2">
             <Label htmlFor="problem" className="text-sm font-medium">
-              Problem Statement *
+              {t('opinions.problemStatementRequired')}
             </Label>
             <Textarea
               id="problem"
               value={formData.problem_statement}
               onChange={(e) => handleInputChange("problem_statement", e.target.value)}
-              placeholder="Describe the problem or issue you want to address"
+              placeholder={t('opinions.problemStatementPlaceholder')}
               rows={4}
               required
             />
@@ -273,13 +275,13 @@ export function OpinionForm() {
           {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="description" className="text-sm font-medium">
-              Detailed Description *
+              {t('opinions.detailedDescription')}
             </Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => handleInputChange("description", e.target.value)}
-              placeholder="Provide a comprehensive description of your opinion and reasoning"
+              placeholder={t('opinions.detailedDescriptionPlaceholder')}
               rows={6}
               required
             />
@@ -287,58 +289,58 @@ export function OpinionForm() {
 
           {/* Key Points */}
           <ArrayInput
-            label="Key Points"
+            label={t('opinions.keyPoints')}
             array={keyPoints}
             setArray={setKeyPoints}
-            placeholder="Enter a key point or argument"
+            placeholder={t('opinions.keyPointPlaceholder')}
           />
 
           {/* Proposed Solutions */}
           <ArrayInput
-            label="Proposed Solutions"
+            label={t('opinions.proposedSolutions')}
             array={proposedSolutions}
             setArray={setProposedSolutions}
-            placeholder="Describe a potential solution or approach"
+            placeholder={t('opinions.solutionDetailedPlaceholder')}
           />
 
           {/* Expected Outcomes */}
           <ArrayInput
-            label="Expected Outcomes"
+            label={t('opinions.expectedOutcomes')}
             array={expectedOutcomes}
             setArray={setExpectedOutcomes}
-            placeholder="What positive outcomes do you expect?"
+            placeholder={t('opinions.outcomeDetailedPlaceholder')}
           />
 
           {/* Implementation Timeline */}
           <div className="space-y-2">
             <Label htmlFor="timeline" className="text-sm font-medium">
-              Implementation Timeline
+              {t('opinions.implementationTimeline')}
             </Label>
             <Textarea
               id="timeline"
               value={formData.implementation_timeline}
               onChange={(e) => handleInputChange("implementation_timeline", e.target.value)}
-              placeholder="Describe the proposed timeline for implementation"
+              placeholder={t('opinions.timelineDescription')}
               rows={3}
             />
           </div>
 
           {/* Stakeholders */}
           <ArrayInput
-            label="Key Stakeholders"
+            label={t('opinions.keyStakeholders')}
             array={stakeholders}
             setArray={setStakeholders}
-            placeholder="Who are the key stakeholders involved?"
+            placeholder={t('opinions.stakeholderDetailedPlaceholder')}
           />
 
           {/* Tags */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium">Tags</Label>
+            <Label className="text-sm font-medium">{t('opinions.tags')}</Label>
             <div className="flex gap-2">
               <Input
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
-                placeholder="Add a tag"
+                placeholder={t('opinions.tagsPlaceholder')}
                 onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addTag())}
               />
               <Button type="button" variant="outline" onClick={addTag}>
@@ -361,16 +363,16 @@ export function OpinionForm() {
 
           {/* References */}
           <ArrayInput
-            label="References"
+            label={t('opinions.references')}
             array={references}
             setArray={setReferences}
-            placeholder="Add a reference URL or citation"
+            placeholder={t('opinions.referenceDetailedPlaceholder')}
           />
 
           {/* Submit Button */}
           <div className="flex gap-4 pt-6">
             <Button type="button" variant="outline" onClick={() => router.push("/")} className="flex-1">
-              Cancel
+              {t('opinions.cancel')}
             </Button>
             <Button
               type="submit"
@@ -386,12 +388,12 @@ export function OpinionForm() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Submitting...
+                  {t('opinions.submitting')}
                 </>
               ) : (
                 <>
                   <Send className="h-4 w-4 mr-2" />
-                  Submit Opinion
+                  {t('opinions.submit')}
                 </>
               )}
             </Button>
