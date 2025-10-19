@@ -76,17 +76,22 @@ const FloatingChatWidget: React.FC = () => {
         )}
       </button>
 
-      {/* Chat Window - NO HEADER, just iframe */}
+      {/* Chat Window - Responsive positioning */}
       {isOpen && (
         <div
-          className="fixed bottom-6 right-24 z-[9999] transition-all duration-300 transform mobile-chat-container"
-          style={{
-            width: 'min(420px, calc(100vw - 120px))',
-            height: 'min(640px, calc(100vh - 48px))',
-          }}
+          className="fixed z-[9999] transition-all duration-300 transform
+                     /* Mobile: top position, full width, space for button at bottom */
+                     top-0 left-0 right-0 w-full h-[calc(100vh-7rem)]
+                     /* Desktop: bottom-right position next to button */
+                     sm:top-auto sm:bottom-6 sm:right-24 sm:left-auto
+                     sm:w-[min(420px,calc(100vw-120px))] sm:h-[min(640px,calc(100vh-48px))]"
         >
           {/* Iframe Container - Full Window */}
-          <div className="w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/10">
+          <div className="w-full h-full bg-white shadow-2xl overflow-hidden ring-1 ring-black/10
+                          /* Mobile: rounded bottom only */
+                          rounded-b-2xl
+                          /* Desktop: fully rounded */
+                          sm:rounded-2xl">
             {loading ? (
               // Loading state while checking authentication
               <div className="flex items-center justify-center h-full bg-gradient-to-br from-green-50 to-blue-50">
@@ -153,61 +158,12 @@ const FloatingChatWidget: React.FC = () => {
         </div>
       )}
 
-      {/* Mobile Styles */}
+      {/* Mobile & Responsive Styles */}
       <style jsx>{`
-        @media (max-width: 640px) {
-          /* Keep close button at bottom right */
-          button[aria-label="Close chat"] {
-            position: fixed !important;
-            bottom: 1.5rem !important;
-            right: 1.5rem !important;
-            width: 3.5rem !important;
-            height: 3.5rem !important;
-            z-index: 10002 !important;
-          }
-          
-          button[aria-label="Open chat"] {
-            width: 3.5rem !important;
-            height: 3.5rem !important;
-            bottom: 1.5rem !important;
-            right: 1.5rem !important;
-          }
-          
-          /* Position chat window at top with reduced height to avoid button */
-          .mobile-chat-container {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: auto !important;
-            width: 100vw !important;
-            /* Reduce height to leave space for close button at bottom */
-            height: calc(100vh - 7rem) !important;
-            max-width: 100% !important;
-            max-height: calc(100vh - 7rem) !important;
-            margin: 0 !important;
-          }
-          
-          /* Adjust border radius on mobile */
-          .mobile-chat-container > div {
-            border-radius: 0 0 1rem 1rem !important;
-            height: 100% !important;
-          }
-        }
-        
-        /* Tablet optimization */
-        @media (min-width: 641px) and (max-width: 1024px) {
-          div[style*="420px"] {
-            width: min(380px, calc(100vw - 100px)) !important;
-            height: calc(100vh - 80px) !important;
-            bottom: 1.5rem !important;
-          }
-        }
-        
         @media print {
           button[aria-label="Open chat"],
           button[aria-label="Close chat"],
-          div[style*="420px"] {
+          .fixed.z-\[9999\] {
             display: none !important;
           }
         }
