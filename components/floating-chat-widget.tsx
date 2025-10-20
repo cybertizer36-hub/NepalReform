@@ -79,7 +79,7 @@ const FloatingChatWidget: React.FC = () => {
       {/* Chat Window - Responsive positioning */}
       {isOpen && (
         <div
-          className="fixed z-[9999] transition-all duration-300 transform top-0 left-0 right-0 w-full h-[calc(100vh-7rem)] sm:top-auto sm:bottom-6 sm:right-24 sm:left-auto sm:w-[min(420px,calc(100vw-120px))] sm:h-[min(640px,calc(100vh-48px))]"
+          className="fixed z-[9999] transition-all duration-300 transform top-0 left-0 right-0 w-full h-[90vh] sm:top-auto sm:bottom-6 sm:right-24 sm:left-auto sm:w-[min(420px,calc(100vw-120px))] sm:h-[min(640px,calc(100vh-48px))]"
         >
           {/* Iframe Container - Full Window */}
           <div className="w-full h-full bg-white shadow-2xl overflow-hidden ring-1 ring-black/10 rounded-b-2xl sm:rounded-2xl">
