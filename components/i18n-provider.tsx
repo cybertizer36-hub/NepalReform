@@ -2,27 +2,20 @@
 
 import React, { useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
-import i18n, { loadManifestoData, loadCommonTranslations } from '@/lib/i18n';
+import i18n, { loadManifestoData, loadTranslations } from '@/lib/i18n';
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Load both manifesto data and common translations for the current language on mount
-    const initializeTranslations = async () => {
-      const currentLang = i18n.language || 'en';
-      await Promise.all([
-        loadManifestoData(currentLang),
-        loadCommonTranslations(currentLang)
-      ]);
-    };
-
-    initializeTranslations();
+    // Load translations asynchronously without blocking render
+    loadTranslations().catch(err => {
+      console.error('Failed to load translations:', err);
+    });
 
     // Listen for language changes
     const handleLanguageChange = (lng: string) => {
-      Promise.all([
-        loadManifestoData(lng),
-        loadCommonTranslations(lng)
-      ]);
+      loadManifestoData(lng).catch(err => {
+        console.error('Failed to load manifesto data:', err);
+      });
     };
 
     i18n.on('languageChanged', handleLanguageChange);
@@ -32,6 +25,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  // Render immediately without blocking - translations will load in background
   return (
     <I18nextProvider i18n={i18n}>
       {children}

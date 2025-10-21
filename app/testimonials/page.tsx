@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: "Hear from the voices of Nepal supporting democratic reform and transformation",
 }
 
+// Skip build-time pre-render; render at runtime to avoid export timeouts
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default function TestimonialsPage() {
   return (
     <div className="min-h-screen bg-background">

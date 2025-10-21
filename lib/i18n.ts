@@ -2,36 +2,62 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Initialize i18n
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    fallbackLng: 'en',
-    lng: 'en', // default language
-    debug: false,
-    supportedLngs: ['en', 'np'],
-    
-    interpolation: {
-      escapeValue: false,
-    },
+// Track if translations have been loaded
+let translationsLoaded = false;
+let loadingPromise: Promise<void> | null = null;
 
-    detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      caches: ['localStorage'],
-    },
-
-    resources: {
-      en: {
-        manifesto: {}, // Will be loaded dynamically
-        common: {}     // Will be loaded dynamically
+// Initialize i18n synchronously with empty resources first
+if (!i18n.isInitialized) {
+  i18n
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+      fallbackLng: 'en',
+      lng: 'en',
+      debug: false,
+      supportedLngs: ['en', 'np'],
+      interpolation: { escapeValue: false },
+      detection: {
+        order: ['localStorage', 'navigator', 'htmlTag'],
+        caches: ['localStorage'],
       },
-      np: {
-        manifesto: {}, // Will be loaded dynamically
-        common: {}     // Will be loaded dynamically
+      resources: {
+        en: { common: {}, manifesto: {} },
+        np: { common: {}, manifesto: {} }
       }
+    });
+}
+
+// Function to load translations asynchronously in background
+async function loadTranslations() {
+  if (translationsLoaded) return;
+  if (loadingPromise) return loadingPromise;
+
+  loadingPromise = (async () => {
+    try {
+      // Load both English and Nepali common translations
+      const [enCommon, npCommon] = await Promise.all([
+        fetch('/locales/en/common.json').then(r => r.json()),
+        fetch('/locales/np/common.json').then(r => r.json())
+      ]);
+
+      // Add translations to existing i18n instance
+      i18n.addResourceBundle('en', 'common', enCommon, true, true);
+      i18n.addResourceBundle('np', 'common', npCommon, true, true);
+
+      translationsLoaded = true;
+    } catch (error) {
+      console.error('Failed to load translations:', error);
     }
-  });
+  })();
+
+  return loadingPromise;
+}
+
+// Load translations immediately in background (for client-side)
+if (typeof window !== 'undefined') {
+  loadTranslations();
+}
 
 // Function to load summary manifesto data (for ManifestoCard)
 export async function loadManifestoSummaryData(language: string) {
@@ -87,19 +113,16 @@ export async function loadManifestoData(language: string) {
   }
 }
 
-// Function to load common translations
+// Function to load common translations (now just ensures initialization)
 export async function loadCommonTranslations(language: string) {
-  try {
-    const response = await fetch(`/locales/${language}/common.json`);
-    const data = await response.json();
-    
-    i18n.addResourceBundle(language, 'common', data, true, true);
-    
-    return data;
-  } catch (error) {
-    console.error(`Failed to load common translations for language: ${language}`, error);
-    return {};
-  }
+  // Wait for initial translations to load
+  await loadTranslations();
+  
+  // Return the translations from the bundle
+  return i18n.getResourceBundle(language, 'common') || {};
 }
+
+// Export the loadTranslations function for use in the provider
+export { loadTranslations };
 
 export default i18n;

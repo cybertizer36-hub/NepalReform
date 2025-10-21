@@ -1,5 +1,9 @@
 import { createBrowserClient } from "@supabase/ssr"
 
+// Reuse a single browser client instance to avoid multiple GoTrueClient warnings
+// during concurrent usage in the same browser context.
+let cachedBrowserClient: ReturnType<typeof createBrowserClient> | null = null
+
 export function createClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -77,8 +81,38 @@ export function createClient() {
   }
 
   try {
-    const client = createBrowserClient(supabaseUrl, supabaseAnonKey)
-    return client
+    if (cachedBrowserClient) return cachedBrowserClient
+    try {
+      const globalClient = (globalThis as any).__supabase_browser_client__
+      if (globalClient) {
+        cachedBrowserClient = globalClient
+        return cachedBrowserClient
+      }
+    } catch {
+      // ignore if global not accessible
+    }
+
+    // Use a unique storageKey for this app to prevent conflicts across subdomains/apps
+    const client = createBrowserClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        storageKey: 'nepalreforms.auth',
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+      },
+    })
+
+    // Store in module cache and also on globalThis to survive HMR in dev
+    cachedBrowserClient = client
+    try {
+      ;(globalThis as any).__supabase_browser_client__ =
+        (globalThis as any).__supabase_browser_client__ || client
+      cachedBrowserClient = (globalThis as any).__supabase_browser_client__
+    } catch {
+      // ignore if globalThis is not writable
+    }
+
+    return cachedBrowserClient
   } catch (error) {
     console.error("Error creating Supabase client:", error)
     throw error
