@@ -27,6 +27,22 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { type, data } = body
 
+    // Basic HTML escaping to prevent HTML injection in emails
+    const escapeHtml = (input: unknown): string => {
+      if (input === null || input === undefined) return ""
+      const str = String(input)
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;")
+    }
+
+    const escapeWithBreaks = (input: unknown): string => {
+      return escapeHtml(input).replace(/\n/g, "<br>")
+    }
+
     // Check if email service is available
     const resendClient = getResendClient()
     
@@ -45,64 +61,64 @@ export async function POST(request: NextRequest) {
     let subject = ""
 
     if (type === "suggestion") {
-      subject = `New Suggestion: ${data.agenda_title || "Agenda Item"}`
+      subject = `New Suggestion: ${escapeHtml(data?.agenda_title || "Agenda Item")}`
       emailContent = `
         <h2>New Suggestion Submitted</h2>
-        <p><strong>Author:</strong> ${data.author_name}</p>
-        <p><strong>Agenda:</strong> ${data.agenda_title || "N/A"}</p>
+        <p><strong>Author:</strong> ${escapeHtml(data?.author_name)}</p>
+        <p><strong>Agenda:</strong> ${escapeHtml(data?.agenda_title || "N/A")}</p>
         <p><strong>Suggestion:</strong></p>
         <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
-          ${data.content.replace(/\n/g, "<br>")}
+          ${escapeWithBreaks(data?.content)}
         </div>
         <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
         <hr>
         <p><em>This suggestion was submitted through the Nepal Reforms platform.</em></p>
       `
     } else if (type === "opinion") {
-      subject = `New Opinion Submitted: ${data.title}`
+      subject = `New Opinion Submitted: ${escapeHtml(data?.title)}`
       emailContent = `
         <h2>New Opinion/Agenda Submitted</h2>
-        <p><strong>Title:</strong> ${data.title}</p>
-        <p><strong>Category:</strong> ${data.category}</p>
-        <p><strong>Priority:</strong> ${data.priority_level}</p>
+        <p><strong>Title:</strong> ${escapeHtml(data?.title)}</p>
+        <p><strong>Category:</strong> ${escapeHtml(data?.category)}</p>
+        <p><strong>Priority:</strong> ${escapeHtml(data?.priority_level)}</p>
         
         <h3>Problem Statement:</h3>
         <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
-          ${data.problem_statement.replace(/\n/g, "<br>")}
+          ${escapeWithBreaks(data?.problem_statement)}
         </div>
         
         <h3>Description:</h3>
         <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
-          ${data.description.replace(/\n/g, "<br>")}
+          ${escapeWithBreaks(data?.description)}
         </div>
         
         ${
-          data.key_points && data.key_points.length > 0
+          data?.key_points && data.key_points.length > 0
             ? `
           <h3>Key Points:</h3>
           <ul>
-            ${data.key_points.map((point: string) => `<li>${point}</li>`).join("")}
+            ${data.key_points.map((point: string) => `<li>${escapeHtml(point)}</li>`).join("")}
           </ul>
         `
             : ""
         }
         
         ${
-          data.proposed_solutions && data.proposed_solutions.length > 0
+          data?.proposed_solutions && data.proposed_solutions.length > 0
             ? `
           <h3>Proposed Solutions:</h3>
           <ul>
-            ${data.proposed_solutions.map((solution: string) => `<li>${solution}</li>`).join("")}
+            ${data.proposed_solutions.map((solution: string) => `<li>${escapeHtml(solution)}</li>`).join("")}
           </ul>
         `
             : ""
         }
         
         ${
-          data.implementation_timeline
+          data?.implementation_timeline
             ? `
           <h3>Implementation Timeline:</h3>
-          <p>${data.implementation_timeline.replace(/\n/g, "<br>")}</p>
+          <p>${escapeWithBreaks(data.implementation_timeline)}</p>
         `
             : ""
         }
