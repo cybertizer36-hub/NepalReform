@@ -130,7 +130,8 @@ const FloatingChatWidget: React.FC = () => {
                 src={CHATBOT_URL}
                 className="w-full h-full border-0"
                 title={CHATBOT_TITLE}
-                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-microphone"
+                // Restrict iframe capabilities: avoid `allow-same-origin` unless the frame is fully trusted.
+                sandbox="allow-scripts allow-forms"
                 allow="microphone"
                 referrerPolicy="origin"
                 loading="lazy"

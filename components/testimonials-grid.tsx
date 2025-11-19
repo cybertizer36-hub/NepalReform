@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Testimonial } from '@/lib/types/testimonial'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
+import { isSafeUrl } from '@/lib/utils'
 
 export function TestimonialsGrid() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
@@ -97,7 +98,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                   </div>
                 )}
               </div>
-              {testimonial.linkedin_url && (
+              {testimonial.linkedin_url && isSafeUrl(testimonial.linkedin_url) && (
                 <a
                   href={testimonial.linkedin_url}
                   target="_blank"

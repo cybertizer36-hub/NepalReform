@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, isSafeUrl } from "@/lib/utils"
 import { AgendaVoteSection } from "@/components/agenda-vote-section"
 import { useTranslation } from "react-i18next"
 
@@ -223,21 +223,25 @@ export function AgendaCard({ agenda }: AgendaCardProps) {
             </div>
           )}
 
-          {agenda.references && agenda.references.length > 0 && (
+                {agenda.references && agenda.references.length > 0 && (
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('sections.references')}</h4>
               <ul className="space-y-2">
                 {agenda.references.map((reference, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-foreground">
                     <ExternalLink className="h-3 w-3 mt-1 shrink-0 text-muted-foreground" />
-                    <a
-                      href={reference}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline break-all"
-                    >
-                      {reference}
-                    </a>
+                    {isSafeUrl(reference) ? (
+                      <a
+                        href={reference}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline break-all"
+                      >
+                        {reference}
+                      </a>
+                    ) : (
+                      <span className="text-muted-foreground break-all">{reference}</span>
+                    )}
                   </li>
                 ))}
               </ul>
