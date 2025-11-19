@@ -1,8 +1,8 @@
 // Nepal Reforms Service Worker
 // Handles offline functionality and caching
 
-const CACHE_NAME = 'nepal-reforms-v2'
-const DYNAMIC_CACHE = 'nepal-reforms-dynamic-v2'
+const CACHE_NAME = 'nepal-reforms-v3'
+const DYNAMIC_CACHE = 'nepal-reforms-dynamic-v3'
 
 // Assets to cache on install
 const STATIC_ASSETS = [
@@ -58,7 +58,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim()
 })
 
-// Fetch event - serve from cache when possible
+// Fetch event - serve from cache when safe. Cache only public GETs; never cache authenticated or private responses
 self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
@@ -77,41 +77,47 @@ self.addEventListener('fetch', (event) => {
     return
   }
   
-  // Handle API requests (network first, fallback to cache)
+  // Handle API requests: only cache safe, public GET responses
   if (url.pathname.includes('/api/') || url.hostname.includes('supabase')) {
+    // Never cache non-GET API requests
+    if (request.method !== 'GET') {
+      event.respondWith(fetch(request))
+      return
+    }
+
     event.respondWith(
       fetch(request)
         .then((response) => {
-          // Clone the response before using it
-          const responseToCache = response.clone()
-          
-          // Cache successful responses
-          if (response.status === 200) {
+          const isOk = response && response.status === 200
+          const cacheControl = (response.headers.get('Cache-Control') || '').toLowerCase()
+          const isPublic = cacheControl.includes('public') &&
+                           !cacheControl.includes('private') &&
+                           !cacheControl.includes('no-store')
+
+          // As an extra guard, don't cache if the request has Authorization header
+          const hasAuth = request.headers.get('authorization')
+
+          if (isOk && isPublic && !hasAuth) {
+            const responseToCache = response.clone()
             caches.open(DYNAMIC_CACHE).then((cache) => {
               cache.put(request, responseToCache)
             })
           }
-          
           return response
         })
         .catch(() => {
-          // If network fails, try to get from cache
+          // If network fails, only serve from cache for GET API requests
           return caches.match(request).then((cachedResponse) => {
             if (cachedResponse) {
-              console.log('Service Worker: Serving API from cache (offline):', url.pathname)
+              console.log('Service Worker: Serving cached public API (offline):', url.pathname)
               return cachedResponse
             }
-            
-            // Return offline response for API calls
             return new Response(
-              JSON.stringify({ 
-                error: 'Offline', 
-                message: 'You are currently offline. This data will be synced when you reconnect.' 
+              JSON.stringify({
+                error: 'Offline',
+                message: 'You are currently offline.'
               }),
-              {
-                status: 503,
-                headers: { 'Content-Type': 'application/json' }
-              }
+              { status: 503, headers: { 'Content-Type': 'application/json' } }
             )
           })
         })
@@ -119,7 +125,7 @@ self.addEventListener('fetch', (event) => {
     return
   }
   
-  // Handle static assets (cache first, fallback to network)
+  // Handle static assets (cache first, fallback to network); only cache successful, non-private responses
   if (request.method === 'GET') {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
@@ -138,10 +144,19 @@ self.addEventListener('fetch', (event) => {
           // Clone the response before using it
           const responseToCache = response.clone()
           
-          // Cache the fetched response for next time
-          caches.open(DYNAMIC_CACHE).then((cache) => {
-            cache.put(request, responseToCache)
-          })
+          // Respect cache headers: skip if marked private/no-store
+          const cacheControl = (response.headers.get('Cache-Control') || '').toLowerCase()
+          const isPublic = cacheControl === '' || (
+            cacheControl.includes('public') &&
+            !cacheControl.includes('private') &&
+            !cacheControl.includes('no-store')
+          )
+
+          if (isPublic) {
+            caches.open(DYNAMIC_CACHE).then((cache) => {
+              cache.put(request, responseToCache)
+            })
+          }
           
           return response
         })

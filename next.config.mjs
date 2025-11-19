@@ -85,6 +85,50 @@ const nextConfig = {
   },
 
   async headers() {
+    const isProd = process.env.NODE_ENV === 'production'
+
+    // Build a safer CSP. Keep 'unsafe-eval' only in development to avoid breaking Next dev tools.
+    const scriptSrc = isProd
+      ? "'self' 'unsafe-inline'"
+      : "'self' 'unsafe-inline' 'unsafe-eval'"
+
+    const csp = [
+      "default-src 'self'",
+      "base-uri 'self'",
+      `script-src ${scriptSrc}`,
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https:",
+      "font-src 'self' data:",
+      "object-src 'none'",
+      "frame-ancestors 'none'",
+      // Allow Supabase and websockets
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-insights.com",
+      // Allow embedding internal widgets if needed
+      "frame-src 'self' https://chat.nepalreforms.com https://*.nepalreforms.com",
+      // Prefer HTTPS resources
+      'upgrade-insecure-requests',
+    ].join('; ')
+
+    // Minimal, privacy-first Permissions-Policy
+    const permissionsPolicy = [
+      'accelerometer=()',
+      'autoplay=()',
+      'camera=()',
+      'display-capture=()',
+      'encrypted-media=()',
+      'fullscreen=(self)',
+      'geolocation=()',
+      'gyroscope=()',
+      'magnetometer=()',
+      'microphone=()',
+      'midi=()',
+      'payment=()',
+      'picture-in-picture=()',
+      'publickey-credentials-get=(self)',
+      // Disable cohorting
+      'interest-cohort=()'
+    ].join(', ')
+
     return [
       {
         source: '/:path*',
@@ -93,10 +137,19 @@ const nextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
+          { key: 'Permissions-Policy', value: permissionsPolicy },
+          // HSTS only in production (ignored on http://localhost)
+          ...(isProd
+            ? [
+                {
+                  key: 'Strict-Transport-Security',
+                  value: 'max-age=31536000; includeSubDomains; preload',
+                },
+              ]
+            : []),
           {
             key: 'Content-Security-Policy',
-            value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-src 'self' https://chat.nepalreforms.com https://*.nepalreforms.com;",
+            value: csp,
           },
         ],
       },
