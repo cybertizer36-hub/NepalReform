@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Testimonial } from '@/lib/types/testimonial'
 import { Pause, Play } from 'lucide-react'
 import Image from 'next/image'
+import { isSafeUrl } from '@/lib/utils'
 
 export function TestimonialCarousel() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
@@ -129,7 +130,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                 </div>
               )}
             </div>
-            {testimonial.linkedin_url && (
+            {testimonial.linkedin_url && isSafeUrl(testimonial.linkedin_url) && (
               <a
                 href={testimonial.linkedin_url}
                 target="_blank"

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Clock, User, ArrowLeft, Share2, Bookmark, ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, isSafeUrl } from "@/lib/utils"
 import Link from "next/link"
 
 interface Opinion {
@@ -344,20 +344,24 @@ export function OpinionDetail({ opinion }: OpinionDetailProps) {
           )}
 
           {/* References */}
-          {opinion.references && opinion.references.length > 0 && (
+                {opinion.references && opinion.references.length > 0 && (
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">References</h4>
               <ul className="space-y-2">
                 {opinion.references.map((ref, index) => (
                   <li key={index} className="text-sm">
-                    <a
-                      href={ref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline break-all"
-                    >
-                      {ref}
-                    </a>
+                    {isSafeUrl(ref) ? (
+                      <a
+                        href={ref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline break-all"
+                      >
+                        {ref}
+                      </a>
+                    ) : (
+                      <span className="text-muted-foreground break-all">{ref}</span>
+                    )}
                   </li>
                 ))}
               </ul>
