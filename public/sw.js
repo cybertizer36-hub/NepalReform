@@ -1,8 +1,8 @@
 // Nepal Reforms Service Worker
 // Handles offline functionality and caching
 
-const CACHE_NAME = 'nepal-reforms-v3'
-const DYNAMIC_CACHE = 'nepal-reforms-dynamic-v3'
+const CACHE_NAME = 'nepal-reforms-v4'
+const DYNAMIC_CACHE = 'nepal-reforms-dynamic-v4'
 
 // Assets to cache on install
 const STATIC_ASSETS = [
@@ -127,6 +127,12 @@ self.addEventListener('fetch', (event) => {
   
   // Handle static assets (cache first, fallback to network); only cache successful, non-private responses
   if (request.method === 'GET') {
+    // Never cache JS bundles or HTML documents to avoid serving stale app code
+    const dest = request.destination
+    const path = url.pathname
+    if (dest === 'script' || dest === 'document' || /\.(js|mjs|css|map)$/.test(path)) {
+      return
+    }
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
         if (cachedResponse) {
