@@ -31,24 +31,24 @@ export default function HomeClient() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-4">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                {t('home.manifestoTitle')}
+                <span suppressHydrationWarning>{t('home.manifestoTitle')}</span>
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                {t('home.manifestoDescription')}
+                <span suppressHydrationWarning>{t('home.manifestoDescription')}</span>
               </p>
             </div>
             <div className="max-w-3xl mx-auto mt-12 bg-white/70 backdrop-blur-sm rounded-2xl shadow-md p-8 space-y-6 mb-16">
-              <h2 className="text-2xl font-bold text-foreground">{t('home.howToEngage')}</h2>
+              <h2 className="text-2xl font-bold text-foreground"><span suppressHydrationWarning>{t('home.howToEngage')}</span></h2>
               <ul className="list-disc list-inside space-y-3 text-lg text-muted-foreground">
-                <li>{t('home.engageSteps.read')}</li>
+                <li><span suppressHydrationWarning>{t('home.engageSteps.read')}</span></li>
                 <li>
-                  {t('home.engageSteps.explore')}
-                  <span className="italic"> {t('home.engageSteps.topRight')}</span>.
+                  <span suppressHydrationWarning>{t('home.engageSteps.explore')}</span>
+                  <span className="italic" suppressHydrationWarning> {t('home.engageSteps.topRight')}</span>.
                 </li>
-                <li>{t('home.engageSteps.vote')}</li>
-                <li>{t('home.engageSteps.signIn')}</li>
+                <li><span suppressHydrationWarning>{t('home.engageSteps.vote')}</span></li>
+                <li><span suppressHydrationWarning>{t('home.engageSteps.signIn')}</span></li>
                 <li>
-                  {t('home.engageSteps.email')}{" "}
+                  <span suppressHydrationWarning>{t('home.engageSteps.email')}</span>{" "}
                   <a
                     href="mailto:suggestions@nepalreforms.com"
                     className="text-primary font-medium hover:underline"
@@ -56,7 +56,7 @@ export default function HomeClient() {
                     suggestions@nepalreforms.com
                   </a>
                 </li>
-                <li>{t('home.engageSteps.share')}</li>
+                <li><span suppressHydrationWarning>{t('home.engageSteps.share')}</span></li>
               </ul>
             </div>
 
@@ -75,11 +75,11 @@ export default function HomeClient() {
                 <img src="/nepal-flag-logo.png" alt="NepalReforms Logo" className="w-8 h-8 object-contain" />
                 <span className="text-lg font-semibold text-foreground">NepalReforms</span>
               </div>
-              <p className="text-sm text-muted-foreground">{t('footer.tagline')}</p>
+              <p className="text-sm text-muted-foreground"><span suppressHydrationWarning>{t('footer.tagline')}</span></p>
               {/* Powered by */}
               <div className="pt-8 border-t border-border/50">
                 <p className="text-xs text-muted-foreground">
-                  {t('footer.poweredBy')}{" "}
+                  <span suppressHydrationWarning>{t('footer.poweredBy')}</span>{" "}
                   <Link
                     href="https://nexalaris.com/"
                     target="_blank"
