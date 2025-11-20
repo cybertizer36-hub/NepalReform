@@ -1,11 +1,15 @@
 import { createClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { validateSuggestionUUID } from "@/lib/utils/uuid-helpers"
+import { isAllowedOrigin } from "@/lib/security/origin"
 
 export const runtime = "nodejs"
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
     const { id } = await params
 
     const supabase = await createClient()

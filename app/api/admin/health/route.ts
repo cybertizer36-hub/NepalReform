@@ -1,10 +1,21 @@
 import { NextResponse } from 'next/server'
-import { createServiceClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 
 export const runtime = 'nodejs'
 
 export async function GET() {
   try {
+    // Require authenticated admin
+    const userClient = await createClient()
+    const { data: { user }, error: authErr } = await userClient.auth.getUser()
+    if (authErr || !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    const { data: profile } = await userClient.from('profiles').select('role').eq('id', user.id).single()
+    if (profile?.role !== 'admin') {
+      return NextResponse.json({ error: 'Admin access required' }, { status: 403 })
+    }
+
     const checks = {
       environment: {
         SUPABASE_URL: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -25,7 +36,7 @@ export async function GET() {
       }
     }
 
-    // Test database connection
+    // Test database connection (service role)
     try {
       const supabase = await createServiceClient()
       

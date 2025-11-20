@@ -130,9 +130,10 @@ const FloatingChatWidget: React.FC = () => {
                 src={CHATBOT_URL}
                 className="w-full h-full border-0"
                 title={CHATBOT_TITLE}
-                // Restrict iframe capabilities: avoid `allow-same-origin` unless the frame is fully trusted.
-                sandbox="allow-scripts allow-forms"
-                allow="microphone"
+                // Chat runs on our subdomain and needs access to localStorage/cookies. Allow same-origin and common features.
+                // NOTE: Only do this for a fully trusted origin (chat.nepalreforms.com).
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
+                allow="microphone; clipboard-read; clipboard-write;"
                 referrerPolicy="origin"
                 loading="lazy"
               />

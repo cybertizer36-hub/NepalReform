@@ -24,6 +24,22 @@ function getResendClient() {
 
 export async function POST(request: NextRequest) {
   try {
+    // Require internal shared secret in production; optional in development
+    const providedSecret = request.headers.get('x-internal-email-key') || ''
+    const configuredSecret = (process.env.EMAIL_INTERNAL_SECRET || '').trim()
+    const isProd = process.env.NODE_ENV === 'production'
+
+    if (isProd) {
+      if (!configuredSecret || providedSecret !== configuredSecret) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+      }
+    } else {
+      // In non-production, if a secret is configured, enforce it
+      if (configuredSecret && providedSecret !== configuredSecret) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+      }
+    }
+
     const body = await request.json()
     const { type, data } = body
 

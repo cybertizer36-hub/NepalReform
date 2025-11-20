@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { validateAndNormalizeAgendaId } from "@/lib/utils/uuid-helpers"
+import { isAllowedOrigin } from "@/lib/security/origin"
 
 export const runtime = "nodejs"
 
@@ -28,8 +29,7 @@ export async function GET(request: NextRequest) {
         id,
         content,
         author_name,
-        created_at,
-        user_id
+        created_at
       `)
       .eq("agenda_id", queryId)
       .eq("status", "approved")
@@ -41,6 +41,7 @@ export async function GET(request: NextRequest) {
     }
 
     const response = NextResponse.json({
+      // Do not expose user_id to the client
       suggestions: suggestions || [],
       agenda_id: queryId,
     })
@@ -54,6 +55,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
     const supabase = await createClient()
 
     const {
@@ -123,6 +127,7 @@ export async function POST(request: NextRequest) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "x-internal-email-key": process.env.EMAIL_INTERNAL_SECRET || "",
           },
           body: JSON.stringify({
             type: "suggestion",
