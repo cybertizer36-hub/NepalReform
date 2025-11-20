@@ -1,15 +1,27 @@
-import { createServiceClient } from "@/lib/supabase/server"
+import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 
 export const runtime = "nodejs"
 
 export async function GET(request: NextRequest) {
   try {
-    // Create service client with service role key for admin operations
-    const supabase = await createServiceClient()
+    // 1) Verify session and admin role using regular client (cookie-based)
+    const supabase = await createClient()
+    const { data: { user }, error: authErr } = await supabase.auth.getUser()
+    if (authErr || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single()
+    if (profile?.role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
 
-    // Verify admin access through auth header (optional additional security)
-    const authHeader = request.headers.get("authorization")
+    // 2) Use service client only after confirming admin
+    const svc = await createServiceClient()
     
     // Get query parameters for pagination
     const { searchParams } = new URL(request.url)
@@ -20,7 +32,7 @@ export async function GET(request: NextRequest) {
     const to = from + limit - 1
 
     // Use service client to bypass RLS and get all profiles
-    const { data: profiles, error: profilesError, count } = await supabase
+    const { data: profiles, error: profilesError, count } = await svc
       .from("profiles")
       .select("*", { count: "exact" })
       .range(from, to)
@@ -65,7 +77,22 @@ export async function GET(request: NextRequest) {
 // Optional: Add a POST endpoint to update user roles
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createServiceClient()
+    // Verify admin
+    const supabase = await createClient()
+    const { data: { user }, error: authErr } = await supabase.auth.getUser()
+    if (authErr || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single()
+    if (profile?.role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
+
+    const svc = await createServiceClient()
     const body = await request.json()
     
     const { userId, updates } = body
@@ -74,7 +101,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing userId or updates" }, { status: 400 })
     }
     
-    const { data, error } = await supabase
+    const { data, error } = await svc
       .from("profiles")
       .update(updates)
       .eq("id", userId)
