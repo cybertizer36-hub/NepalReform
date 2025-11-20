@@ -1,6 +1,6 @@
 export const runtime = "nodejs"
 
-import { createServiceClient } from "@/lib/supabase/server"
+import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 
 interface PolicyData {
@@ -10,22 +10,18 @@ interface PolicyData {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createServiceClient()
-
-    // Check if user is admin
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser()
+    // Authenticate/authorize with regular client first
+    const userClient = await createClient()
+    const { data: { user }, error: authError } = await userClient.auth.getUser()
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
-
-    const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single()
-
+    const { data: profile } = await userClient.from("profiles").select("role").eq("id", user.id).single()
     if (profile?.role !== "admin") {
       return NextResponse.json({ error: "Admin access required" }, { status: 403 })
     }
+
+    const supabase = await createServiceClient()
 
     // Perform security audit checks
     const auditResults = {
