@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server"
+import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { validateSuggestionUUID } from "@/lib/utils/uuid-helpers"
 import { isAllowedOrigin } from "@/lib/security/origin"
@@ -130,8 +130,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-
     const supabase = await createClient()
+    const svc = await createServiceClient()
     const suggestion_id = id
 
     console.log("[v0] Fetching votes for suggestion:", suggestion_id)
@@ -146,8 +146,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       return NextResponse.json({ error: "Suggestion not found" }, { status: 404 })
     }
 
-    // Get vote counts
-    const { data: voteCounts } = await supabase
+    // Get vote counts using service role (no raw rows exposed via public RLS)
+    const { data: voteCounts } = await svc
       .from("suggestion_votes")
       .select("vote_type")
       .eq("suggestion_id", suggestion_id)
@@ -157,14 +157,14 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     console.log("[v0] Vote counts - Likes:", likes, "Dislikes:", dislikes)
 
-    // Get user's vote if authenticated
+    // Get user's vote if authenticated (service role filtered by user_id)
     let userVote = null
     const {
       data: { user },
     } = await supabase.auth.getUser()
 
     if (user) {
-      const { data: existingVote } = await supabase
+      const { data: existingVote } = await svc
         .from("suggestion_votes")
         .select("vote_type")
         .eq("suggestion_id", suggestion_id)

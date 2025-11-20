@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server"
+import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { validateAndNormalizeAgendaId } from "@/lib/utils/uuid-helpers"
 import { isAllowedOrigin } from "@/lib/security/origin"
@@ -101,8 +101,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-
     const supabase = await createClient()
+    const svc = await createServiceClient()
 
     console.log("[v0] Fetching votes for agenda ID:", id)
 
@@ -115,8 +115,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     console.log("[v0] Using agenda UUID for database operations:", agenda_id)
 
-    // Get vote counts
-    const { data: voteCounts, error: voteCountsError } = await supabase
+    // Get vote counts using service role to avoid exposing raw rows via public RLS
+    const { data: voteCounts, error: voteCountsError } = await svc
       .from("agenda_votes")
       .select("vote_type")
       .eq("agenda_id", agenda_id)
@@ -131,14 +131,14 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     console.log("[v0] Vote counts - Likes:", likes, "Dislikes:", dislikes)
 
-    // Get user's vote if authenticated
+    // Get user's vote if authenticated (query with service role, filtered by user_id)
     let userVote = null
     const {
       data: { user },
     } = await supabase.auth.getUser()
 
     if (user) {
-      const { data: existingVote } = await supabase
+      const { data: existingVote } = await svc
         .from("agenda_votes")
         .select("vote_type")
         .eq("agenda_id", agenda_id)
