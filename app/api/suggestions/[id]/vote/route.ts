@@ -2,6 +2,7 @@ import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { validateSuggestionUUID } from "@/lib/utils/uuid-helpers"
 import { isAllowedOrigin } from "@/lib/security/origin"
+import { checkRateLimit } from "@/lib/security/rate-limit"
 
 export const runtime = "nodejs"
 
@@ -10,6 +11,9 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     if (!isAllowedOrigin(request)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
+    // Rate limit: suggestion votes per IP
+    const rl = checkRateLimit(request, "vote-suggestion", 30, 5 * 60 * 1000)
+    if (!("ok" in rl) || rl.ok === false) return rl.response
     const { id } = await params
 
     const supabase = await createClient()
