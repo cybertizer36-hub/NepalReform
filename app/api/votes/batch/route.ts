@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { type NextRequest, NextResponse } from "next/server"
 import { isAllowedOrigin } from "@/lib/security/origin"
+import { checkRateLimit } from "@/lib/security/rate-limit"
 
 export const runtime = "nodejs"
 
@@ -9,6 +10,9 @@ export async function POST(request: NextRequest) {
     if (!isAllowedOrigin(request)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
+    // Rate limit: batch fetches per IP (prevent scraping pressure)
+    const rl = checkRateLimit(request, "vote-batch", 60, 5 * 60 * 1000)
+    if (!("ok" in rl) || rl.ok === false) return rl.response
     const supabase = await createClient()
     const { itemIds, table } = await request.json()
 
