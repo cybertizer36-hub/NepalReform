@@ -80,20 +80,20 @@ export function HeroSection() {
               </h1>
             </div>
             <p className="text-xl sm:text-2xl text-muted-foreground font-medium">
-              {t('hero.subtitle')}
+              <span suppressHydrationWarning>{t('hero.subtitle')}</span>
             </p>
           </div>
 
           {/* Description */}
           <div className="max-w-3xl mx-auto space-y-4 bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-sm">
             <p className="text-lg text-foreground leading-relaxed font-medium">
-              {t('hero.description1')}
+              <span suppressHydrationWarning>{t('hero.description1')}</span>
             </p>
             <p className="text-base text-foreground/90">
-              {t('hero.description2')}
+              <span suppressHydrationWarning>{t('hero.description2')}</span>
             </p>
             <p className="text-base text-foreground/90">
-              {t('hero.description3')}
+              <span suppressHydrationWarning>{t('hero.description3')}</span>
             </p>
           </div>
 
@@ -107,13 +107,14 @@ export function HeroSection() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.5 }}
                 className="text-primary"
+                suppressHydrationWarning
               >
                 {words[index]}
               </motion.span>
               <span>it</span>
             </div>
 
-            <div className="text-lg md:text-xl font-bold">
+            <div className="text-lg md:text-xl font-bold" suppressHydrationWarning>
               {t('hero.makeItReal')}
             </div>
           </div>
@@ -126,7 +127,7 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">20+</div>
-                <div className="text-sm text-foreground/80">{t('hero.stats.reforms')}</div>
+                <div className="text-sm text-foreground/80" suppressHydrationWarning>{t('hero.stats.reforms')}</div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-center bg-white/40 backdrop-blur-sm rounded-lg px-4 py-2">
@@ -135,7 +136,7 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">∞</div>
-                <div className="text-sm text-foreground/80">{t('hero.stats.suggestions')}</div>
+                <div className="text-sm text-foreground/80" suppressHydrationWarning>{t('hero.stats.suggestions')}</div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-center bg-white/40 backdrop-blur-sm rounded-lg px-4 py-2">
@@ -144,7 +145,7 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">100%</div>
-                <div className="text-sm text-foreground/80">{t('hero.stats.democratic')}</div>
+                <div className="text-sm text-foreground/80" suppressHydrationWarning>{t('hero.stats.democratic')}</div>
               </div>
             </div>
           </div>
@@ -174,7 +175,7 @@ export function HeroSection() {
                 className="relative z-10 px-8 py-3 text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
               >
                 <Link href="mailto:suggestions@nepalreforms.com">
-                  {t('hero.emailUs')}
+                  <span suppressHydrationWarning>{t('hero.emailUs')}</span>
                 </Link>
               </Button>
             </motion.div>
@@ -186,7 +187,7 @@ export function HeroSection() {
               onClick={scrollToAgendas}
               className="px-8 py-3 text-base font-medium bg-white/50 backdrop-blur-sm hover:bg-white/70 border-white/60"
             >
-              {t('hero.exploreAgendas')}
+              <span suppressHydrationWarning>{t('hero.exploreAgendas')}</span>
               <ArrowDown className="ml-2 h-5 w-5" />
             </Button>
           </div>

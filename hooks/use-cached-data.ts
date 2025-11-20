@@ -6,10 +6,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { manifestoData } from '@/lib/manifesto-data'
 import { CacheManager } from '@/lib/cache/cache-manager'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient as createBrowserSupabase } from '@/lib/supabase/client'
 import type { ManifestoItem } from '@/lib/manifesto-data'
 
-const supabase = createClientComponentClient()
+// Reuse the single browser Supabase client to avoid multiple GoTrueClient instances
+const supabase = createBrowserSupabase()
 
 /**
  * Hook for fetching manifesto data with multi-layer caching
@@ -83,42 +84,15 @@ export function useVotes(manifestoId?: string) {
         return cachedVotes
       }
 
-      // 2. Fetch from Supabase
-      console.log('🔄 Fetching votes from server')
-      let query = supabase.from('votes').select('*')
-      
-      if (manifestoId) {
-        query = query.eq('manifesto_id', manifestoId)
-      }
-      
-      const { data, error } = await query
-      
-      if (error) {
-        console.error('Error fetching votes:', error)
-        // Return cached data even if expired as fallback
-        const expiredCache = localStorage.getItem(cacheKey)
-        if (expiredCache) {
-          try {
-            const parsed = JSON.parse(expiredCache)
-            return parsed.data || []
-          } catch {
-            return []
-          }
-        }
-        throw error
-      }
-
-      // 3. Cache the result
-      if (data) {
-        CacheManager.setLocal(cacheKey, data, CacheManager.TTL.VOTES)
-      }
-
-      return data || []
+      // 2. Votes table not used in current schema; avoid 404s.
+      //    If votes are needed, use the dedicated agenda/suggestion vote APIs instead.
+      console.log('⚠️ Skipping legacy votes fetch (no votes table). Returning empty list.')
+      CacheManager.setLocal(cacheKey, [], CacheManager.TTL.VOTES)
+      return []
     },
     staleTime: CacheManager.TTL.VOTES,
-    // cacheTime: CacheManager.TTL.VOTES * 2, // Removed: not a valid option
     refetchOnWindowFocus: false,
-    retry: 1,
+    retry: 0,
   })
 }
 
