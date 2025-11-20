@@ -125,14 +125,14 @@ export function Header() {
         </Avatar>
         <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-sm">
           <LogOut className="h-4 w-4 mr-2" />
-          {t('header.signOut')}
+          <span suppressHydrationWarning>{t('header.signOut')}</span>
         </Button>
       </div>
     ) : (
       <Button asChild size="sm">
         <Link href="/auth/login">
           <User className="h-4 w-4 mr-2" />
-          {t('header.signIn')}
+          <span suppressHydrationWarning>{t('header.signIn')}</span>
         </Link>
       </Button>
     )
@@ -198,21 +198,21 @@ export function Header() {
                 className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 <Home className="h-4 w-4" />
-                {t('header.home')}
+                <span suppressHydrationWarning>{t('header.home')}</span>
               </Link>
               <Link
                 href="https://lawcommission.gov.np/content/13437/nepal-s-constitution/"
                 className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 <BookOpen className="h-4 w-4" />
-                {t('header.constitution')}
+                <span suppressHydrationWarning>{t('header.constitution')}</span>
               </Link>
               <Link
                 href="/testimonials"
                 className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
               >
                 <Quote className="h-4 w-4" />
-                {t('header.testimonials')}
+                <span suppressHydrationWarning>{t('header.testimonials')}</span>
               </Link>
               
               <ClientOnly fallback={<div className="w-32 h-4" />}>
@@ -222,13 +222,13 @@ export function Header() {
                       href="/create-opinion"
                       className="text-sm font-medium text-foreground hover:text-primary transition-colors"
                     >
-                      {t('header.createAgenda')}
+                      <span suppressHydrationWarning>{t('header.createAgenda')}</span>
                     </Link>
                     <Link
                       href="/profile"
                       className="text-sm font-medium text-foreground hover:text-primary transition-colors"
                     >
-                      {t('header.profile')}
+                      <span suppressHydrationWarning>{t('header.profile')}</span>
                     </Link>
                   </>
                 )}
@@ -257,7 +257,7 @@ export function Header() {
                       className="relative z-10 text-sm font-medium bg-gray-600 text-white hover:bg-gray-800"
                     >
                       <Download className="h-4 w-4 mr-2" />
-                      {t('header.downloadManifesto')}
+                      <span suppressHydrationWarning>{t('header.downloadManifesto')}</span>
                       <ChevronDown className="h-4 w-4 ml-2" />
                     </Button>
                   </motion.div>
@@ -266,11 +266,11 @@ export function Header() {
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem onClick={handleDownloadEnglish} className="cursor-pointer">
                     <Download className="h-4 w-4 mr-2" />
-                    {t('header.english')}
+                    <span suppressHydrationWarning>{t('header.english')}</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleDownloadNepali} className="cursor-pointer">
                     <Download className="h-4 w-4 mr-2" />
-                    {t('header.nepali')}
+                    <span suppressHydrationWarning>{t('header.nepali')}</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -300,7 +300,7 @@ export function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Home className="h-4 w-4" />
-                  {t('header.home')}
+                  <span suppressHydrationWarning>{t('header.home')}</span>
                 </Link>
                 <Link
                   href="/#agendas-section"
@@ -308,7 +308,7 @@ export function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <BookOpen className="h-4 w-4" />
-                  {t('header.reforms')}
+                  <span suppressHydrationWarning>{t('header.reforms')}</span>
                 </Link>
                 <Link
                   href="/testimonials"
@@ -316,7 +316,7 @@ export function Header() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Quote className="h-4 w-4" />
-                  {t('header.testimonials')}
+                  <span suppressHydrationWarning>{t('header.testimonials')}</span>
                 </Link>
                 
                 <ClientOnly>
@@ -327,21 +327,21 @@ export function Header() {
                         className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {t('header.createOpinion')}
+                        <span suppressHydrationWarning>{t('header.createOpinion')}</span>
                       </Link>
                       <Link
                         href="/profile"
                         className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {t('header.profile')}
+                        <span suppressHydrationWarning>{t('header.profile')}</span>
                       </Link>
                     </>
                   )}
                 </ClientOnly>
                 
                 <div className="space-y-2 pt-2 border-t">
-                  <p className="text-sm font-medium text-foreground">{t('header.downloadFullManifesto')}</p>
+                  <p className="text-sm font-medium text-foreground"><span suppressHydrationWarning>{t('header.downloadFullManifesto')}</span></p>
                   <Button
                     variant="outline"
                     size="sm"
@@ -352,7 +352,7 @@ export function Header() {
                     className="w-full justify-start"
                   >
                     <Download className="h-4 w-4 mr-2" />
-                    {t('header.english')}
+                    <span suppressHydrationWarning>{t('header.english')}</span>
                   </Button>
                   <Button
                     variant="outline"
@@ -364,7 +364,7 @@ export function Header() {
                     className="w-full justify-start"
                   >
                     <Download className="h-4 w-4 mr-2" />
-                    {t('header.nepali')}
+                    <span suppressHydrationWarning>{t('header.nepali')}</span>
                   </Button>
                 </div>
               </nav>
