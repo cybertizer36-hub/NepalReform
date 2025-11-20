@@ -8,6 +8,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig = {
   // Enable React Strict Mode for better hydration debugging
   reactStrictMode: true,
+  // Enable production source maps for easier error tracing in prod
+  productionBrowserSourceMaps: true,
   // Use default server output to avoid Windows symlink issues during standalone tracing
 
   eslint: {
