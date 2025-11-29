@@ -13,10 +13,10 @@ import "./globals.css"
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://nepalreforms.com'),
   title: {
-    default: "Nepal Reforms - 27 Comprehensive Reform Proposals for Democratic Transformation",
+    default: "Nepal Reforms - Comprehensive Reform Proposals for Democratic Transformation",
     template: "%s | Nepal Reforms",
   },
-  description: "Explore 27 evidence-based reform proposals for Nepal's democratic transformation. Vote, discuss, and contribute to shaping Nepal's future through transparency, anti-corruption, and governance reforms.",
+  description: "Explore evidence-based reform proposals for Nepal's democratic transformation. Vote, discuss, and contribute to shaping Nepal's future through transparency, anti-corruption, and governance reforms.",
   keywords: [
     "Nepal reforms",
     "democratic transformation",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://nepalreforms.com",
-    title: "Nepal Reforms - 27 Reform Proposals",
+    title: "Nepal Reforms - Reform Proposals",
     description: "Comprehensive reform proposals for Nepal's democratic transformation",
     siteName: "Nepal Reforms Platform",
     images: [
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nepal Reforms Platform",
-    description: "27 comprehensive reform proposals for Nepal's democratic transformation",
+    description: "Comprehensive reform proposals for Nepal's democratic transformation",
     images: ["/og-image.png"],
   },
   robots: {

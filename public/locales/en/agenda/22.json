@@ -6,9 +6,17 @@
   "priority": "Medium",
   "timeline": "6 months",
   "problem": {
-    "long": "Citizens forced to choose between inadequate candidates have no way to reject all options, reducing democratic legitimacy and voter satisfaction. Article 17 protects freedom of expression including the right to reject, and the Supreme Court has mandated Nepal Government and Election Commission to guarantee None of the Above in ballot papers, but implementation is pending."
+    "short": "Citizens forced to choose between inadequate candidates have no way to reject all options, reducing democratic legitimacy. Supreme Court has mandated NOTA implementation but it remains pending.",
+    "long": "Citizens forced to choose between inadequate candidates have no way to reject all options, reducing democratic legitimacy and voter satisfaction. Article 17 protects freedom of expression including the right to reject, and the Supreme Court has mandated Nepal Government and Election Commission to guarantee None of the Above in ballot papers, but implementation is pending. Voters facing choices between incompetent, corrupt, or otherwise unsuitable candidates must either vote for unsatisfactory option or not vote at all. This forces participation in legitimizing inadequate representation or abstention signaling apathy rather than dissatisfaction. Result: elected representatives often lack genuine popular support; parties nominate poor candidates knowing voters have no rejection mechanism; democratic legitimacy weakened when officials claim mandate despite voter dissatisfaction. NOTA would provide meaningful democratic voice allowing citizens to formally reject all candidates, pressuring parties to improve candidate quality."
   },
   "solution": {
+    "short": [
+      "NOTA on all ballots for every election at all government levels",
+      "Mandatory re-election if NOTA wins plurality with all original candidates disqualified",
+      "Transparent counting with NOTA votes published like any other candidate",
+      "Voter education campaigns explaining NOTA's democratic purpose and impact",
+      "Election Commission regulation for implementation within 3-6 months"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "India's NOTA (2013) improving candidate quality as parties respond to voter dissatisfaction pressure",
+      "Nevada's NOTA since 1975 forces parties to reconsider candidate selection when performing well",
+      "Colombia's blank vote option maintains participation while allowing rejection of inadequate choices",
+      "All demonstrate NOTA empowers citizens and pressures parties to improve candidate quality"
+    ],
     "long": [
       {
         "country": "India",
@@ -64,6 +78,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-3: Election Commission regulation, legal framework for re-election procedures",
+      "Months 3-6: Voter education campaigns, training for election officials",
+      "Months 6-12: NOTA available in all elections, monitoring impact on candidate quality"
+    ],
     "long": [
       {
         "timeline": "Months 1-3",

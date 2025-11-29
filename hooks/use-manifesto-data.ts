@@ -68,6 +68,7 @@ export interface ManifestoDetailItem {
   category: string;
   priority: "High" | "Medium" | "Low";
   timeline: string;
+  updatedOn?: string;
   problem: {
     long: string;
   };

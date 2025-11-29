@@ -2,127 +2,132 @@
   "manifestoData": [
     {
       "id": "1",
-      "title": "Transform CIAA Into a Truly Independent Anti-Corruption Force",
-      "description": "Transform Nepal's anti-corruption commission into a powerful, independent body that can actually investigate and prosecute corruption cases without political interference.",
+      "title": "Transform CIAA into a Truly Independent Anti-Corruption Force",
+      "description": "Restructure the Commission for the Investigation of Abuse of Authority (CIAA) to become an effective, independent anti-corruption body with operational capacity and prosecutorial powers.",
       "category": "Anti-Corruption",
       "priority": "High",
-      "timeline": "5 years",
+      "timeline": "3-5 years",
       "problem": {
-        "short": "The CIAA has legal powers but can't use them effectively. Political leaders control who gets appointed, the government controls its budget, and it lacks skilled staff and modern tools to investigate corruption properly."
+        "short": "CIAA remains largely ineffective despite having strong legal powers on paper due to politicized leadership, lack of operational independence, weak institutional capacity, and selective enforcement against low-level officials while high-level political figures escape scrutiny."
       },
       "solution": {
         "short": [
-          "Give CIAA power to prosecute cases directly in court",
-          "Allow CIAA to freeze corrupt officials' bank accounts during investigations",
-          "Make CIAA's budget independent from government control",
-          "Select commissioners through competitive exams, not political appointments",
-          "Protect commissioners from being fired for 5-8 years"
+          "Phase 1: Immediate statutory reforms strengthening investigation, prosecution, and asset recovery powers",
+          "Enhanced asset disclosure including family wealth monitoring",
+          "Mandatory public prosecutorial guidelines preventing selective prosecution",
+          "Phase 2: Constitutional reforms establishing independent budget allocation and merit-based appointments"
         ]
       },
       "performanceTargets": [
-        "Win 80% of corruption cases within 2 years",
-        "Reduce case completion time from 3+ years to 6 months",
-        "Take 90% of major corruption cases to court",
-        "Recover 60% of stolen money in proven corruption cases"
+        "80% conviction rate for corruption cases within 2 years",
+        "Average case resolution time reduced from 3+ years to 6 months",
+        "90% of major corruption cases reach prosecution (vs. current 30%)",
+        "Full asset recovery in 60% of proven corruption cases with transparent public reporting",
+        "100% compliance with published prosecutorial guidelines with annual public review",
+        "Comprehensive family wealth disclosures for all public officials within 18 months, with at least 30% verified through cross-referencing within 2 years",
+        "Public recovered assets dashboard operational within 12 months showing real-time fund flows and project completions"
       ],
       "realWorldEvidence": {
         "short": [
-          "Singapore's anti-corruption agency has 98% conviction rate because it's completely independent",
-          "Hong Kong eliminated government corruption within 10 years using an independent commission",
-          "Indonesia's anti-corruption commission achieves 77% conviction rate with major prosecutions"
+          "Singapore's CPIB achieved 98% conviction rate through complete independence",
+          "Hong Kong's ICAC eliminated government corruption within a decade",
+          "Indonesia's KPK demonstrates phased approach with 77% conviction rate"
         ]
       },
       "implementation": {
         "short": [
-          "First 6 months: Change laws to give CIAA prosecution powers and asset freezing authority",
-          "Months 7-12: Set up special courts and hire qualified investigators",
-          "Years 2-3: Build political support for constitutional changes",
-          "Years 3-5: Complete constitutional amendment for full independence"
+          "Months 1-6: CIAA Act amendment for prosecution powers and asset recovery",
+          "Months 7-12: Specialized courts establishment and professional staff recruitment",
+          "Years 2-3: Build political consensus for constitutional amendments",
+          "Years 3-5: Constitutional amendment process and full independence achievement"
         ]
       },
-      "legalFoundation": "Articles 238-239 of Constitution 2015, CIAA Act 2048 (1991)"
+      "legalFoundation": "CIAA was established under Article 238 and 239 of Constitution 2015 with investigation authority. CIAA Act 2048 (1991) governs operations. Commission for Investigation of Abuse of Authority Rules 2049 provides procedural framework. Some reforms use existing authority; others require constitutional amendment."
     },
     {
       "id": "2",
-      "title": "Fresh Elections in 180 Days",
-      "description": "Conduct new parliamentary elections within 6 months with strict rules to ensure only qualified, honest candidates can run and all campaign money is transparent.",
+      "title": "Hold Free and Fair Elections (March 2026)",
+      "description": "Conduct parliamentary elections in March 2026 with critical reforms to prevent corrupt politicians from returning through strict candidate vetting, campaign finance transparency, and overseas voting implementation.",
       "category": "Electoral Reform",
       "priority": "High",
-      "timeline": "180 days",
+      "timeline": "Until March 5, 2026",
       "problem": {
-        "short": "The current government has lost people's trust. The election system allows criminals and corrupt people to run for office, and voters don't know where campaign money comes from."
+        "short": "After Gen Z protests forced parliament's dissolution in September 2025, elections are set for March 5, 2026. But critical reforms to prevent the same corrupt politicians from returning remain unimplemented. Without these reforms now, we'll just get another corrupt government."
       },
       "solution": {
         "short": [
-          "Dissolve parliament and hold elections within 180 days",
-          "Ban candidates with criminal charges or corruption cases from running",
-          "Require all campaign donations and spending to be published online daily",
-          "Only allow individual people to donate money, no corporate donations",
-          "Add 'None of the Above' option - if it wins, hold new elections with new candidates"
+          "Ban candidates with proven criminal and corruption charges AND pending corruption indictments",
+          "Real-time campaign finance transparency with all donations and spending published online within 24 hours",
+          "Ban corporate donations - only verified individual contributions allowed",
+          "Implement overseas voting for Nepali diaspora as mandated by Supreme Court (2017)",
+          "Add 'None of the Above' (NOTA) option - if it wins, hold fresh elections with new candidates"
         ]
       },
       "performanceTargets": [
-        "Complete background verification for 100% of candidates",
-        "Real-time tracking of all campaign donations and spending",
-        "Zero tolerance for hidden campaign funding",
-        "Complete electoral process within 180 days"
+        "Complete background verification for 100% of candidates before nominations",
+        "Real-time tracking of all campaign donations and spending with 24-hour disclosure",
+        "Zero tolerance for hidden campaign funding with immediate enforcement",
+        "Complete electoral process on March 5, 2026 with reformed system",
+        "Overseas voting operational in pilot countries",
+        "NOTA option available in all constituencies with clear re-election procedures"
       ],
       "realWorldEvidence": {
         "short": [
-          "Ecuador allows president to dissolve parliament to break political deadlocks",
           "Canada requires real-time disclosure of donations over $200 within 3 days",
-          "Countries with strict campaign finance rules have higher public trust in elections"
+          "Philippines has robust overseas voting with 1.3+ million voters abroad",
+          "Countries with stricter campaign finance rules have higher public trust in elections"
         ]
       },
       "implementation": {
         "short": [
-          "President dissolves parliament due to political crisis",
-          "Election Commission publishes complete background checks on all candidates",
-          "Change electoral laws to disqualify candidates with pending corruption cases",
-          "Require candidates to submit audited expense reports within 30 days"
+          "NOW (Nov-Dec 2025): Interim government issues ordinances to amend electoral laws",
+          "Before Nominations (Jan 2026): Disqualification criteria codified and public",
+          "During Campaign (Jan-Mar 2026): Real-time spending dashboard live",
+          "March 5, 2026: Elections with reformed system"
         ]
-      }
+      },
+      "legalFoundation": "Electoral laws can be amended through ordinance by interim government. Supreme Court order (April 2017) mandates overseas voting implementation."
     },
     {
       "id": "3",
       "title": "Decentralize Power from Kathmandu to Provinces and Local Levels",
-      "description": "Give real decision-making power and budget control to provincial and local governments so people don't have to go to Kathmandu for every approval.",
+      "description": "Give real decision-making power and budget control to provincial and local governments through phased implementation with capacity building, so people don't have to go to Kathmandu for every approval.",
       "category": "Federalism",
       "priority": "High",
-      "timeline": "2 years",
+      "timeline": "5-10 years (phased)",
       "problem": {
-        "short": "Everything gets decided in Kathmandu, creating long delays and opportunities for corruption. Every budget, project, and approval has to go through the center, making simple things complicated."
+        "short": "Too much power concentrated in Kathmandu creates corruption bottlenecks. Every decision, every budget, every project approval goes through the center, creating opportunities for bribes and delays."
       },
       "solution": {
         "short": [
-          "Implement constitutional powers already given to provinces and local governments",
-          "Give 60% of national budget directly to provinces and local areas",
-          "Let provinces keep 40% of taxes collected in their areas",
-          "Allow municipalities to approve projects up to 50 crore without federal permission",
-          "Let provinces hire and manage their own civil servants"
+          "Enforce constitutional decentralization through existing Schedules 5-9",
+          "60% budget decentralization with formula-based fiscal transfers that cannot be arbitrarily withheld",
+          "40% provincial tax retention from locally collected revenues",
+          "50 crore local approval authority for municipalities",
+          "Independent regional audit units preventing corruption from relocating to local level",
+          "Phased pilot implementation with 15-20 municipalities receiving intensive capacity building"
         ]
       },
       "performanceTargets": [
-        "Transfer 60% of national budget to local levels",
-        "Provinces keep 40% of taxes within 3 years",
-        "All municipalities get 50 crore approval authority",
-        "100% compliance with constitutional decentralization requirements"
+        "Year 2: 80% of pilot governments demonstrate measurable capacity improvement; 100% audit coverage in pilot areas",
+        "Year 5: 40% of municipalities operating at full autonomy; 90% of fiscal transfers follow formula without delays; public financial dashboards operational",
+        "Year 10: 70% of municipalities at full autonomy; service delivery improvements of 30%; citizen satisfaction exceeds 60%"
       ],
       "realWorldEvidence": {
         "short": [
-          "Indonesia reduced central government dependency from 82% to 48% through decentralization",
-          "Philippines increased local government funds by 55% through decentralization",
-          "Switzerland makes most decisions at local level, creating efficient, clean government"
+          "Indonesia reduced central dependency from 82% to 48% through decentralization",
+          "Philippines increased local transfers by 55% giving real power and resources",
+          "Switzerland demonstrates ideal federalism with decisions at local level creating efficient government"
         ]
       },
       "implementation": {
         "short": [
-          "Use existing constitutional provisions and change federal laws immediately",
-          "Complete administrative transfer to local governments within 2 years",
-          "Transfer budget authority to provinces and local governments",
-          "Set up provincial civil service systems"
+          "Phase 1 (Years 1-2): Pilot 15-20 municipalities, establish audit hubs, implement formula-based transfers",
+          "Phase 2 (Years 3-5): Expand based on lessons, classify governments into capacity tiers",
+          "Phase 3 (Years 5-10): Full implementation with continued capacity development"
         ]
-      }
+      },
+      "legalFoundation": "Constitution Articles and Schedules 5-9 already grant provinces and local governments exclusive powers. Implementation requires enforcing existing constitutional provisions through amended federal laws."
     },
     {
       "id": "4",
@@ -132,38 +137,40 @@
       "priority": "High",
       "timeline": "6 months",
       "problem": {
-        "short": "Politicians become millionaires while earning modest government salaries, but nobody knows where their wealth comes from. This enables corruption and destroys public trust."
+        "short": "Politicians become millionaires on government salaries. Where does the money come from? Politicians accumulate substantial wealth on modest government salaries without transparency about sources, enabling corruption and undermining public trust."
       },
       "solution": {
         "short": [
-          "Publish all politician assets online within 7 days in searchable format",
-          "Require candidates to declare all assets before they can run for office",
-          "Demand supporting documents like property deeds and bank statements",
-          "Automatically investigate anyone whose wealth increases by 50% in one year",
-          "Have multiple agencies cross-check declarations against tax and bank records"
+          "Public digital portal publishing all politician asset declarations in searchable, downloadable format within 7 days",
+          "Candidate disclosure at nomination with supporting documentation (title deeds, bank statements, purchase invoices)",
+          "Automatic red-flag triggers for 50% annual wealth increase or large unexplained purchases",
+          "Multi-institutional verification by CIAA, Election Commission, and Auditor-General",
+          "Clear sanctions: failure to file = immediate disqualification; false declaration = criminal prosecution"
         ]
       },
       "performanceTargets": [
-        "100% politician compliance with asset disclosure within 60 days",
-        "Public portal operational with downloadable data",
-        "Investigate all suspicious wealth increases automatically",
-        "Criminal prosecution for false declarations"
+        "100% politician compliance with asset disclosure within 60 days or disqualification",
+        "Public portal operational with downloadable data in searchable format within 6 months",
+        "Investigate all suspicious wealth increases (>50% annual) automatically within 90 days",
+        "Criminal prosecution for all proven false declarations with 2-5 year imprisonment",
+        "90% public awareness of portal existence within 12 months through education campaign",
+        "100,000+ citizen portal visits in first year demonstrating public oversight engagement"
       ],
       "realWorldEvidence": {
         "short": [
-          "Ukraine's digital asset system processes over 1 million declarations annually",
-          "93% of countries require cabinet asset disclosure, but only 43% make it public",
-          "Digital transparency led to prosecution of 5,131 civil servants for corruption by 2020"
+          "Ukraine's electronic system processes 1M+ declarations annually with 72% public approval, leading to 5,131 prosecutions",
+          "Global data shows 93% of countries require disclosure but only 43% make it public - transparency is key",
+          "Indonesia's LHKPN system demonstrates public access drives accountability in developing countries"
         ]
       },
       "implementation": {
         "short": [
-          "Give current politicians 60 days to comply or face disqualification",
-          "Launch public portal within 6 months",
-          "Change laws to require public disclosure instead of confidential filing",
-          "Create central portal coordinated by anti-corruption agencies"
+          "Days 1-60: All current politicians comply with full asset disclosure or face disqualification",
+          "Months 3-6: Digital platform operational with searchable, downloadable format",
+          "Months 6-12: Automatic red-flag system and audit cycles fully operational"
         ]
-      }
+      },
+      "legalFoundation": "Prevention of Corruption Act 2002 Section 3 requires asset declarations but Section 28 mandates confidentiality - requires amendment for public disclosure. Representation of People Act 2017 Section 13 requires candidate declarations. Constitution Article 27 guarantees Right to Information enabling public access to official wealth data. Good Governance Act 2008 mandates transparency in public office."
     },
     {
       "id": "5",
@@ -173,38 +180,41 @@
       "priority": "High",
       "timeline": "1 year",
       "problem": {
-        "short": "Ministers and MPs are chosen through political deals rather than qualifications, leading to poor governance and waste of public resources."
+        "short": "Ministers and MPs are often chosen through political bargaining rather than expertise, leading to a mismatch that undermines governance, wastes resources, and prevents the Constitution's promise of accountable, effective leadership from being realized."
       },
       "solution": {
         "short": [
-          "Pass law requiring ministers to have relevant education or experience",
-          "Require either: Bachelor's degree + 3 years experience OR 10+ years sector experience",
-          "Health Minister must have medical or public health background",
-          "Finance Minister must have economics, finance, or banking experience",
-          "Prime Minister must justify all ministerial appointments to Parliament in writing"
+          "Parliament passes Ministerial Qualifications Act requiring sectoral expertise for specific portfolios",
+          "Education OR Experience standard: Bachelor's degree + 3 years proven experience OR 10+ years sector experience",
+          "Parliamentary justification requirement: PM must justify all ministerial appointments in writing",
+          "Public verification system for claimed qualifications with Parliamentary oversight committee",
+          "Long-term constitutional amendment for permanent protection against reversal"
         ]
       },
       "performanceTargets": [
-        "100% of ministers meet qualification requirements within 1 year",
-        "Parliamentary justification published for all appointments",
-        "Competitive compensation aligned with senior civil service",
-        "Zero appointments based only on party loyalty"
+        "100% of ministers meet qualification requirements within 1 year of Act passage",
+        "Parliamentary justification published for all appointments within 7 days with 100% transparency",
+        "Competitive compensation aligned with senior civil service to attract qualified candidates",
+        "Zero appointments based only on party loyalty without meeting qualification standards",
+        "90% public awareness of qualification requirements within 12 months",
+        "Measurable improvement in ministry performance metrics within 2 years",
+        "Constitutional amendment achieved within 5 years with cross-party support"
       ],
       "realWorldEvidence": {
         "short": [
-          "UK cabinet has 91% university-educated members despite no formal requirements",
-          "India's 2014 cabinet had 91% graduates through political pressure for competence",
-          "Political systems naturally improve when voters demand qualified leaders"
+          "UK cabinet: 91% university-educated despite no formal requirements - political incentives drive qualifications when public demands competence",
+          "France: ENA graduates dominate government ensuring technical expertise in administration",
+          "Singapore: Ministerial salaries pegged to private sector attract top talent with proven track records"
         ]
       },
       "implementation": {
         "short": [
-          "Pass Ministerial Qualifications Act through Parliament (simple majority needed)",
-          "Apply immediately to all new appointments",
-          "Work toward constitutional amendment for permanent protection",
-          "Set fair compensation to attract qualified people"
+          "Months 1-6: Draft and pass Ministerial Qualifications Act with specific sectoral requirements",
+          "Months 7-12: Immediate implementation for all new appointments with verification system",
+          "Years 2-5: Build consensus for constitutional amendment providing permanent protection"
         ]
-      }
+      },
+      "legalFoundation": "Constitution Article 76 governs ministerial appointments but does not specify qualification requirements - allows implementation through ordinary legislation without constitutional amendment initially. Article 76(9) allows 'distinguished individuals' as ministers - proposed reform limits this through supermajority requirement. Long-term constitutional amendment to Article 76 would provide permanent protection against reversal."
     },
     {
       "id": "6",
@@ -214,7 +224,7 @@
       "priority": "High",
       "timeline": "5 years",
       "problem": {
-        "short": "Nepal's parliamentary system creates constant instability, frequent government collapses, and allows unqualified party loyalists to become ministers without independent review."
+        "short": "Nepal's parliamentary system creates chronic instability, coalition governments that collapse frequently, and allows unqualified party loyalists to become ministers without independent checks."
       },
       "solution": {
         "short": [
@@ -242,8 +252,7 @@
         "short": [
           "Phase 1 (0-12 months): Create appointment commission, pass qualification laws",
           "Phase 2 (2-5 years): Build political consensus for constitutional amendments",
-          "Show that immediate reforms work before proposing constitutional changes",
-          "Gradual implementation with measurable results at each phase"
+          "Show that immediate reforms work before proposing constitutional changes"
         ]
       }
     },
@@ -255,38 +264,41 @@
       "priority": "High",
       "timeline": "2 years",
       "problem": {
-        "short": "Government systems don't work together, forcing citizens to submit the same documents multiple times. Many services are still manual, creating delays and opportunities for corruption."
+        "short": "Although Nepal has made considerable progress in digitizing major government functions—such as budgetary systems, revenue collection, passports, driving licenses, immigration, and national ID—these systems remain fragmented and lack interoperability."
       },
       "solution": {
         "short": [
-          "Connect all government computer systems so they can share information",
-          "Create national digital standards and cybersecurity center",
-          "Build single website (Nepal.gov.np) for all government services",
-          "Use national ID cards for all government services",
-          "Provide 24/7 AI chatbot to help citizens navigate services"
+          "National Digital Framework with shared standards enabling all government systems to interoperate",
+          "Unified Nepal.gov.np portal for all government services with end-to-end digital processing",
+          "Data-sharing layer with secure APIs eliminating duplicate document submissions",
+          "Assisted Digital Service Desks at ward offices for citizens lacking digital literacy",
+          "Legal reforms mandating service delivery timelines with penalties for delays"
         ]
       },
       "performanceTargets": [
-        "100% government services available online within 24 months",
-        "90% of service requests completed within published timelines",
-        "24/7 virtual assistant handles 80% of citizen questions",
-        "Complete elimination of duplicate document submissions"
+        "100% of government services (500+) available online within 24 months",
+        "90% of service requests completed within published timelines with automatic tracking",
+        "24/7 virtual assistant handles 80% of citizen questions without human intervention",
+        "Complete elimination of duplicate document submissions through data-sharing APIs",
+        "80% citizen satisfaction with digital government services within 2 years",
+        "50% reduction in corruption complaints related to service delivery delays",
+        "Portal uptime of 99.5% with maximum 2-hour downtime for any incident"
       ],
       "realWorldEvidence": {
         "short": [
-          "Estonia provides 100% of services online, saving citizens 1,400 years annually",
-          "India's digital system eliminated 25 million fake beneficiaries, saving ₹3.5 lakh crore",
-          "Digital signatures alone save €2,700 per year for institutions"
+          "Estonia: 100% online service availability saves citizens 1,400 years working time annually",
+          "India's JAM Trinity eliminated 25 million false beneficiaries saving ₹3.5 lakh crore",
+          "Singapore's Moments of Life platform delivers personalized services based on life events"
         ]
       },
       "implementation": {
         "short": [
-          "Months 1-6: Set up digital standards center and expand government portal",
-          "Months 7-18: Connect all ministries, train staff, deploy help systems",
-          "Months 19-24: Launch full service availability and accountability systems",
-          "Change laws to require efficient service delivery with penalties for delays"
+          "Months 1-6: NESGC established, digital framework developed, legal amendments prepared",
+          "Months 7-18: Ministry integration with APIs, civil servant training, municipal help desks deployed",
+          "Months 19-24: 100% services online, accountability mechanisms operational, innovation sandboxes launched"
         ]
-      }
+      },
+      "legalFoundation": "Electronic Transactions Act 2063 (2008) provides framework for digital services and electronic signatures. Right to Information Act 2064 (2007) mandates proactive disclosure of government information. Good Governance Act 2064 (2008) requires efficient, effective, transparent service delivery. Implementation requires amendments to strengthen enforcement and add specific service delivery timelines with penalties."
     },
     {
       "id": "8",
@@ -324,8 +336,7 @@
         "short": [
           "Months 1-6: Upgrade procurement systems and change laws",
           "Months 7-12: Roll out starting with central ministries",
-          "Year 2: Full implementation including local governments with monitoring",
-          "Independent audits by Auditor General of all major contracts"
+          "Year 2: Full implementation including local governments with monitoring"
         ]
       }
     },
@@ -337,15 +348,15 @@
       "priority": "Medium",
       "timeline": "2 years",
       "problem": {
-        "short": "Business associations control prices and supply chains without competition. Weak enforcement allows cartels to operate freely, making everything expensive for ordinary people."
+        "short": "Monopolistic practices are widespread through unregulated associations controlling transport fares, routes, and agricultural supply chains, leaving consumers with inflated prices and farmers with minimal value from their produce."
       },
       "solution": {
         "short": [
-          "Give Competition Commission power to investigate and punish cartels",
-          "Temporarily allow easier imports of monopolized goods to increase competition",
-          "Create Small Importer License for individuals and small businesses",
-          "Set up consumer courts in every district with penalty powers",
-          "Heavy fines for businesses selling above Maximum Retail Price"
+          "Temporary import liberalization with simplified licensing for essential goods facing monopoly pricing",
+          "Strengthen Competition Commission with enhanced cartel investigation and enforcement authority",
+          "Establish consumer protection courts in every district with penalty powers",
+          "Implement price monitoring and crowdsourced reporting systems",
+          "Cross-check international compliance to prevent blacklisted firms from entering market"
         ]
       },
       "performanceTargets": [
@@ -356,17 +367,15 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "South Korea's competition enforcement after 1997 coincided with economic growth acceleration",
-          "India's Competition Act 2002 supported economic liberalization and GDP growth",
-          "Countries with strong competition policy show higher manufacturing growth"
+          "South Korea transitioned from protecting chaebols to serious competition enforcement post-1997, contributing to developed economy status",
+          "India's Competition Act 2002 replaced monopoly protection, paralleling GDP growth acceleration through market competition"
         ]
       },
       "implementation": {
         "short": [
-          "Months 0-6: Issue temporary import relaxation order and digital permit system",
-          "Months 7-12: Track imports with monitoring and safety audits",
-          "Year 1: Assess impact on competition and prices",
-          "Year 2: Full evaluation and policy adjustment based on results"
+          "Months 0-6: Issue Temporary Import Liberalization Order with digital permit system for SMEs and individuals",
+          "Months 7-12: Implement monitoring framework with compliance audits and consumer court establishment",
+          "Years 1-2: Assess impact on prices and competition, optimize based on results"
         ]
       }
     },
@@ -378,15 +387,15 @@
       "priority": "Medium",
       "timeline": "3 years",
       "problem": {
-        "short": "Traffic chaos, pollution, and unreliable public transport create daily hardships for citizens and hurt the economy through lost time and health costs."
+        "short": "Traffic chaos, pollution, and unreliable public transport create daily hardships for citizens and economic inefficiency across urban areas."
       },
       "solution": {
         "short": [
-          "Build dedicated lanes: 2 for electric buses, 2 for walking/cycling, 2 for private vehicles",
-          "Expand Sajha Yatayat: 1 electric bus per 500-1,000 urban residents",
-          "Install intelligent traffic lights that give priority to buses using GPS",
-          "Create unified payment system with cards and mobile apps for all transport",
-          "Provide real-time GPS tracking so people know when buses will arrive"
+          "Multi-modal dedicated lanes: 2 lanes for electric buses, 2 for walking/cycling, 2 for private vehicles",
+          "Massive Sajha Yatayat expansion: 1 electric bus per 500-1,000 urban residents",
+          "Intelligent traffic lights GPS-linked to buses for priority flow optimization",
+          "Integrated fare system with card-based and mobile app ticketing",
+          "Real-time tracking with public GPS app showing live bus locations and arrival times"
         ]
       },
       "performanceTargets": [
@@ -397,16 +406,16 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Bogotá's bus system reduced travel time by 32% and air pollution by 40%",
-          "Curitiba's bus system serves 70-80% of commuters at $200,000 per km vs. $90 million for subways",
-          "Lagos bus system reduced travel time by 40% and CO₂ by 13% while cutting fares 30%"
+          "Bogota's TransMilenio achieved 32% travel time reduction and 40% air pollution reduction serving 1.6 million daily passengers",
+          "Curitiba's BRT system serves 70-80% of commuters at $200,000/km vs $90 million for subways",
+          "Lagos BRT reduced travel time by 40%, CO₂ emissions by 13%, and passenger fares by 30%"
         ]
       },
       "implementation": {
         "short": [
-          "Year 1: Plan routes, conduct environmental studies, buy bus fleets",
-          "Year 2: Build major routes, install GPS systems, launch integrated ticketing",
-          "Year 3: Full network operation, optimize performance, plan expansion"
+          "Year 1: Comprehensive route planning with GIS modeling, environmental assessments, and pilot corridor implementation",
+          "Year 2: Major route implementation with dedicated lanes, GPS systems, and integrated ticketing launch",
+          "Year 3: Full network operation with 90% on-time performance targets and system optimization"
         ]
       }
     },
@@ -418,15 +427,15 @@
       "priority": "High",
       "timeline": "5 years",
       "problem": {
-        "short": "Rural areas lack quality schools while private schools exploit families. Government schools have unqualified teachers and outdated curricula that don't prepare students for jobs."
+        "short": "Rural areas lack access to quality education while private institutions exploit families and government schools suffer from unqualified teachers, poor facilities, and outdated curricula."
       },
       "solution": {
         "short": [
-          "Build model government schools with proper facilities in underserved areas",
-          "Require all teachers to re-qualify every 5 years with proper training",
-          "Add practical skills to curriculum: coding, agriculture, carpentry, hospitality",
-          "Create digital learning platform with e-books and recorded lessons",
-          "Regulate private schools with fee transparency and mandatory free seats for poor students"
+          "Expand government school network in underserved areas with modern facilities and internet connectivity",
+          "5-year teacher requalification cycle with mandatory training and STEM teacher recruitment",
+          "TVET expansion with mandatory work-oriented subjects: coding, agriculture, carpentry, hospitality",
+          "National Education Digital Platform for e-books, recorded lessons, and teaching resources",
+          "Independent Education Regulatory Authority for annual audits and private school accountability"
         ]
       },
       "performanceTargets": [
@@ -437,17 +446,16 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Kenya eliminated school fees in 2003 and doubled primary enrollment to 99%",
-          "Finland became world leader in education through focus on teacher training",
-          "Brazil increased per-student spending 40% while reducing inequality between regions",
-          "Rwanda increased young women's university enrollment by 167%"
+          "Kenya's 2003 fee elimination doubled primary enrollment to 99% by 2016",
+          "Finland transformed to world-leading education through teacher training and practical skills emphasis",
+          "Rwanda achieved 167% increase in young women's university enrollment through systematic transformation"
         ]
       },
       "implementation": {
         "short": [
-          "Year 1: Map underserved areas, start teacher requalification, establish regulatory authority",
-          "Years 2-3: Build model schools, reform curriculum, enforce private school rules",
-          "Years 4-5: Full system operation, measure quality improvements, optimize performance"
+          "Year 1: School mapping, teacher requalification launch, IERA establishment, and digital platform development",
+          "Years 2-3: Model school construction, curriculum reform rollout, and digital infrastructure deployment",
+          "Years 4-5: Full system operation with quality measurement and higher education curriculum modernization"
         ]
       }
     },
@@ -459,15 +467,15 @@
       "priority": "Medium",
       "timeline": "3 years",
       "problem": {
-        "short": "Nepal imports too much and produces too little. Local businesses face high costs, bureaucracy, and unreliable energy, while farmers lack legal protection and market access."
+        "short": "Nepal remains import-dependent with weak farmer protections and high costs keeping local production uncompetitive while entrepreneurs face high land prices, bureaucracy, and unreliable energy."
       },
       "solution": {
         "short": [
-          "Create Industrial Growth Fund that invests in local companies with private partners",
-          "Give tax breaks to companies that meet local content and employment targets",
-          "Help farmers with forward purchase agreements and quality grading centers",
-          "Fund university-industry research projects through competitive grants",
-          "Ensure transparent, competitive selection for all support programs"
+          "Industrial Growth Fund with 20% equity stakes and mandatory private co-investment requirement",
+          "Forward purchase agreements guaranteeing minimum prices for farmers supplying manufacturers",
+          "Preferential government procurement from certified local producers",
+          "University Innovation Fund with Technology Transfer Offices and IP support",
+          "Performance-based tax incentives tied to capacity targets and employment milestones"
         ]
       },
       "performanceTargets": [
@@ -478,16 +486,16 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Malaysia achieved 7.3% annual GDP growth through coordinated public investment",
-          "Chile diversified beyond mining through upstream/downstream industrial linkages",
-          "OECD analysis shows conditional incentives work better than unconditional ones"
+          "Malaysia achieved 7.3% annual GDP growth 1961-2023 with manufacturing reaching 36.8% of GDP",
+          "Chile diversified beyond mining through upstream/downstream linkages supporting high-income transition",
+          "OECD analysis shows performance-based incentives outperform unconditional support in developing countries"
         ]
       },
       "implementation": {
         "short": [
-          "Months 1-6: Set up Industrial Growth Fund and design tax incentive framework",
-          "Year 1: Make first investments, pilot raw material programs",
-          "Years 2-3: Scale successful models, evaluate performance, optimize systems"
+          "Months 1-6: Fund establishment with independent governance and tax incentive framework design",
+          "Year 1: First IGF investments, raw material aggregation pilots, and Technology Transfer Office establishment",
+          "Years 2-3: Scale successful models and optimize based on job creation and export generation metrics"
         ]
       }
     },
@@ -499,15 +507,15 @@
       "priority": "Medium",
       "timeline": "3 years",
       "problem": {
-        "short": "Student unions act as branches of political parties, leading to violence, strikes, and property damage. Students graduate without understanding how democracy actually works."
+        "short": "Student unions act as extensions of political parties causing campus violence and strikes while young people graduate without meaningful civic education."
       },
       "solution": {
         "short": [
-          "Ban student unions from being controlled by political parties",
-          "Replace party-backed unions with independent elected student councils",
-          "Create punishment system: suspension, fines, community service for violence",
-          "Integrate student councils with National Youth Council for governance training",
-          "Teach comprehensive civic education from secondary through university levels"
+          "Ban direct party affiliation of student unions through Education Regulations amendment",
+          "Replace party-backed unions with elected student councils with gender and minority quotas",
+          "Comprehensive civic education covering constitutional literacy, public finance, and governance",
+          "Strengthen National Youth Council for student-to-governance pathways",
+          "Autonomous campus governance removing political interference"
         ]
       },
       "performanceTargets": [
@@ -518,9 +526,9 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Germany's student government system keeps student unions separate from party politics",
-          "Finland's civic education produces citizens with highest political knowledge globally",
-          "South Korea channeled student activism into constructive civic engagement after democratization"
+          "Germany's student government system separates unions from party politics while maintaining high civic engagement",
+          "Finland's civic education integration produces world's highest political knowledge levels",
+          "South Korea's post-1987 student council reforms eliminated campus violence while consolidating democracy"
         ]
       },
       "implementation": {
@@ -539,37 +547,42 @@
       "priority": "Medium",
       "timeline": "5 years",
       "problem": {
-        "short": "Security personnel are chosen for political loyalty rather than capability. Lack of health checks and long tenures in same positions undermine professionalism and public safety."
+        "short": "Security personnel are chosen for loyalty rather than capability, undermining professionalism. Lack of routine health and integrity checks results in officers with substance abuse, untreated stress disorders, or compromised fitness remaining in positions that risk public safety."
       },
       "solution": {
         "short": [
-          "Fill all senior security positions through competitive exams and performance reviews",
-          "Publish performance scorecards online with security-sensitive information removed",
-          "Limit postings to maximum 3 years in same location",
-          "Require annual mental health checks and quarterly drug/alcohol screening",
-          "Protect officers who report political interference through legal safeguards"
+          "Merit-based promotions through PSC-administered competitive examinations for all senior positions",
+          "Mandatory annual health checks including mental health screening and quarterly drug/alcohol testing",
+          "Rotation limits with maximum 3-year tenure per posting preventing entrenchment",
+          "Transparent performance scorecards published online with security-appropriate redactions",
+          "Whistleblower protection for officers reporting political interference in appointments"
         ]
       },
       "performanceTargets": [
-        "100% senior positions filled through competitive exams by Year 2",
-        "95% compliance with annual health evaluations",
-        "40% reduction in public complaints against security services",
-        "60% improvement in public trust ratings"
+        "Merit System: 100% of SSP-and-above promotions through competitive PSC examinations by Year 2; zero political appointments",
+        "Health Compliance: 95% annual health evaluation compliance within Year 1; 100% by Year 3; zero active-duty officers with unmanaged substance abuse or critical mental health issues",
+        "Rotation Enforcement: 100% adherence to 3-year tenure limits with zero unauthorized exceptions by Year 2",
+        "Public Trust: 40% reduction in public complaints against security services by Year 3; 60% improvement in public trust ratings measured through independent surveys",
+        "Performance Transparency: 100% senior officers with published performance scorecards accessible to public within Year 2",
+        "Whistleblower Protection: Zero retaliation incidents against officers reporting political interference; functional anonymous reporting channels operational within 6 months"
       ],
       "realWorldEvidence": {
         "short": [
-          "Singapore's merit-based public service contributed to world's most efficient bureaucracy",
-          "Estonia's digital civil service achieved 99% online service availability",
-          "Merit-based systems correlate with reduced corruption and improved public trust"
+          "Singapore's Public Service Commission independence (1951) created world-class bureaucracy with merit-based appointments",
+          "UK's College of Policing mandates annual fitness tests and health screening for all officers",
+          "German federal police implement strict rotation policies preventing local capture",
+          "Estonia's digital civil service reconstruction achieved transparent performance management"
         ]
       },
       "implementation": {
         "short": [
-          "Months 0-12: Change police rules, introduce rotation requirements, start health checks",
-          "Years 1-3: Expand Public Service Commission authority, create advisory panels",
-          "Years 3-5: Digital HR platform, expand civilian oversight"
+          "Months 1-6: Amend Police Rules for PSC exams, issue rotation directive, establish health screening protocols",
+          "Months 7-12: First competitive examinations held, health checks begin, performance scorecard system launched",
+          "Years 2-3: Digital HR platform deployed, civilian oversight expanded, Leadership Vetting Panel operational",
+          "Years 4-5: Full merit system operational, 100% health compliance achieved, public trust metrics improve significantly"
         ]
-      }
+      },
+      "legalFoundation": "Nepal Police Act 2012 and Armed Police Force Act 2058 provide framework for professional management. Public Service Commission Act 2015 enables merit-based selection. Ministry of Home Affairs has administrative authority to issue rotation directives and health standards through executive orders. Constitutional Article 242 mandates PSC role in public service appointments. Reforms achievable through regulatory amendments; enhanced oversight may require legislative changes."
     },
     {
       "id": "15",
@@ -579,37 +592,41 @@
       "priority": "Medium",
       "timeline": "3 years",
       "problem": {
-        "short": "Nepal loses good investors due to unclear rules and bureaucracy, while lacking safeguards against exploitative investment that doesn't benefit local communities."
+        "short": "Nepal loses high-value investors due to fragmented rules, bureaucratic rigidity, and restrictive sectoral limitations. Regulatory bodies lack expertise for effective facilitation while weak safeguards fail to protect national interests from exploitative investment."
       },
       "solution": {
         "short": [
-          "Create single, clear investment manual with all rules and timelines",
-          "Set up investment screening unit to evaluate projects for national security and community impact",
-          "Require community consent and benefit sharing for resource extraction projects",
-          "Mandate technology transfer commitments for strategic sector investments",
-          "Focus on attracting technology development and value-added manufacturing"
+          "Consolidated Investment Manual with single public webpage containing all rules, timelines, and procedures",
+          "Investment Screening & Safeguards Unit within Investment Board for systematic vetting",
+          "Mandatory Technology Transfer & Localisation Plans for strategic sectors with milestone compliance",
+          "Community Benefit Agreements required for resource extraction with revenue-sharing mandates",
+          "Reaffirm Land Act protections: no foreign land ownership, Nepal-registered entities only for leases"
         ]
       },
       "performanceTargets": [
-        "50% increase in quality foreign investment within 3 years",
-        "100% of strategic investments include technology transfer commitments",
-        "75% improvement in investment approval timeline transparency",
-        "Zero exploitative resource extraction without community benefits"
+        "FDI Quality: 50% increase in quality foreign investment within 3 years; average project size increases from $5M to $15M+ demonstrating higher-value investors",
+        "Technology Transfer: 100% of strategic sector investments include binding Technology Transfer & Localisation Plans with milestone compliance",
+        "Approval Efficiency: 75% improvement in approval timeline transparency; average approval time reduced from 6-12 months to 2-3 months for straightforward projects",
+        "Community Protection: Zero exploitative resource extraction projects approved without Community Benefit Agreements; 100% of affected communities receive revenue-sharing benefits",
+        "Screening Effectiveness: Investment Screening & Safeguards Unit operational within 3 months; 100% of large projects undergo systematic screening for environmental, social, and strategic impacts"
       ],
       "realWorldEvidence": {
         "short": [
-          "37 countries maintain strong foreign investment while protecting critical sectors",
-          "Singapore combines open markets with strategic screening for quality investment",
-          "Canada's investment review process shows how transparent conditional approval works"
+          "37 countries including Singapore, Canada, Germany maintain robust FDI flows while protecting critical sectors",
+          "Singapore achieved world's highest per-capita FDI through clear, transparent screening processes",
+          "Canada's Investment Canada Act demonstrates conditional approvals protecting national interests",
+          "All demonstrate systematic screening mechanisms can attract quality investment while maintaining sovereignty"
         ]
       },
       "implementation": {
         "short": [
-          "Months 1-3: Set up screening unit and publish investment manual",
-          "Months 4-6: Create community benefit templates and technology transfer frameworks",
-          "Year 1: Full screening system operation with first conditional approvals"
+          "Months 1-3: Establish Investment Screening Unit, publish Consolidated Investment Manual",
+          "Months 4-6: Develop community benefit agreement templates, technology transfer frameworks",
+          "Year 1: Full screening system operational, first conditional approvals issued",
+          "Years 2-3: 50% increase in quality FDI, 100% strategic investments with technology transfer"
         ]
-      }
+      },
+      "legalFoundation": "Foreign Investment and Technology Transfer Act (FITTA) 2019 and its regulations (FITTR) provide legal framework for investment rules, screening, and approval processes. Land Act 2021 prohibits foreign land ownership. Investment Board Act 2011 establishes authority for large project approvals. Constitution Article 51(j) mandates balanced economic development and protection of national interests. Reforms achievable through regulatory amendments and administrative directives; major changes may require FITTA amendment."
     },
     {
       "id": "16",
@@ -619,38 +636,42 @@
       "priority": "Medium",
       "timeline": "3 years",
       "problem": {
-        "short": "Party leaders choose PR representatives without voter input, weakening democratic accountability while still needing to ensure inclusion for marginalized communities."
+        "short": "Party leaders appoint PR representatives without voter input, weakening democratic accountability. Constitutional Article 84 mandates 110 PR seats ensuring inclusion for marginalized communities, but selection processes lack transparency and democratic legitimacy."
       },
       "solution": {
         "short": [
-          "Require parties to hold open primaries where members vote for PR candidates",
-          "Create regional PR constituencies instead of single national list",
-          "Add accountability measures with public reporting and recall provisions",
-          "Keep constitutional quotas for marginalized communities as required",
-          "Strengthen community input in PR candidate selection processes"
+          "Mandatory open party primaries for PR nominations with registered member voting",
+          "Regional PR constituencies instead of single national list for geographic accountability",
+          "Public disclosure of selection criteria, candidate qualifications, and voting processes",
+          "Maintain constitutional quotas for marginalized communities while improving selection quality",
+          "Performance scorecards for all MPs (FPTP and PR) with public quarterly reporting"
         ]
       },
       "performanceTargets": [
-        "100% PR nominations through open party primaries",
-        "Regional representation for all PR constituencies",
-        "Enhanced accountability mechanisms for all MPs",
-        "Maintained constitutional inclusion requirements"
+        "Democratic Participation: 100% PR nominations through open party primaries by Year 1; average party member turnout 40%+ in primary elections",
+        "Transparency: 100% parties publish selection criteria, candidate qualifications, and primary results within Year 1",
+        "Regional Accountability: All 110 PR seats allocated through regional constituencies by Year 1; measurable increase in constituency engagement",
+        "Performance Reporting: 100% MPs publish monthly constituency reports by Year 1; quarterly performance scorecards operational",
+        "Maintained Inclusion: Constitutional quotas for marginalized communities 100% complied with while enhancing candidate quality through competitive selection",
+        "Public Satisfaction: 50% improvement in public satisfaction with PR representative accountability measured through independent surveys by Year 3"
       ],
       "realWorldEvidence": {
         "short": [
-          "Germany's system combines local accountability with proportional inclusion",
-          "New Zealand reformed party list processes to increase democratic input",
-          "Scotland's system maintains accountability while ensuring diverse representation"
+          "Germany's mixed-member system combines constituency accountability with proportional inclusion",
+          "New Zealand's MMP reformed party lists increasing democratic input while maintaining proportional outcomes",
+          "Scotland's additional member system maintains accountability through regional representation",
+          "Brazil's open-list PR gives voters control over candidate selection within party lists"
         ]
       },
       "implementation": {
         "short": [
-          "Constitutional amendment required for major changes",
-          "Immediate reforms through Election Commission regulations",
-          "Strengthen election commission authority for accountability enforcement",
-          "Build political consensus for deeper constitutional reforms"
+          "Months 1-6: Election Commission regulations for mandatory open party primaries",
+          "Months 7-12: Regional PR constituency framework, public reporting requirements operational",
+          "Years 1-2: Open primary system fully operational, performance scorecard system launched",
+          "Years 2-3: Build political consensus for deeper constitutional reforms (open-list PR, recall provisions)"
         ]
-      }
+      },
+      "legalFoundation": "Constitution Article 84 mandates mixed electoral system with 110 PR seats ensuring inclusion of marginalized communities. Representation of the People Act 2017 governs electoral processes. Election Commission has constitutional authority under Article 245 to issue regulations for electoral procedures including candidate nomination processes. Most reforms achievable through Election Commission regulations and Political Parties Act amendments; open-list PR and recall provisions would require constitutional amendment under Article 274."
     },
     {
       "id": "17",
@@ -660,37 +681,42 @@
       "priority": "High",
       "timeline": "3 years",
       "problem": {
-        "short": "Government employees work without fear of consequences, leading to poor service and corruption. Citizens suffer while officials remain comfortable regardless of performance."
+        "short": "Government employees operate without fear of consequences, leading to complacency, poor service, and misuse of power. Current job security regardless of performance creates a culture where citizens suffer while officials remain comfortable."
       },
       "solution": {
         "short": [
-          "Create national citizen complaint portal with case tracking and resolution timelines",
-          "Set quarterly performance targets for all frontline government workers",
-          "Modernize recruitment to test practical skills, not just multiple choice questions",
-          "Allow citizens to sue government officials personally for negligence through fast courts",
-          "Protect against false complaints with strong due process and legal representation"
+          "National Citizen Complaint Portal with verified complaints, case tracking, and automatic escalation",
+          "Mandatory quarterly performance management with clear KPIs for all frontline roles",
+          "Civil liability framework allowing citizens to sue negligent officials personally through fast-track courts",
+          "Three-strikes disciplinary system: two criminal convictions = removal; three misconduct = lifetime ban",
+          "Whistleblower protection for employees reporting corruption and mismanagement"
         ]
       },
       "performanceTargets": [
-        "80% improvement in citizen satisfaction with government services within 3 years",
-        "90% of service requests completed within published timelines",
-        "50% reduction in corruption complaints",
-        "95% of government employees meet digital literacy standards"
+        "Citizen Satisfaction: 80% improvement in satisfaction with government services within 3 years measured through independent surveys",
+        "Service Delivery: 90% of service requests completed within published timelines by Year 2; 95% by Year 3",
+        "Corruption Reduction: 50% reduction in corruption complaints within 3 years; faster resolution of verified cases",
+        "Digital Capability: 95% of government employees meet digital literacy standards by Year 1; 100% by Year 2",
+        "Complaint Resolution: 80% of citizen complaints resolved within 30 days; 95% within 60 days; published resolution rates by department",
+        "Performance Culture: Bottom 10% performers on PIPs annually; demonstrated improvement or termination; merit-based promotions replace seniority"
       ],
       "realWorldEvidence": {
         "short": [
-          "New Zealand's civil service transformation improved efficiency while maintaining due process",
-          "Singapore's performance-based system ranks among world's most efficient governments",
-          "Georgia's reforms increased public satisfaction from 5% to over 70% after 2003"
+          "New Zealand's 1988 State Sector Act transformation ended jobs-for-life while implementing rigorous due process",
+          "Singapore's performance-based system with strict accountability ranks among world's most efficient governments",
+          "Georgia's post-2003 reforms increased public satisfaction from 5% to 70%+ within five years",
+          "UK Civil Service performance management balances accountability with fair process protections"
         ]
       },
       "implementation": {
         "short": [
-          "Months 1-3: Launch complaint portal, start performance reviews, test digital skills",
-          "Months 4-6: Complete legal framework, set up fast-track courts",
-          "Year 1: Full accountability system operation with performance-based actions"
+          "Months 1-3: Launch National Citizen Complaint Portal, rollout performance appraisal system",
+          "Months 4-6: Complete legal framework for civil liability and fast-track courts, enhance whistleblower systems",
+          "Year 1: Full accountability system operational, first performance-based actions taken",
+          "Years 2-3: System optimization, measurable improvements in citizen satisfaction and service delivery"
         ]
-      }
+      },
+      "legalFoundation": "Civil Service Act 2049 (1993) provides framework for recruitment, promotion, and discipline. Good Governance (Management and Operation) Act 2064 (2008) establishes service delivery standards. Constitution Article 242 mandates Public Service Commission role. Reforms achievable through regulatory amendments and administrative directives under existing law; civil liability framework requires legislative enactment but no constitutional amendment. Due process protections under Constitution Article 20 (right to justice) must be maintained."
     },
     {
       "id": "18",
@@ -700,39 +726,42 @@
       "priority": "High",
       "timeline": "1 year",
       "problem": {
-        "short": "All top government jobs go to political loyalists rather than qualified people, creating incompetent administration that serves party interests instead of citizens."
+        "short": "All top government positions—CDOs, Secretaries, Agency Heads—are filled through political loyalty rather than merit, creating incompetent administration serving party interests instead of citizens."
       },
       "solution": {
         "short": [
-          "Require competitive written and practical exams for all senior positions",
-          "Demand minimum 8 years relevant experience with proven performance record",
-          "Use independent selection panels with technical experts, no active politicians",
-          "Publish candidate qualifications and selection reasons publicly",
-          "Give officials fixed tenure protection so they can't be fired arbitrarily"
+          "Examination-based selection for all senior positions through rigorous PSC-administered competitive exams",
+          "Experience requirements: minimum 8 years relevant service with proven performance record",
+          "Independent selection panels with technical experts, retired civil servants—no active politicians",
+          "Fixed tenure protection: cannot be transferred/removed arbitrarily except for documented failure",
+          "Public scorecards with candidate qualifications, exam scores, selection rationale published"
         ]
       },
       "performanceTargets": [
-        "100% senior appointments through competitive examination within 1 year",
-        "50% improvement in government service delivery within 2 years",
-        "90% reduction in political interference complaints within 3 years",
-        "Complete elimination of party-based appointments"
+        "Merit-Based Appointments: 100% of senior civil service positions filled through competitive examination within 1 year; zero political appointments",
+        "Service Delivery Improvement: 50% improvement in government service delivery metrics within 2 years measured by citizen satisfaction surveys, service completion timelines, and development outcome indicators",
+        "Political Interference Reduction: 90% reduction in documented complaints about political interference in administration within 3 years",
+        "Policy Continuity: Measurable improvement in policy implementation continuity across government changes; development programs maintained based on effectiveness rather than political considerations",
+        "Performance Accountability: 100% senior officials operating under published performance contracts by Year 1; annual evaluations completed and publicly reported",
+        "Staff Optimization: Reallocation of 30% overstaffed federal positions to under-resourced provincial/local governments within 2 years addressing service delivery gaps"
       ],
       "realWorldEvidence": {
         "short": [
-          "Singapore's merit-based civil service contributed to 100x GDP growth from 1959-2009",
-          "South Korea's 1980s reforms eliminated political appointments, enabling economic miracle",
-          "Botswana's merit-based appointments created Africa's most effective government"
+          "Singapore's PSC-based merit system contributed to 100x GDP growth 1959-2009 through professional administration",
+          "South Korea's 1980s civil service reforms eliminated political appointments during democratization",
+          "Botswana maintained merit-based appointments since independence creating Africa's most effective government",
+          "UK Civil Service reforms in 1870s-1990s progressively eliminated patronage creating professional bureaucracy"
         ]
       },
       "implementation": {
         "short": [
-          "Immediate order ending political appointments within 30 days",
-          "Public Service Commission enforces merit requirements",
-          "Evaluation period for current appointees with competency tests",
-          "Change Civil Service Act to remove party-based trade unions"
+          "Days 1-30: PM directive ending political appointments; PSC authority enforcement for merit requirements",
+          "Months 1-6: Current appointees face competency evaluation; replacement process for failures",
+          "Months 6-12: Civil Service Act amendments institutionalizing merit; staff reallocation begins",
+          "Year 1+: 100% senior appointments through competitive examination; performance contracts operational"
         ]
       },
-      "legalFoundation": "Article 51 mandates competent governance. Civil Service Act 2049 requires merit-based recruitment"
+      "legalFoundation": "Constitution Article 51 mandates competent governance and administration. Constitution Article 242 establishes Public Service Commission with authority for civil service recruitment and promotion. Civil Service Act 2049 (1993) requires merit-based selection though currently unenforced. Most reforms achievable through enforcing existing constitutional provisions and regulatory amendments; comprehensive Civil Service Act amendment strengthens institutional framework. No constitutional amendment required—existing law already mandates merit; problem is enforcement not legal authority."
     },
     {
       "id": "19",
@@ -742,39 +771,41 @@
       "priority": "High",
       "timeline": "5 years",
       "problem": {
-        "short": "Judges appointed through political connections compromise court independence. Lack of transparency in judicial conduct undermines rule of law and public trust."
+        "short": "Judges appointed through political connections compromise court independence while lack of transparency in judicial conduct and appointments undermines rule of law and public trust."
       },
       "solution": {
         "short": [
-          "Create independent commission with retired judges and legal scholars to select new judges",
-          "Select judges through written exams, case analysis, and public interviews",
-          "Require annual asset declarations and performance transparency for all judges",
-          "Give judges fixed tenure security and financial independence from executive control",
-          "Create enforcement mechanisms to ensure court orders are actually implemented"
+          "Independent Judicial Appointment Commission with retired judges, legal scholars, civil society - no politicians",
+          "Merit-based selection: written examination, case analysis, public interview for all judicial appointments",
+          "Annual asset declarations published online for all judges with source documentation",
+          "Financial independence: judicial budget allocated directly by Parliament, not Ministry of Law",
+          "Misconduct tribunal with power to investigate complaints and recommend removal for proven violations"
         ]
       },
       "performanceTargets": [
-        "90% public confidence in judicial independence within 5 years",
-        "100% asset declaration compliance by all judges",
-        "50% reduction in case processing times",
-        "Zero tolerance for political interference in judicial appointments"
+        "90% public confidence in judicial independence within 5 years (baseline 40-50%)",
+        "100% asset declaration compliance by all judges published online within 18 months",
+        "50% reduction in case processing times through performance standards and accountability",
+        "Zero tolerance for political interference: 100% of appointments through IJAC merit process by Year 3",
+        "80%+ government compliance with court orders within mandated timelines",
+        "Judicial independence rating improvement from current 5.5/10 to 7.5/10 (World Justice Project)",
+        "Constitutional entrenchment of reforms achieved within 5 years"
       ],
       "realWorldEvidence": {
         "short": [
-          "Chile's 1990s judicial reforms enabled prosecution of military officials and politicians",
-          "South Africa's independent judiciary prosecuted corruption across all political parties",
-          "Botswana's independent judiciary consistently ranks among world's most trusted"
+          "Chile: 1990s judicial reforms enabled prosecution of military officials through merit-based appointments",
+          "South Africa: Post-apartheid independent courts prosecuted corruption across all political parties",
+          "Botswana: Independent judiciary since 1966 ranks among world's most trusted institutions"
         ]
       },
       "implementation": {
         "short": [
-          "Set up Independent Judicial Appointment Commission within 6 months",
-          "Gradual transition with new process for future vacancies",
-          "Public education campaigns on importance of judicial independence",
-          "Constitutional reforms to strengthen judicial council structure"
+          "Months 1-6: IJAC established through legislation, merit-based selection criteria finalized",
+          "Months 6-18: New appointment process for all vacancies, financial independence implemented",
+          "Years 2-5: Full merit system operational, constitutional protections strengthened, enforcement mechanisms functional"
         ]
       },
-      "legalFoundation": "Article 126 guarantees judicial independence. Articles 128-138 establish Supreme Court authority"
+      "legalFoundation": "Constitution Article 126 guarantees judicial independence. Articles 128-138 establish Supreme Court authority and jurisdiction. Article 153 creates Judicial Council (current political composition - requires legislative amendment to replace with IJAC). Article 292 governs Parliamentary Hearing for judicial appointments. Judicial Council Act 2073 (2016) implements appointment process - can be amended through ordinary legislation. Constitutional amendments (two-thirds Parliamentary majority) needed for permanent entrenchment of IJAC, budget independence, fixed tenure protections."
     },
     {
       "id": "20",
@@ -784,15 +815,15 @@
       "priority": "High",
       "timeline": "18 months",
       "problem": {
-        "short": "Citizens have no idea how their tax money is spent. Government financial transactions happen in secret, enabling massive corruption and waste of public resources."
+        "short": "Citizens have no access to information about government spending while financial transactions happen in darkness, enabling massive corruption and waste. Real-time tracking systems are absent despite legal requirements."
       },
       "solution": {
         "short": [
-          "Publish every government transaction online within 24 hours with complete details",
-          "Show amount, purpose, beneficiary, and approval authority for all spending",
-          "Require all senior officials to publish annual asset declarations online",
-          "Provide mobile-friendly interface with SMS alerts for major spending in citizen's area",
-          "Cross-check all declarations against tax records and bank data automatically"
+          "Every transaction online within 24 hours with complete details accessible to all citizens",
+          "Searchable public database tracking specific projects, contractors, and spending categories",
+          "Monthly verified statements and quarterly independent audits for all government levels",
+          "Mandatory annual audited asset declarations for all senior officials published online",
+          "Mobile-friendly interface with SMS alerts for major expenditures in citizens' constituencies"
         ]
       },
       "performanceTargets": [
@@ -803,17 +834,17 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Estonia publishes all transactions in real-time, achieving 95% citizen trust in government",
-          "Brazil's transparency portal enabled citizen oversight that discovered major corruption",
-          "South Korea's digital budget tracking exposed corruption and improved democratic accountability"
+          "Estonia publishes all transactions in real-time achieving 95% citizen trust in financial management",
+          "Brazil's Transparency Portal led to discovery of major corruption and 40% waste reduction",
+          "South Korea's digital budget tracking exposed massive corruption cases through citizen oversight",
+          "All demonstrate real-time transparency dramatically reduces corruption and improves accountability"
         ]
       },
       "implementation": {
         "short": [
-          "Launch digital platform integrating existing systems within 12 months",
-          "Train all financial officers on transparent reporting requirements",
-          "Build audit capacity in Auditor General and provincial offices",
-          "Change laws to mandate real-time disclosure of all transactions"
+          "Months 1-12: Launch digital platform integrating all financial systems with 24-hour disclosure",
+          "Months 6-18: Train officials, build audit capacity, integrate asset declaration system",
+          "Months 12-24: Full transparency operational with all transactions online and monitored"
         ]
       },
       "legalFoundation": "Right to Information Act 2007 requires proactive disclosure. Article 27 guarantees information access"
@@ -826,15 +857,15 @@
       "priority": "High",
       "timeline": "1 year",
       "problem": {
-        "short": "Government decisions are made behind closed doors without public input. Citizens have no idea what their representatives discuss or decide on their behalf."
+        "short": "Government decisions made behind closed doors without public input or oversight. Citizens have no access to information about what their representatives discuss or decide, undermining democratic accountability."
       },
       "solution": {
         "short": [
-          "Broadcast all official meetings live except for national security matters",
-          "Publish bullet-point summaries of key discussions and decisions within 48 hours",
-          "Guarantee all citizen information requests answered within 15 working days",
-          "Require 30-day public comment periods for all major policy changes",
-          "Provide information in Nepali, English, and major local languages"
+          "Broadcast all official meetings live: Cabinet, Parliament, provincial assemblies, municipal councils",
+          "48-hour decision summaries with bullet-point key discussions published automatically",
+          "15-day information guarantee for all citizen requests with written denial justification",
+          "30-day public comment periods for major policy changes with mandatory consideration",
+          "Monthly town hall meetings in every constituency for direct citizen engagement"
         ]
       },
       "performanceTargets": [
@@ -845,17 +876,17 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Finland's open government achieves world's highest government trust ratings",
-          "Estonia's digital transparency contributes to 85% citizen satisfaction with government",
-          "Uruguay's mandatory meeting broadcasts significantly reduced corruption"
+          "Finland publishes all non-classified information online achieving world's highest government trust ratings",
+          "Estonia's digital transparency platform contributes to 85% citizen satisfaction with government services",
+          "Uruguay's mandatory meeting broadcasts led to significant corruption reduction and increased participation",
+          "All demonstrate complete transparency dramatically improves trust and democratic engagement"
         ]
       },
       "implementation": {
         "short": [
-          "Upgrade broadcasting infrastructure for live streaming within 6 months",
-          "Develop digital platform integrating existing systems",
-          "Train all officials on transparency requirements and citizen engagement",
-          "Change Right to Information Act to strengthen disclosure requirements"
+          "Months 1-6: Upgrade broadcasting infrastructure, develop digital transparency portal",
+          "Months 6-12: Train officials, implement public participation mechanisms, establish town halls",
+          "Months 12-18: 80% meetings broadcast live, 15-day information guarantee operational"
         ]
       },
       "legalFoundation": "Article 27 guarantees Right to Information. Constitution mandates transparency in governance"
@@ -868,15 +899,15 @@
       "priority": "Medium",
       "timeline": "6 months",
       "problem": {
-        "short": "Citizens are forced to choose between inadequate candidates with no way to reject all options, reducing democratic legitimacy and voter satisfaction."
+        "short": "Citizens forced to choose between inadequate candidates have no way to reject all options, reducing democratic legitimacy. Supreme Court has mandated NOTA implementation but it remains pending."
       },
       "solution": {
         "short": [
-          "Add NOTA option on all ballots for every election and position",
-          "Hold fresh election with new candidates if NOTA wins plurality",
-          "Ban all original candidates from running in the re-election",
-          "Count and publish NOTA votes just like any other candidate",
-          "Educate voters about NOTA option and its democratic purpose"
+          "NOTA on all ballots for every election at all government levels",
+          "Mandatory re-election if NOTA wins plurality with all original candidates disqualified",
+          "Transparent counting with NOTA votes published like any other candidate",
+          "Voter education campaigns explaining NOTA's democratic purpose and impact",
+          "Election Commission regulation for implementation within 3-6 months"
         ]
       },
       "performanceTargets": [
@@ -887,17 +918,17 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "India's NOTA option since 2013 gives voters meaningful choice and improves candidate quality",
-          "Nevada (USA) has used NOTA since 1975, forcing parties to reconsider candidate selection",
-          "Colombia's blank vote option empowers citizens to express dissatisfaction democratically"
+          "India's NOTA (2013) improving candidate quality as parties respond to voter dissatisfaction pressure",
+          "Nevada's NOTA since 1975 forces parties to reconsider candidate selection when performing well",
+          "Colombia's blank vote option maintains participation while allowing rejection of inadequate choices",
+          "All demonstrate NOTA empowers citizens and pressures parties to improve candidate quality"
         ]
       },
       "implementation": {
         "short": [
-          "Election Commission issues ballot design requirements including NOTA within 3 months",
-          "Launch voter education campaign on NOTA option and its significance",
-          "Train election officials on proper counting and reporting of NOTA votes",
-          "Create legal framework for re-election procedures when NOTA wins"
+          "Months 1-3: Election Commission regulation, legal framework for re-election procedures",
+          "Months 3-6: Voter education campaigns, training for election officials",
+          "Months 6-12: NOTA available in all elections, monitoring impact on candidate quality"
         ]
       },
       "legalFoundation": "Article 17 protects freedom of expression including right to reject. Supreme Court mandate requires NOTA implementation"
@@ -910,15 +941,15 @@
       "priority": "Medium",
       "timeline": "2 years",
       "problem": {
-        "short": "Concentration of power in a single leader for extended periods undermines democratic renewal and creates opportunities for corruption and institutional capture."
+        "short": "Concentration of power in a single leader for extended periods undermines democratic renewal and creates opportunities for institutional capture and corruption. No term limits allow indefinite tenure leading to authoritarian tendencies."
       },
       "solution": {
         "short": [
-          "Set maximum of two terms with no individual serving more than 10 years total",
-          "Count non-consecutive terms toward the limit",
-          "Serving more than half a parliamentary term counts as full term",
-          "Apply term limits from amendment enactment, not retroactively",
-          "Follow constitutional amendment process requiring 2/3 Parliamentary majority"
+          "Two-term maximum (10 years total) preventing any individual from extended PM tenure",
+          "Non-consecutive terms counted toward limit preventing circumvention",
+          "Mid-term calculation: serving more than half term counts as full term",
+          "Constitutional amendment through Article 274 requiring 2/3 Parliamentary majority",
+          "Transitional provision applying from enactment, not retroactively"
         ]
       },
       "performanceTargets": [
@@ -929,17 +960,17 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "United States two-term limit ensures regular executive renewal since 1951",
-          "South Korea's single five-year term prevents power entrenchment",
-          "Mexico's six-year single term contributed to political stability since 1917"
+          "US 22nd Amendment (1951) ensures regular executive renewal preventing power concentration",
+          "South Korea's single five-year term prevents authoritarian consolidation through forced rotation",
+          "Mexico's single six-year term since 1917 contributed to political stability and democratic development",
+          "All demonstrate term limits strengthen democracy through regular leadership renewal"
         ]
       },
       "implementation": {
         "short": [
-          "Constitutional amendment process requiring 2/3 Parliamentary majority",
-          "Consult provincial assemblies to build consensus",
-          "2-year process for full constitutional amendment completion",
-          "Public education campaign on democratic benefits of term limits"
+          "Months 1-12: Draft amendment, build political coalition, consult provincial assemblies",
+          "Year 1-2: Parliamentary debate, stakeholder engagement, public education campaign",
+          "Year 2: Pass amendment with 2/3 majority, presidential endorsement, implementation framework"
         ]
       },
       "legalFoundation": "Article 76 governs Prime Minister appointment. Constitutional amendment process under Article 274"
@@ -952,15 +983,15 @@
       "priority": "Low",
       "timeline": "18 months",
       "problem": {
-        "short": "Thousands of seized vehicles rot in police stations while students lack practical learning materials. Poor property management creates corruption opportunities and wastes resources."
+        "short": "Thousands of seized vehicles rot in police stations while students lack practical learning materials for technical education. Government property management creates corruption opportunities and wastes public resources."
       },
       "solution": {
         "short": [
-          "Set 6-month deadline for vehicle reclaim, then automatic public disposal",
-          "Create digital registry with photos and case status for all seized vehicles",
-          "Protect genuine owners' right to reclaim before disposal with proper documentation",
-          "Donate non-roadworthy vehicles to technical schools for student training",
-          "Sell roadworthy vehicles through transparent public online auctions"
+          "6-month reclaim deadline with digital registry showing photos, VIN, case status, deadlines",
+          "Technical school priority: non-roadworthy vehicles donated to engineering colleges for training",
+          "Public online auctions for roadworthy vehicles with transparent bidding and revenue tracking",
+          "Owner protection: genuine owners can reclaim anytime before disposal with valid documents",
+          "Certified recycling for unrepairable vehicles with proceeds to road safety fund"
         ]
       },
       "performanceTargets": [
@@ -971,17 +1002,17 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Germany and Japan donate seized vehicles to technical universities for research",
-          "India's technical institutes receive impounded vehicles for EV conversion projects",
-          "Philippines' transparent auction system eliminated corruption while generating revenue"
+          "Germany and Japan donate seized vehicles to technical universities improving student practical skills",
+          "India's IITs receive impounded vehicles for EV conversion combining waste reduction with innovation",
+          "Philippines' transparent auction system eliminated corruption while generating significant revenue",
+          "All demonstrate systematic approach eliminates waste while creating educational and financial benefits"
         ]
       },
       "implementation": {
         "short": [
-          "Launch digital registry operational within 6 months",
-          "Establish educational partnerships with technical institutions",
-          "Set up transparent auction system integrated with government platforms",
-          "Create legal framework for transparent disposal procedures"
+          "Months 1-6: Launch digital registry, create legal framework, train staff",
+          "Months 6-12: Establish educational partnerships, launch transparent auction system",
+          "Months 12-18: 90% storage reduction, 100 vehicles donated annually, significant revenue generation"
         ]
       },
       "legalFoundation": "Public Property Protection Act provides disposal authority. Education Act enables educational institution partnerships"
@@ -994,15 +1025,15 @@
       "priority": "High",
       "timeline": "5 years",
       "problem": {
-        "short": "Rural and marginalized communities face severe healthcare gaps due to underfunded facilities, lack of qualified doctors, poor infrastructure, creating preventable deaths and inequality."
+        "short": "Rural and marginalized communities face severe healthcare access gaps due to underfunded primary care, lack of qualified professionals, and poor infrastructure. Urban-rural disparities contribute to preventable deaths and untreated chronic illnesses."
       },
       "solution": {
         "short": [
-          "Upgrade Primary Health Centers with essential medicines, labs, maternity care, and telemedicine",
-          "Train and deploy doctors, nurses, and community health workers to rural areas with incentives",
-          "Create digital health platform with electronic health records and telemedicine services",
-          "Expand government health insurance to all low-income and rural households",
-          "Strengthen preventive services with vaccination, nutrition, and mental health programs"
+          "Map underserved regions and construct/upgrade Primary Health Centers with essential medicines and equipment",
+          "Rural doctor/nurse quotas with service bonds, hardship allowances, housing incentives for retention",
+          "Electronic Health Record system and National Digital Health Platform for telemedicine",
+          "Expand government-subsidized health insurance to all low-income and rural households",
+          "Integrate mental health services into Primary Health Centers with tele-counseling"
         ]
       },
       "performanceTargets": [
@@ -1013,17 +1044,17 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Thailand's Universal Coverage reduced catastrophic health spending by 30%",
-          "Sri Lanka achieved strong health outcomes despite low per-capita spending through equity focus",
-          "Rwanda integrated digital health, reducing child mortality by over 60% in a decade",
-          "Ethiopia's Health Extension Program trained 40,000 female health workers"
+          "Thailand's Universal Coverage Scheme reduced catastrophic health spending 30% through rural investment",
+          "Sri Lanka achieved strong maternal/child health outcomes despite low spending by focusing on equity",
+          "Rwanda reduced child mortality 60% in a decade through community health workers and digital health",
+          "Ethiopia's Health Extension Program improved immunization through 40,000 community health workers"
         ]
       },
       "implementation": {
         "short": [
-          "Year 1: Map health facilities, start health worker training, initiate digital platform",
-          "Years 2-3: Construct health posts, expand services, enforce insurance coverage",
-          "Years 4-5: Full system operation, nationwide digital coverage, universal rural access"
+          "Year 1: Map facilities, setup Independent Health Regulatory Authority, initiate Digital Health Platform",
+          "Years 2-3: Construct health posts, expand NCD/MCH services, rollout insurance, train health workers",
+          "Years 4-5: Universal coverage operational, 80% facilities using digital records, telemedicine expanded"
         ]
       },
       "legalFoundation": "Article 35 guarantees health rights. National Health Policy 2019 and Health Insurance Act 2017"
@@ -1036,15 +1067,15 @@
       "priority": "High",
       "timeline": "5 years",
       "problem": {
-        "short": "Social protection is fragmented, underfunded, and inadequate. Children, working-age people, and informal workers lack protection, while benefits are too small and system is unresponsive to crises."
+        "short": "Social protection system remains fragmented, underfunded, and inadequate with uneven coverage. Children, working-age people, and informal workers largely underprotected creating substantial 'missing middle.' Benefits too small to meet basic needs."
       },
       "solution": {
         "short": [
-          "Universalize child grants and extend coverage to informal workers",
-          "Raise benefit levels and rebalance spending from pensions to children and working-age groups",
-          "Create shock-responsive systems that adapt quickly to disasters and economic crises",
-          "Strengthen legal frameworks guaranteeing universal social protection programmes",
-          "Ensure sustainable financing through balanced contributory and non-contributory schemes"
+          "Universalize child grants nationwide reaching all children under five with progressive extension",
+          "Raise benefit levels to at least 15% of Minimum Expenditure Basket by 2028",
+          "Integrate shock-responsive protocols enabling 90% disaster-affected households supported within 14 days",
+          "Create inter-agency Social Protection Council aligning policy, budgets, and crisis responses",
+          "Unified registry covering 80% eligible households linked to National ID system"
         ]
       },
       "performanceTargets": [
@@ -1055,18 +1086,17 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "Brazil's Bolsa Família demonstrates large-scale child transfers with strong registry systems",
-          "Ethiopia's PSNP provides multi-year transfers with shock-responsive design for disasters",
-          "Indonesia extended health insurance to informal workers through subsidies",
-          "South Africa's Child Support Grant shows predictable transfers reduce poverty significantly"
+          "Brazil's Bolsa Família demonstrates large-scale child cash transfers with strong registry",
+          "Ethiopia's PSNP provides shock-responsive multi-year transfers for disaster resilience",
+          "Indonesia's BPJS extended social insurance to informal workers via subsidies and simplified enrollment",
+          "South Africa's Child Support Grant shows predictable child transfers have proven poverty-reduction impact"
         ]
       },
       "implementation": {
         "short": [
-          "Operationalize Integrated National Social Protection Framework immediately",
-          "Upgrade to unified beneficiary registry linked with national ID system",
-          "Phase in expansion of child grants and contributory options for informal workers",
-          "Create inter-agency Social Protection Council for coordination"
+          "Years 1-2: Operationalize Integrated Framework, unified registry, Social Security Act implementation",
+          "Years 2-4: Expand child grants, introduce informal worker contributions, strengthen insurance schemes",
+          "Years 4-5: Achieve 50% population coverage, 2.5M active contributors, 10% budget allocation"
         ]
       },
       "legalFoundation": "Article 51 mandates social security. Social Security Act 2017 and Contribution-Based Social Security Act 2017"
@@ -1079,15 +1109,15 @@
       "priority": "High",
       "timeline": "2 years",
       "problem": {
-        "short": "Financial management suffers from fragmented systems, weak accountability, oversized budgets, low spending rates, and limited public scrutiny enabling inefficiency and corruption."
+        "short": "Public financial management suffers from fragmented systems, weak accountability, and outdated processes. LMBIS, Provincial LMBIS, SuTRA, and RMS not interoperable while budgeting disconnected from implementation."
       },
       "solution": {
         "short": [
-          "Connect all government financial systems so they work together and share information",
-          "Create citizen budget portal showing real-time ward-level budget and spending data",
-          "Replace National Planning Commission with Finance Ministry planning division",
-          "Enforce strict budget limits and prevent staff transfers during fiscal years",
-          "Establish Parliamentary Budget Office and make performance audits mandatory"
+          "Integrate LMBIS, Provincial LMBIS, SuTRA, RMS into interoperable system within 1-2 years",
+          "Citizen budget portal with real-time ward-level budget and implementation data",
+          "Amend Public Procurement Act protecting good-faith bureaucrats, digitize procurement",
+          "Establish Parliamentary Budget Office for independent oversight and analysis",
+          "Mandatory performance audits by Auditor General alongside compliance audits"
         ]
       },
       "performanceTargets": [
@@ -1098,21 +1128,206 @@
       ],
       "realWorldEvidence": {
         "short": [
-          "South Korea, Chile, and Philippines have citizen budget portals enabling real-time transparency",
-          "India and Philippines show mandatory performance audits improve project outcomes",
-          "Kenya and Rwanda demonstrate digitized procurement reduces corruption",
-          "New Zealand's hard budget constraints achieve higher execution rates"
+          "South Korea, Chile, Philippines have citizen budget portals enabling real-time transparency",
+          "India and Philippines show mandatory performance audits reduce fund misuse and improve outcomes",
+          "Kenya and Rwanda's digitized procurement with conflict-of-interest rules reduces corruption",
+          "New Zealand's hard budget constraints and evidence-based projections achieve higher execution rates"
         ]
       },
       "implementation": {
         "short": [
-          "Complete system integration and launch citizen portal within 1-2 years",
-          "Reform procurement with digitized processes and legal protections",
-          "Restructure planning and enforce budget discipline through institutional changes",
-          "Establish Parliamentary Budget Office with enhanced oversight powers"
+          "Months 1-12: Map systems, develop interoperable platform, build citizen budget portal",
+          "Months 12-24: Amend Procurement Act, digitize procurement, establish Parliamentary Budget Office",
+          "Year 2: Close NPC, enforce budget constraints, require performance audits, 50% efficiency improvement"
         ]
       },
       "legalFoundation": "Financial Procedure Act 2019 and Public Finance Management Act provide comprehensive framework"
+    },
+    {
+      "id": "28",
+      "title": "Reform Foreign Relations and Diplomacy for Strategic Sovereignty",
+      "description": "Transform Nepal's reactive foreign policy into strategic sovereignty through codified policy framework, diaspora engagement as national asset, merit-based diplomacy, and trade diversification reducing single-country dependency.",
+      "category": "Foreign Policy",
+      "priority": "High",
+      "timeline": "5 years (phased)",
+      "problem": {
+        "short": "Nepal's foreign relations remain reactive, dependent on India for transit, and vulnerable to external pressure. Foreign policy shifts with each ruling party, leaving Nepal unpredictable and weak internationally. The diaspora—responsible for nearly 27% of GDP in remittances—has no strong legal or financial framework for meaningful engagement."
+      },
+      "solution": {
+        "short": [
+          "Codified Foreign Policy Act binding all parties regardless of ruling coalition",
+          "Diaspora Citizenship/ID Act granting property rights, investment guarantees, profit repatriation",
+          "Double taxation prevention through agreements with major destination countries",
+          "Merit-based diplomatic appointments through competitive examinations",
+          "Alternative transit routes (Kerung-Rasuwagadhi, Bangladesh) reducing Indian dependency to below 50%",
+          "1950 Treaty renegotiation establishing equal sovereignty framework"
+        ]
+      },
+      "performanceTargets": [
+        "Policy Continuity: Foreign partner satisfaction surveys show 80%+ confidence that Nepal honors commitments across government changes",
+        "Trade Diversification: Indian transit routes reduced from 90% to below 50% within 5 years; eliminate single-country dependency vulnerability",
+        "Diaspora Empowerment: 100,000+ diaspora IDs issued; zero legal barriers to property ownership and investment; double-taxation eliminated for 90%+ diaspora in major destinations",
+        "Investment Security: Diaspora-origin FDI increases from negligible to $500+ million annually with 100% transparent repatriation",
+        "Professional Diplomacy: 100% ambassadors appointed through merit examination; measurable performance improvements in economic and consular diplomacy",
+        "Strategic Autonomy: Nepal maintains friendly relations with India, China, US, EU simultaneously without choosing sides; international recognition as genuinely non-aligned"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Israel mobilized global Jewish diaspora contributing 40%+ of total FDI",
+          "Ireland's diaspora strategy with 70 million abroad vs 5 million home transformed economy",
+          "Philippines' comprehensive framework with 10 million overseas remitting $34B annually (9% GDP)",
+          "Switzerland and Singapore achieved prosperity through deliberate trade diversification"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-6: Draft Foreign Policy Act, establish Diaspora Department, form 1950 Treaty Review Committee",
+          "Year 1: Pass Foreign Policy Act and Diaspora Citizenship/ID Act, implement double-taxation prevention",
+          "Years 2-3: Operationalize alternative transit routes, issue 50,000+ diaspora IDs, all new ambassadors through merit system",
+          "Years 3-5: Treaty renegotiation progress, 40% trade through non-Indian routes, diaspora investment reaches $500M+"
+        ]
+      },
+      "legalFoundation": "Article 51(b) mandates conduct of foreign policy based on UN Charter principles, non-alignment, Panchsheel, international law, and mutual respect. The Foreign Service Act 2016 and Ministry of Foreign Affairs Act provide institutional framework. Existing constitutional provisions enable strategic foreign policy reform without amendments."
+    },
+    {
+      "id": "29",
+      "title": "Modernize Ministry of Culture, Tourism and Civil Aviation into Data-Driven, Technically-Led Institution",
+      "description": "Transform MoCTCA from administrative generalist cadre to technical ministry with data scientists, GIS specialists, sustainable tourism experts through phased 20-position technical recruitment, preventing arbitrary transfers while protecting existing 150 staff.",
+      "category": "Tourism Development",
+      "priority": "High",
+      "timeline": "5 years (phased)",
+      "updatedOn": "24 Nov 2025",
+      "problem": {
+        "short": "Nepal's Ministry of Culture, Tourism and Civil Aviation operates under administrative cadre system where leadership and staff lack required technical expertise in tourism, hospitality, data science, or sustainability. Unlike Health, Forestry, or Education ministries with specialist staff, MoCTCA employs generalist administrators frequently transferred across ministries (average tenure 2-3 years), undermining institutional memory and sectoral knowledge."
+      },
+      "solution": {
+        "short": [
+          "Reclassify MoCTCA as technical ministry through Cabinet decision (no constitutional amendment needed)",
+          "Phase recruitment of 20 technical positions: 10 Tourism Data Analysts, 5 GIS Planners, 3 Sustainable Tourism Specialists, 2 Digital Marketing Officers",
+          "Address salary gap through contractual positions (50%) at market rates NPR 80,000-120,000/month with retention bonuses",
+          "Comprehensive transition protecting all 150 existing staff through upskilling, reassignment, or voluntary early retirement",
+          "Civil Service Act amendment preventing arbitrary cross-ministry transfers with 3-year minimum tenure for tourism technical specialists",
+          "Establish National Tourism Data Platform in partnership with NTB and NATHM"
+        ]
+      },
+      "performanceTargets": [
+        "Within 1 year: MoCTCA reclassified as technical ministry; 50% of policy staff retrained in tourism-specific skills",
+        "Within 2 years: 100% elimination of arbitrary cross-ministry transfers for core tourism personnel",
+        "Within 3 years: At least 1 fully functional tourism research and data analysis unit established",
+        "Within 5 years: 90% of MoCTCA staff in policy, planning, and regulation roles hold relevant technical qualifications",
+        "Technical staff with qualifications: Baseline 0 → Year 5: 20",
+        "Policy roles with technical expertise: Baseline 0% → Year 5: 90%",
+        "Arbitrary transfers annually: Baseline 8-12 → Year 5: 0",
+        "Quarterly trend reports published: Baseline 0 → Year 5: 4 per year",
+        "Peer-reviewed publications: Baseline 0 → Year 5: 5 per year",
+        "Tourism forecasting accuracy: Baseline N/A → Year 5: ±10% error"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Costa Rica's Tourism Institute employs sustainability auditors creating global eco-tourism leadership",
+          "South Korea's Tourism Organization employs 100+ data analysts enabling rapid COVID recovery",
+          "New Zealand's technical team manages over-tourism while maintaining satisfaction",
+          "Singapore Tourism Board's 1,300 staff including data scientists generates highest receipts/visitor in Asia"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Months 1-3: Cabinet reclassification, skills gap analysis, first technical expert recruitment",
+          "Months 4-6: Data platform development launch, technical standards finalized, first 10 staff hired",
+          "Year 1: Full technical capacity integration, data-driven planning initiated, technical standards adopted",
+          "Year 2: Second recruitment round (10 positions), Research Unit established, Data Platform public launch",
+          "Years 3-5: Complete 24-month capacity-building for all staff, quarterly reports routine, all 20 positions filled"
+        ]
+      },
+      "legalFoundation": "Civil Service Act 2049 (1993): Council of Ministers has authority to reclassify ministries as technical services through Cabinet decision. Constitution Article 242: Empowers Public Service Commission for merit-based technical recruitment. Good Governance Act 2008: Mandates efficient service delivery and evidence-based policymaking. Tourism Policy 2025: Prioritizes sustainable tourism, digital transformation, data-driven management. No constitutional amendment required."
+    },
+    {
+      "id": "30",
+      "title": "Implement One-Door Policy for Tourism Permits and Services",
+      "description": "Create unified digital platform eliminating fragmented permit system where tourists currently visit 3-5 different offices in Kathmandu, reducing 3-7 day manual process to 24-48 hours digital approval with 90% permits processed digitally by Month 30.",
+      "category": "Tourism Services",
+      "priority": "High",
+      "timeline": "3 years",
+      "updatedOn": "24 Nov 2025",
+      "problem": {
+        "short": "Tourism-related permits and services in Nepal are currently managed across multiple uncoordinated agencies causing procedural inefficiencies, delays, corruption risks, and competitive disadvantage in the global tourism market."
+      },
+      "solution": {
+        "short": [
+          "Cabinet Tourism Services Coordination Directive mandating all agencies integrate into unified digital platform",
+          "Build National Tourism Services Portal (nepal.gov.np/visitnepal) with single online form replacing separate applications",
+          "Payment gateway integration with Connect IPS, eSewa, Khalti, IME Pay, and international cards",
+          "Pilot implementation in 3 phases: First Department of Tourism permits, then conservation permits, finally restricted-area permits",
+          "Offline backup system with mobile data collection units at remote checkpoints",
+          "Nationwide rollout to all 7 provinces and 77 districts by Month 30 targeting 90% digital permit processing"
+        ]
+      },
+      "performanceTargets": [
+        "Year 1: 30% of Department of Tourism permits processed digitally; platform uptime 95%; average processing time reduced from 5 days to 3 days",
+        "Year 2: 70% of all tourism permits processed digitally; platform uptime 98%; average processing time 48 hours; all conservation/restricted permits integrated",
+        "Year 3: 90% of all tourism permits processed digitally; platform uptime 99%; average processing time 24 hours; 100% of permit types available online; tourist satisfaction 80% rate service as good or excellent; system financially self-sustaining through convenience fees",
+        "Long-term (5 years): 95% digital processing; revenue leakage reduced by 50%; administrative costs reduced by 40%; tourist complaints about permits reduced by 70%; Nepal Tourism competitiveness ranking improves in WEF TTDI"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Rwanda's Irembo Platform: 247 services from 38 agencies with 95% cashless transactions",
+          "GCC Unified Tourist Visa: 6 countries single platform launching 2026",
+          "India's National Single Window: 75,000+ approvals reducing approval time from 30+ days to 7-10 days",
+          "Kenya's ETA and Digital Nomad Permits demonstrate feasibility with initial challenges"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Year 1 (Months 1-12): Legal foundation, platform development, Department of Tourism pilot launch",
+          "Year 2 (Months 13-24): Conservation/restricted permits integrated, nationwide rollout begins",
+          "Year 3 (Months 25-36): Full service integration, sustainability model confirmed, 90% digital processing achieved"
+        ]
+      },
+      "legalFoundation": "Tourism Act 2035 (1978) governs tourism operations and grants MoCTCA authority over tourism sector coordination. Nepal Tourism Board Act 2053 (1996) establishes NTB as promotional body with coordinating role. Electronic Transactions Act 2063 (2008) provides framework for digital signatures and online payments. Right to Information Act 2064 (2007) mandates proactive disclosure of service standards. Good Governance Act 2064 (2008) requires transparent, efficient service delivery. Implementation requires Cabinet Directive (fastest route during interim government) or Tourism Services Coordination Act (more durable but requires Parliament)."
+    },
+    {
+      "id": "31",
+      "title": "Open Data and Transparency for Tourism Statistics",
+      "description": "Create comprehensive open tourism data portal consolidating fragmented statistics from 7+ agencies into unified, real-time, machine-readable platform reducing data publication lag from 6-18 months to monthly updates with 100% public accessibility.",
+      "category": "Tourism Data",
+      "priority": "High",
+      "timeline": "3 years",
+      "updatedOn": "24 Nov 2025",
+      "problem": {
+        "short": "Nepal's tourism statistics are fragmented across multiple agencies with inconsistent methodologies, significant publication delays (6-18 months), lack of granular data, and no centralized public access platform, preventing evidence-based decision-making by government, businesses, and researchers."
+      },
+      "solution": {
+        "short": [
+          "Cabinet Tourism Data Governance Directive mandating all agencies share tourism data through unified platform",
+          "Build National Tourism Data Portal (data.tourism.gov.np) with API access for public, businesses, researchers",
+          "Real-time data integration from Immigration, Tourism, Parks, NTB, Airport through automated API feeds",
+          "Standardize definitions and methodologies aligned with UNWTO Tourism Statistics framework",
+          "Monthly publication schedule replacing current 6-18 month delays",
+          "Open data licensing (Creative Commons) enabling commercial and research use without restrictions"
+        ]
+      },
+      "performanceTargets": [
+        "Year 1: 40% of core tourism statistics available on public portal; monthly publication schedule for integrated datasets; data lag reduced from 6-18 months to 30-60 days; platform uptime 95%; 1,000+ registered users",
+        "Year 2: 80% of all tourism datasets integrated; subnational data available for all 7 provinces and major districts; real-time dashboards operational; predictive analytics deployed; data lag reduced to 15-30 days; platform uptime 98%; 5,000+ registered users; 100+ media citations",
+        "Year 3: 95% of tourism data publicly accessible; Tourism Satellite Account published annually; monthly updates for all major indicators; data lag reduced to 7-15 days; platform uptime 99.5%; 10,000+ registered users; Nepal achieves UNWTO Category 1 data standards; independent audit confirms data quality >90%; tourism stakeholder satisfaction 80% rate data as good or excellent",
+        "Long-term (5 years): 100% digital data collection; real-time statistics for high-frequency indicators; international recognition as regional leader in tourism data transparency; platform cited in 50+ academic publications; business intelligence services financially self-sustaining"
+      ],
+      "realWorldEvidence": {
+        "short": [
+          "Singapore's Tourism Analytics Network provides real-time data to 5,000+ businesses enabling precision marketing",
+          "New Zealand's MBIE Tourism Dashboard offers monthly district-level statistics with 95% data completeness",
+          "Mexico's DATATUR open platform publishes 200+ datasets with 500K+ annual users",
+          "Australia's Tourism Research Australia provides granular data driving $60B industry"
+        ]
+      },
+      "implementation": {
+        "short": [
+          "Year 1 (Months 1-12): Legal foundation, standardize definitions, pilot portal with Immigration/Airport/Trekking data, 40% core statistics available",
+          "Year 2 (Months 13-24): Full agency integration, advanced analytics, subnational granularity, 80% datasets integrated",
+          "Year 3 (Months 25-36): Tourism Satellite Account, impact assessment tools, national infrastructure integration, sustainability model confirmed"
+        ]
+      },
+      "legalFoundation": "Tourism Act 2035 (1978) grants MoCTCA authority over tourism sector coordination. Nepal Tourism Board Act 2053 (1996) establishes NTB's role in tourism promotion and research. Electronic Transactions Act 2063 (2008) provides framework for digital data management. Right to Information Act 2064 (2007) mandates proactive disclosure of government data. Statistics Act 2058 (2002) governs official statistics and Nepal Central Bureau of Statistics coordination. Implementation requires Cabinet Directive (fastest route during interim government) or Tourism Data Act (more durable but requires Parliament)."
     }
   ]
 }

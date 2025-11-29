@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "5 years",
   "problem": {
+    "short": "Rural areas lack access to quality education while private institutions exploit families and government schools suffer from unqualified teachers, poor facilities, and outdated curricula.",
     "long": "Rural areas lack access to quality education due to cost and poor infrastructure. Private educational institutions exploit families while government educational institutions suffer from unqualified teachers, poor facilities, and outdated curricula."
   },
   "solution": {
+    "short": [
+      "Expand government school network in underserved areas with modern facilities and internet connectivity",
+      "5-year teacher requalification cycle with mandatory training and STEM teacher recruitment",
+      "TVET expansion with mandatory work-oriented subjects: coding, agriculture, carpentry, hospitality",
+      "National Education Digital Platform for e-books, recorded lessons, and teaching resources",
+      "Independent Education Regulatory Authority for annual audits and private school accountability"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,11 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Kenya's 2003 fee elimination doubled primary enrollment to 99% by 2016",
+      "Finland transformed to world-leading education through teacher training and practical skills emphasis",
+      "Rwanda achieved 167% increase in young women's university enrollment through systematic transformation"
+    ],
     "long": [
       {
         "country": "Kenya",
@@ -69,6 +82,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Year 1: School mapping, teacher requalification launch, IERA establishment, and digital platform development",
+      "Years 2-3: Model school construction, curriculum reform rollout, and digital infrastructure deployment",
+      "Years 4-5: Full system operation with quality measurement and higher education curriculum modernization"
+    ],
     "long": [
       {
         "timeline": "Year 1",

@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "5 years",
   "problem": {
-    "long": "Rural and marginalized communities in Nepal face severe healthcare access gaps due to underfunded primary care, lack of qualified professionals, poor health infrastructure, and logistical challenges. Urban-rural disparities contribute to preventable deaths, untreated chronic illnesses, and broadening public health inequality."
+    "short": "Rural and marginalized communities face severe healthcare access gaps due to underfunded primary care, lack of qualified professionals, and poor infrastructure. Urban-rural disparities contribute to preventable deaths and untreated chronic illnesses.",
+    "long": "Rural and marginalized communities in Nepal face severe healthcare access gaps due to underfunded primary care, lack of qualified professionals, poor health infrastructure, and logistical challenges. Urban-rural disparities contribute to preventable deaths, untreated chronic illnesses, and broadening public health inequality. Mountains and remote areas lack basic health facilities; where facilities exist, they often lack medicines, equipment, and qualified staff. Maternal mortality, infant mortality, and communicable diseases remain unacceptably high in rural areas while urban centers concentrate resources. Out-of-pocket healthcare spending pushes families into poverty. Health insurance coverage remains limited with low enrollment among rural and informal sector workers. Mental health services virtually absent. Digital health infrastructure underdeveloped. Result: two-tier healthcare system where urban wealthy access quality care while rural poor suffer preventable illness and death."
   },
   "solution": {
+    "short": [
+      "Map underserved regions and construct/upgrade Primary Health Centers with essential medicines and equipment",
+      "Rural doctor/nurse quotas with service bonds, hardship allowances, housing incentives for retention",
+      "Electronic Health Record system and National Digital Health Platform for telemedicine",
+      "Expand government-subsidized health insurance to all low-income and rural households",
+      "Integrate mental health services into Primary Health Centers with tele-counseling"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Thailand's Universal Coverage Scheme reduced catastrophic health spending 30% through rural investment",
+      "Sri Lanka achieved strong maternal/child health outcomes despite low spending by focusing on equity",
+      "Rwanda reduced child mortality 60% in a decade through community health workers and digital health",
+      "Ethiopia's Health Extension Program improved immunization through 40,000 community health workers"
+    ],
     "long": [
       {
         "country": "Thailand",
@@ -69,6 +83,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Year 1: Map facilities, setup Independent Health Regulatory Authority, initiate Digital Health Platform",
+      "Years 2-3: Construct health posts, expand NCD/MCH services, rollout insurance, train health workers",
+      "Years 4-5: Universal coverage operational, 80% facilities using digital records, telemedicine expanded"
+    ],
     "long": [
       {
         "timeline": "Year 1",

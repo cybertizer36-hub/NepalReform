@@ -6,9 +6,17 @@
   "priority": "Medium",
   "timeline": "2 years",
   "problem": {
+    "short": "Monopolistic practices are widespread through unregulated associations controlling transport fares, routes, and agricultural supply chains, leaving consumers with inflated prices and farmers with minimal value from their produce.",
     "long": "Monopolistic practices are widespread, particularly through unregulated associations. The transport associations set fares and restrict vehicle routes, while agricultural middlemen control prices and supply chains, leaving farmers with only a fraction of the value."
   },
   "solution": {
+    "short": [
+      "Temporary import liberalization with simplified licensing for essential goods facing monopoly pricing",
+      "Strengthen Competition Commission with enhanced cartel investigation and enforcement authority",
+      "Establish consumer protection courts in every district with penalty powers",
+      "Implement price monitoring and crowdsourced reporting systems",
+      "Cross-check international compliance to prevent blacklisted firms from entering market"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,10 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "South Korea transitioned from protecting chaebols to serious competition enforcement post-1997, contributing to developed economy status",
+      "India's Competition Act 2002 replaced monopoly protection, paralleling GDP growth acceleration through market competition"
+    ],
     "long": [
       {
         "country": "South Korea",
@@ -59,6 +71,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 0-6: Issue Temporary Import Liberalization Order with digital permit system for SMEs and individuals",
+      "Months 7-12: Implement monitoring framework with compliance audits and consumer court establishment",
+      "Years 1-2: Assess impact on prices and competition, optimize based on results"
+    ],
     "long": [
       {
         "timeline": "Months 0-6",

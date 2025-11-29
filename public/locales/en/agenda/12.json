@@ -6,9 +6,17 @@
   "priority": "Medium",
   "timeline": "3 years",
   "problem": {
+    "short": "Nepal remains import-dependent with weak farmer protections and high costs keeping local production uncompetitive while entrepreneurs face high land prices, bureaucracy, and unreliable energy.",
     "long": "Nepal remains import-dependent and agriculture-heavy, with weak legal protections for farmers and high costs that have kept local production uncompetitive. Entrepreneurs face very high land prices, bureaucracy, and extremely unreliable energy sources, discouraging investment."
   },
   "solution": {
+    "short": [
+      "Industrial Growth Fund with 20% equity stakes and mandatory private co-investment requirement",
+      "Forward purchase agreements guaranteeing minimum prices for farmers supplying manufacturers",
+      "Preferential government procurement from certified local producers",
+      "University Innovation Fund with Technology Transfer Offices and IP support",
+      "Performance-based tax incentives tied to capacity targets and employment milestones"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,11 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Malaysia achieved 7.3% annual GDP growth 1961-2023 with manufacturing reaching 36.8% of GDP",
+      "Chile diversified beyond mining through upstream/downstream linkages supporting high-income transition",
+      "OECD analysis shows performance-based incentives outperform unconditional support in developing countries"
+    ],
     "long": [
       {
         "country": "Malaysia",
@@ -64,6 +77,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-6: Fund establishment with independent governance and tax incentive framework design",
+      "Year 1: First IGF investments, raw material aggregation pilots, and Technology Transfer Office establishment",
+      "Years 2-3: Scale successful models and optimize based on job creation and export generation metrics"
+    ],
     "long": [
       {
         "timeline": "Months 1-6",

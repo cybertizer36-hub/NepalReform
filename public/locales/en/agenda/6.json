@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "5 years",
   "problem": {
+    "short": "Nepal's parliamentary system creates chronic instability, coalition governments that collapse frequently, and allows unqualified party loyalists to become ministers without independent checks.",
     "long": "Nepal's current parliamentary system creates chronic instability, coalition governments that collapse frequently, and allows unqualified party loyalists to become ministers. There are no independent checks on executive appointments and insufficient separation of powers to prevent abuse."
   },
   "solution": {
+    "short": [
+      "Create independent commission to review all ministerial appointments publicly",
+      "Require education and experience standards for all ministers",
+      "Give anti-corruption commission independent prosecution powers",
+      "Allow overseas Nepalis to vote in elections",
+      "Long-term goal: Direct presidential elections separate from legislature"
+    ],
     "long": {
       "phases": [
         {
@@ -37,6 +45,11 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Singapore's merit-based appointment system contributed to 100x GDP growth over 60 years",
+      "South Korea's 1987 constitutional reforms created stable democratic institutions",
+      "Estonia combined immediate reforms with long-term constitutional development"
+    ],
     "long": [
       {
         "country": "Singapore",
@@ -51,6 +64,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Phase 1 (0-12 months): Create appointment commission, pass qualification laws",
+      "Phase 2 (2-5 years): Build political consensus for constitutional amendments",
+      "Show that immediate reforms work before proposing constitutional changes"
+    ],
     "long": [
       {
         "timeline": "Months 0-12",

@@ -1,6 +1,7 @@
 // Enhanced sitemap with more options and better SEO
 import { MetadataRoute } from 'next'
-import { manifestoData, getAllCategories } from '@/lib/manifesto-data'
+import fs from 'fs'
+import path from 'path'
 
 // Types for better type safety
 type ChangeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
@@ -14,10 +15,20 @@ interface SitemapEntry {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nepalreforms.com'
-  
+
   // Get current date for lastModified
   const currentDate = new Date()
-  
+
+  // Load manifesto data from JSON file
+  let manifestoData: any[] = []
+  try {
+    const summaryPath = path.join(process.cwd(), 'public', 'locales', 'en', 'summary.json')
+    const summaryData = JSON.parse(fs.readFileSync(summaryPath, 'utf-8'))
+    manifestoData = summaryData.manifestoData || []
+  } catch (error) {
+    console.error('Error loading manifesto data for sitemap:', error)
+  }
+
   // Helper function to create sitemap entry
   const createEntry = (
     path: string, 
@@ -50,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })
   
   // Category pages (if you have them in the future)
-  const categories = getAllCategories()
+  const categories = [...new Set(manifestoData.map((item: any) => item.category))]
   const categoryPages: SitemapEntry[] = categories.map((category) => 
     createEntry(
       `/category/${encodeURIComponent(category.toLowerCase().replace(/\s+/g, '-'))}`,

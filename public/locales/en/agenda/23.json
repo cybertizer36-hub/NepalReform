@@ -6,9 +6,17 @@
   "priority": "Medium",
   "timeline": "2 years",
   "problem": {
-    "long": "Concentration of power in a single leader for extended periods undermines democratic renewal and creates opportunities for institutional capture and corruption. Article 76 governs Prime Minister appointment but lacks term limits, allowing indefinite tenure that can lead to authoritarian tendencies and prevent healthy democratic rotation of leadership."
+    "short": "Concentration of power in a single leader for extended periods undermines democratic renewal and creates opportunities for institutional capture and corruption. No term limits allow indefinite tenure leading to authoritarian tendencies.",
+    "long": "Concentration of power in a single leader for extended periods undermines democratic renewal and creates opportunities for institutional capture and corruption. Article 76 governs Prime Minister appointment but lacks term limits, allowing indefinite tenure that can lead to authoritarian tendencies and prevent healthy democratic rotation of leadership. Extended tenure enables: patronage networks that entrench power; institutional capture serving individual rather than public interest; stifling of emerging leadership and fresh perspectives; personalization of governance around individual rather than institutions; corruption opportunities through long-term control of appointments and resources. While parliamentary system provides checks through vote of confidence, lack of constitutional term limits means technically unlimited tenure for dominant leaders. Healthy democracies require regular leadership renewal ensuring fresh ideas, generational transitions, and preventing excessive power concentration."
   },
   "solution": {
+    "short": [
+      "Two-term maximum (10 years total) preventing any individual from extended PM tenure",
+      "Non-consecutive terms counted toward limit preventing circumvention",
+      "Mid-term calculation: serving more than half term counts as full term",
+      "Constitutional amendment through Article 274 requiring 2/3 Parliamentary majority",
+      "Transitional provision applying from enactment, not retroactively"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "US 22nd Amendment (1951) ensures regular executive renewal preventing power concentration",
+      "South Korea's single five-year term prevents authoritarian consolidation through forced rotation",
+      "Mexico's single six-year term since 1917 contributed to political stability and democratic development",
+      "All demonstrate term limits strengthen democracy through regular leadership renewal"
+    ],
     "long": [
       {
         "country": "United States",
@@ -64,6 +78,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-12: Draft amendment, build political coalition, consult provincial assemblies",
+      "Year 1-2: Parliamentary debate, stakeholder engagement, public education campaign",
+      "Year 2: Pass amendment with 2/3 majority, presidential endorsement, implementation framework"
+    ],
     "long": [
       {
         "timeline": "Months 1-12",

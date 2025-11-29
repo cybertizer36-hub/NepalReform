@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "18 months",
   "problem": {
-    "long": "Citizens have no access to information about government spending while financial transactions happen in darkness, enabling massive corruption and waste. The Right to Information Act 2007 requires proactive financial disclosure and the Auditor General Act establishes audit authority, but real-time tracking systems are absent."
+    "short": "Citizens have no access to information about government spending while financial transactions happen in darkness, enabling massive corruption and waste. Real-time tracking systems are absent despite legal requirements.",
+    "long": "Citizens have no access to information about government spending while financial transactions happen in darkness, enabling massive corruption and waste. The Right to Information Act 2007 requires proactive financial disclosure and the Auditor General Act establishes audit authority, but real-time tracking systems are absent. Government expenditure occurs through opaque processes where budget allocations, procurement contracts, and payment disbursements remain hidden from public scrutiny. Citizens cannot track how tax revenues are spent, which contractors receive government business, or whether funds reach intended beneficiaries. This opacity enables systematic corruption: inflated contracts, ghost beneficiaries, fund diversion, and wasteful spending. Without transparency pressure, officials face no public accountability for financial decisions. Existing financial management systems (LMBIS, SuTRA, provincial systems) operate in silos without public-facing interfaces or real-time disclosure."
   },
   "solution": {
+    "short": [
+      "Every transaction online within 24 hours with complete details accessible to all citizens",
+      "Searchable public database tracking specific projects, contractors, and spending categories",
+      "Monthly verified statements and quarterly independent audits for all government levels",
+      "Mandatory annual audited asset declarations for all senior officials published online",
+      "Mobile-friendly interface with SMS alerts for major expenditures in citizens' constituencies"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Estonia publishes all transactions in real-time achieving 95% citizen trust in financial management",
+      "Brazil's Transparency Portal led to discovery of major corruption and 40% waste reduction",
+      "South Korea's digital budget tracking exposed massive corruption cases through citizen oversight",
+      "All demonstrate real-time transparency dramatically reduces corruption and improves accountability"
+    ],
     "long": [
       {
         "country": "Estonia",
@@ -64,6 +78,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-12: Launch digital platform integrating all financial systems with 24-hour disclosure",
+      "Months 6-18: Train officials, build audit capacity, integrate asset declaration system",
+      "Months 12-24: Full transparency operational with all transactions online and monitored"
+    ],
     "long": [
       {
         "timeline": "Months 1-12",

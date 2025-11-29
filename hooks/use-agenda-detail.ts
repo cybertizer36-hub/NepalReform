@@ -5,6 +5,7 @@ import { ManifestoDetailItem, ManifestoSummaryItem } from './use-manifesto-data'
 
 // Combined item type for agenda pages
 export interface CombinedManifestoItem extends ManifestoSummaryItem {
+  updatedOn?: string;
   problem: {
     short: string;
     long: string;
@@ -72,7 +73,8 @@ export function useAgendaDetail(agendaId: string, summaryData?: ManifestoSummary
             timeline: summaryData.timeline,
             performanceTargets: summaryData.performanceTargets,
             legalFoundation: summaryData.legalFoundation,
-            
+            updatedOn: detailData.updatedOn,
+
             // Combine short and long versions
             problem: {
               short: summaryData.problem.short,
@@ -91,7 +93,7 @@ export function useAgendaDetail(agendaId: string, summaryData?: ManifestoSummary
               long: detailData.implementation.long
             }
           };
-          
+
           setCombinedData(combined);
         } else {
           // If no summary data, use detail data only (fallback)
@@ -104,7 +106,8 @@ export function useAgendaDetail(agendaId: string, summaryData?: ManifestoSummary
             timeline: detailData.timeline,
             performanceTargets: detailData.performanceTargets,
             legalFoundation: detailData.legalFoundation,
-            
+            updatedOn: detailData.updatedOn,
+
             problem: {
               short: '', // Not available in detail-only data
               long: detailData.problem.long
@@ -122,7 +125,7 @@ export function useAgendaDetail(agendaId: string, summaryData?: ManifestoSummary
               long: detailData.implementation.long
             }
           };
-          
+
           setCombinedData(fallbackCombined);
         }
         
