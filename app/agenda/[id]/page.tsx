@@ -427,6 +427,14 @@ function AgendaPageContent({ item }: { item: CombinedManifestoItem }) {
                   </label>
                   <p className="text-foreground font-medium">#{item.id} {t('labels.of27', { defaultValue: 'of 27' })}</p>
                 </div>
+                {item.updatedOn && (
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">
+                      {t('labels.lastUpdated', { defaultValue: 'Last Updated' })}
+                    </label>
+                    <p className="text-foreground font-medium">{item.updatedOn}</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 

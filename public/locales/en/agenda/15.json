@@ -6,9 +6,17 @@
   "priority": "Medium",
   "timeline": "3 years",
   "problem": {
-    "long": "Nepal loses high-value investors due to fragmented rules, bureaucratic rigidity, restrictive sectoral limitations, and weak profitability incentives. FITTA ownership restrictions and negative lists block investment while regulatory bodies lack expertise for effective facilitation."
+    "short": "Nepal loses high-value investors due to fragmented rules, bureaucratic rigidity, and restrictive sectoral limitations. Regulatory bodies lack expertise for effective facilitation while weak safeguards fail to protect national interests from exploitative investment.",
+    "long": "Nepal's foreign investment regime suffers from multiple failures: fragmented and contradictory rules across FITTA (Foreign Investment and Technology Transfer Act), its regulations (FITTR), and sectoral laws creating uncertainty for legitimate investors; bureaucratic rigidity with approval delays averaging 6-12 months even for straightforward projects; restrictive sectoral limitations where negative lists block investment in potentially beneficial sectors without clear rationale; and weak profitability incentives where restricted profit repatriation and dividend transfer policies deter quality investors. Simultaneously, weak safeguards fail to protect national interests: no systematic screening for exploitative investment terms, environmental damage, community displacement, or strategic sector vulnerability. The regulatory architecture—Department of Industry for routine approvals, Investment Board for large projects—lacks specialized expertise in investment screening, sectoral analysis, technology evaluation, or community impact assessment. Result: Nepal attracts minimal quality FDI (less than 1% of GDP annually, among South Asia's lowest) while remaining vulnerable to exploitative resource extraction, land grabbing, and projects with minimal technology transfer or local benefit. The system fails both to attract quality investment AND to protect national interests."
   },
   "solution": {
+    "short": [
+      "Consolidated Investment Manual with single public webpage containing all rules, timelines, and procedures",
+      "Investment Screening & Safeguards Unit within Investment Board for systematic vetting",
+      "Mandatory Technology Transfer & Localisation Plans for strategic sectors with milestone compliance",
+      "Community Benefit Agreements required for resource extraction with revenue-sharing mandates",
+      "Reaffirm Land Act protections: no foreign land ownership, Nepal-registered entities only for leases"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "37 countries including Singapore, Canada, Germany maintain robust FDI flows while protecting critical sectors",
+      "Singapore achieved world's highest per-capita FDI through clear, transparent screening processes",
+      "Canada's Investment Canada Act demonstrates conditional approvals protecting national interests",
+      "All demonstrate systematic screening mechanisms can attract quality investment while maintaining sovereignty"
+    ],
     "long": [
       {
         "country": "Global Best Practice",
@@ -64,6 +78,12 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-3: Establish Investment Screening Unit, publish Consolidated Investment Manual",
+      "Months 4-6: Develop community benefit agreement templates, technology transfer frameworks",
+      "Year 1: Full screening system operational, first conditional approvals issued",
+      "Years 2-3: 50% increase in quality FDI, 100% strategic investments with technology transfer"
+    ],
     "long": [
       {
         "timeline": "Months 1-3",
@@ -98,9 +118,11 @@
     ]
   },
   "performanceTargets": [
-    "50% increase in quality foreign investment within 3 years",
-    "100% of strategic investments include technology transfer commitments",
-    "75% improvement in investment approval timeline transparency",
-    "Zero exploitative resource extraction without community benefits"
-  ]
+    "FDI Quality: 50% increase in quality foreign investment within 3 years; average project size increases from $5M to $15M+ demonstrating higher-value investors",
+    "Technology Transfer: 100% of strategic sector investments include binding Technology Transfer & Localisation Plans with milestone compliance",
+    "Approval Efficiency: 75% improvement in approval timeline transparency; average approval time reduced from 6-12 months to 2-3 months for straightforward projects",
+    "Community Protection: Zero exploitative resource extraction projects approved without Community Benefit Agreements; 100% of affected communities receive revenue-sharing benefits",
+    "Screening Effectiveness: Investment Screening & Safeguards Unit operational within 3 months; 100% of large projects undergo systematic screening for environmental, social, and strategic impacts"
+  ],
+  "legalFoundation": "Foreign Investment and Technology Transfer Act (FITTA) 2019 and its regulations (FITTR) provide legal framework for investment rules, screening, and approval processes. Land Act 2021 prohibits foreign land ownership. Investment Board Act 2011 establishes authority for large project approvals. Constitution Article 51(j) mandates balanced economic development and protection of national interests. Reforms achievable through regulatory amendments and administrative directives; major changes may require FITTA amendment."
 }

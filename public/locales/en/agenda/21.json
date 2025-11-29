@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "1 year",
   "problem": {
-    "long": "Government decisions made behind closed doors without public input or oversight while citizens have no access to information about what their representatives discuss or decide. Article 27 guarantees Right to Information and the Constitution mandates transparency, but implementation lacks live broadcasting, public participation mechanisms, and timely information access."
+    "short": "Government decisions made behind closed doors without public input or oversight. Citizens have no access to information about what their representatives discuss or decide, undermining democratic accountability.",
+    "long": "Government decisions made behind closed doors without public input or oversight while citizens have no access to information about what their representatives discuss or decide. Article 27 guarantees Right to Information and the Constitution mandates transparency, but implementation lacks live broadcasting, public participation mechanisms, and timely information access. Cabinet meetings, Parliamentary sessions, local government councils, and policy deliberations occur without public visibility. Citizens cannot observe how decisions affecting their lives are made, who supports or opposes specific policies, or what rationale justifies government actions. This opacity enables: backroom deals benefiting special interests; policy decisions made without public input; lack of accountability for poor decisions; and erosion of democratic legitimacy. Information requests under RTI Act face delays, arbitrary denials, and bureaucratic obstacles. Even when information is eventually provided, citizens lack proactive disclosure of routine government operations, making oversight reactive rather than systematic."
   },
   "solution": {
+    "short": [
+      "Broadcast all official meetings live: Cabinet, Parliament, provincial assemblies, municipal councils",
+      "48-hour decision summaries with bullet-point key discussions published automatically",
+      "15-day information guarantee for all citizen requests with written denial justification",
+      "30-day public comment periods for major policy changes with mandatory consideration",
+      "Monthly town hall meetings in every constituency for direct citizen engagement"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Finland publishes all non-classified information online achieving world's highest government trust ratings",
+      "Estonia's digital transparency platform contributes to 85% citizen satisfaction with government services",
+      "Uruguay's mandatory meeting broadcasts led to significant corruption reduction and increased participation",
+      "All demonstrate complete transparency dramatically improves trust and democratic engagement"
+    ],
     "long": [
       {
         "country": "Finland",
@@ -64,6 +78,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-6: Upgrade broadcasting infrastructure, develop digital transparency portal",
+      "Months 6-12: Train officials, implement public participation mechanisms, establish town halls",
+      "Months 12-18: 80% meetings broadcast live, 15-day information guarantee operational"
+    ],
     "long": [
       {
         "timeline": "Months 1-6",

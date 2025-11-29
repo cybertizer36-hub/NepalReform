@@ -28,6 +28,7 @@
     "lambda:test": "docker run -p 9000:8080 nepal-reforms:lambda"
   },
   "dependencies": {
+    "@anthropic-ai/foundry-sdk": "^0.2.0",
     "@emotion/is-prop-valid": "latest",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "1.2.2",

@@ -6,9 +6,17 @@
   "priority": "Medium",
   "timeline": "3 years",
   "problem": {
+    "short": "Student unions act as extensions of political parties causing campus violence and strikes while young people graduate without meaningful civic education.",
     "long": "Student unions act as extensions of national political parties, leading to intimidation, strikes, property damage, and campus violence. Young people graduate without meaningful civic education despite being Nepal's future leaders."
   },
   "solution": {
+    "short": [
+      "Ban direct party affiliation of student unions through Education Regulations amendment",
+      "Replace party-backed unions with elected student councils with gender and minority quotas",
+      "Comprehensive civic education covering constitutional literacy, public finance, and governance",
+      "Strengthen National Youth Council for student-to-governance pathways",
+      "Autonomous campus governance removing political interference"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,11 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Germany's student government system separates unions from party politics while maintaining high civic engagement",
+      "Finland's civic education integration produces world's highest political knowledge levels",
+      "South Korea's post-1987 student council reforms eliminated campus violence while consolidating democracy"
+    ],
     "long": [
       {
         "country": "Germany",

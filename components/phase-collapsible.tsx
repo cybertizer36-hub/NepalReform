@@ -23,7 +23,7 @@ export function PhaseCollapsible({ phase, index }: PhaseCollapsibleProps) {
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleTrigger className="w-full">
         <div className="flex items-center justify-between p-4 bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col items-start gap-2">
             <Badge className="bg-primary text-primary-foreground">
               {phase.phase}
             </Badge>

@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "2 years",
   "problem": {
+    "short": "Government contracts often go to pre-selected companies through biased specifications and corrupt practices. The lowest bidder system often results in poor quality work.",
     "long": "Public procurement in Nepal continues to face systemic challenges that undermine efficiency, fairness, and accountability. Unverified budgetary requirements, biased bid documentation, and flawed bid awarding systems pose major threats to fair and competitive participation."
   },
   "solution": {
+    "short": [
+      "Have independent auditors verify all bid documents to ensure fairness",
+      "Award contracts based on average bid price, not just lowest price",
+      "Require electronic bidding for all contracts above Rs. 500,000",
+      "Publish all contract details and payments online in real-time",
+      "Enforce strict penalties and automatic bans for companies that fail to deliver"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,11 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Rwanda's digital system increased bidders per tender from 2.1 to 4.2 participants",
+      "Estonia achieved 96% electronic procurement with 40% time reduction",
+      "Georgia's reforms reduced infrastructure costs by 30-50% while eliminating cartels"
+    ],
     "long": [
       {
         "country": "Rwanda",
@@ -64,6 +77,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-6: Upgrade procurement systems and change laws",
+      "Months 7-12: Roll out starting with central ministries",
+      "Year 2: Full implementation including local governments with monitoring"
+    ],
     "long": [
       {
         "timeline": "Months 1-6",

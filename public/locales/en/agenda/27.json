@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "2 years",
   "problem": {
-    "long": "Public financial management suffers from fragmented systems, weak accountability, and outdated processes. LMBIS, Provincial LMBIS, SuTRA, and RMS are not interoperable while budgeting and expenditure decisions are disconnected from implementation."
+    "short": "Public financial management suffers from fragmented systems, weak accountability, and outdated processes. LMBIS, Provincial LMBIS, SuTRA, and RMS not interoperable while budgeting disconnected from implementation.",
+    "long": "Public financial management suffers from fragmented systems, weak accountability, and outdated processes. LMBIS, Provincial LMBIS, SuTRA, and RMS are not interoperable while budgeting and expenditure decisions are disconnected from implementation. Multiple incompatible financial management systems operate across federal, provincial, and local levels without data sharing or integration. Budgets prepared with unrealistic revenue projections and expenditure estimates disconnected from implementation capacity. National Planning Commission duplicates Ministry of Finance functions creating confusion and delays. Public Procurement Act's risk-averse provisions paralyze bureaucrats fearing prosecution for good-faith decisions, leading to delays and lowest-bidder selection ignoring quality. No citizen access to real-time budget or expenditure data. Auditor General focuses on legal compliance rather than performance evaluation, missing wasteful spending that technically follows rules. Result: low budget execution rates, wasteful projects, procurement delays, and zero public accountability for financial performance."
   },
   "solution": {
+    "short": [
+      "Integrate LMBIS, Provincial LMBIS, SuTRA, RMS into interoperable system within 1-2 years",
+      "Citizen budget portal with real-time ward-level budget and implementation data",
+      "Amend Public Procurement Act protecting good-faith bureaucrats, digitize procurement",
+      "Establish Parliamentary Budget Office for independent oversight and analysis",
+      "Mandatory performance audits by Auditor General alongside compliance audits"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "South Korea, Chile, Philippines have citizen budget portals enabling real-time transparency",
+      "India and Philippines show mandatory performance audits reduce fund misuse and improve outcomes",
+      "Kenya and Rwanda's digitized procurement with conflict-of-interest rules reduces corruption",
+      "New Zealand's hard budget constraints and evidence-based projections achieve higher execution rates"
+    ],
     "long": [
       {
         "country": "Global Best Practice",
@@ -69,6 +83,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-12: Map systems, develop interoperable platform, build citizen budget portal",
+      "Months 12-24: Amend Procurement Act, digitize procurement, establish Parliamentary Budget Office",
+      "Year 2: Close NPC, enforce budget constraints, require performance audits, 50% efficiency improvement"
+    ],
     "long": [
       {
         "timeline": "Months 1-12",

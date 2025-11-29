@@ -6,9 +6,17 @@
   "priority": "High",
   "timeline": "5 years",
   "problem": {
-    "long": "Social protection system remains fragmented, underfunded, and inadequate with uneven coverage. Children, working-age people, and informal workers are largely underprotected creating a substantial 'missing middle.' Benefits are too small to meet basic needs while spending is heavily skewed toward public pensions."
+    "short": "Social protection system remains fragmented, underfunded, and inadequate with uneven coverage. Children, working-age people, and informal workers largely underprotected creating substantial 'missing middle.' Benefits too small to meet basic needs.",
+    "long": "Social protection system remains fragmented, underfunded, and inadequate with uneven coverage. Children, working-age people, and informal workers are largely underprotected creating a substantial 'missing middle.' Benefits are too small to meet basic needs while spending is heavily skewed toward public pensions. Nepal's social protection landscape includes old-age pensions, child grants in select districts, disability allowances, widow support, and contributory social security schemes, but these programs operate in silos without coordination. Coverage gaps leave most working-age population and many children without support. Benefit levels inadequate—often less than 10% of minimum expenditure basket. Informal sector workers (majority of workforce) largely excluded from contributory schemes. No shock-responsive mechanisms for rapid scale-up during disasters despite Nepal's vulnerability to earthquakes, floods, landslides. Registry systems fragmented preventing efficient targeting and duplication control. Result: social protection fails to provide meaningful income security or protect against shocks."
   },
   "solution": {
+    "short": [
+      "Universalize child grants nationwide reaching all children under five with progressive extension",
+      "Raise benefit levels to at least 15% of Minimum Expenditure Basket by 2028",
+      "Integrate shock-responsive protocols enabling 90% disaster-affected households supported within 14 days",
+      "Create inter-agency Social Protection Council aligning policy, budgets, and crisis responses",
+      "Unified registry covering 80% eligible households linked to National ID system"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Brazil's Bolsa Família demonstrates large-scale child cash transfers with strong registry",
+      "Ethiopia's PSNP provides shock-responsive multi-year transfers for disaster resilience",
+      "Indonesia's BPJS extended social insurance to informal workers via subsidies and simplified enrollment",
+      "South Africa's Child Support Grant shows predictable child transfers have proven poverty-reduction impact"
+    ],
     "long": [
       {
         "country": "Brazil",
@@ -69,6 +83,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Years 1-2: Operationalize Integrated Framework, unified registry, Social Security Act implementation",
+      "Years 2-4: Expand child grants, introduce informal worker contributions, strengthen insurance schemes",
+      "Years 4-5: Achieve 50% population coverage, 2.5M active contributors, 10% budget allocation"
+    ],
     "long": [
       {
         "timeline": "Years 1-2",

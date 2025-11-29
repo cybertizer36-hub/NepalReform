@@ -6,9 +6,17 @@
   "priority": "Low",
   "timeline": "18 months",
   "problem": {
-    "long": "Thousands of seized vehicles rot in police stations while students lack practical learning materials for technical education. Government property management creates corruption opportunities and wastes public resources. The Public Property Protection Act provides disposal authority, but lack of transparent systems and clear procedures leads to inefficiency and potential misuse."
+    "short": "Thousands of seized vehicles rot in police stations while students lack practical learning materials for technical education. Government property management creates corruption opportunities and wastes public resources.",
+    "long": "Thousands of seized vehicles rot in police stations while students lack practical learning materials for technical education. Government property management creates corruption opportunities and wastes public resources. The Public Property Protection Act provides disposal authority, but lack of transparent systems and clear procedures leads to inefficiency and potential misuse. Seized vehicles—from traffic violations, criminal cases, abandoned imports—accumulate indefinitely in police compounds across Nepal. No clear timelines for disposal, no public registry, no transparent auction processes. Result: valuable assets deteriorate while consuming storage space; genuine owners face obstacles reclaiming property; disposal processes vulnerable to favoritism and corruption; technical education institutions desperately need practical training materials that literally sit unused in government custody. This represents both massive waste and missed opportunity—wasted resources and wasted educational potential."
   },
   "solution": {
+    "short": [
+      "6-month reclaim deadline with digital registry showing photos, VIN, case status, deadlines",
+      "Technical school priority: non-roadworthy vehicles donated to engineering colleges for training",
+      "Public online auctions for roadworthy vehicles with transparent bidding and revenue tracking",
+      "Owner protection: genuine owners can reclaim anytime before disposal with valid documents",
+      "Certified recycling for unrepairable vehicles with proceeds to road safety fund"
+    ],
     "long": {
       "phases": [
         {
@@ -45,6 +53,12 @@
     }
   },
   "realWorldEvidence": {
+    "short": [
+      "Germany and Japan donate seized vehicles to technical universities improving student practical skills",
+      "India's IITs receive impounded vehicles for EV conversion combining waste reduction with innovation",
+      "Philippines' transparent auction system eliminated corruption while generating significant revenue",
+      "All demonstrate systematic approach eliminates waste while creating educational and financial benefits"
+    ],
     "long": [
       {
         "country": "Germany and Japan",
@@ -64,6 +78,11 @@
     ]
   },
   "implementation": {
+    "short": [
+      "Months 1-6: Launch digital registry, create legal framework, train staff",
+      "Months 6-12: Establish educational partnerships, launch transparent auction system",
+      "Months 12-18: 90% storage reduction, 100 vehicles donated annually, significant revenue generation"
+    ],
     "long": [
       {
         "timeline": "Months 1-6",
