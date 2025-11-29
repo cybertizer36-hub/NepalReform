@@ -18,6 +18,7 @@ import { AgendaVoteSection } from "@/components/agenda-vote-section"
 import { SuggestionSection } from "@/components/suggestion-section"
 import { ShareDialog } from "@/components/share-dialog"
 import { useAgendaSummary, useAgendaDetail, CombinedManifestoItem } from "@/hooks/use-agenda-detail"
+import { useManifestoData } from "@/hooks/use-manifesto-data"
 import { useTranslation } from "react-i18next"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -27,9 +28,13 @@ export default function AgendaPage() {
   const { t } = useTranslation(['common'])
   const [mounted, setMounted] = useState(false)
 
+  // Load all manifesto data to get total count
+  const { manifestoData } = useManifestoData()
+  const totalReforms = manifestoData.length || 31 // Use dynamic count with fallback
+
   // Load summary data first (likely cached)
   const { summaryData, loading: summaryLoading } = useAgendaSummary(agendaId)
-  
+
   // Load detailed data and combine with summary
   const { combinedData, loading: detailLoading, error } = useAgendaDetail(agendaId, summaryData || undefined)
 
@@ -49,10 +54,10 @@ export default function AgendaPage() {
     return <AgendaPageSkeleton />
   }
 
-  return <AgendaPageContent item={combinedData} />
+  return <AgendaPageContent item={combinedData} totalReforms={totalReforms} />
 }
 
-function AgendaPageContent({ item }: { item: CombinedManifestoItem }) {
+function AgendaPageContent({ item, totalReforms }: { item: CombinedManifestoItem; totalReforms: number }) {
   const { t } = useTranslation(['common'])
   
   return (
@@ -425,7 +430,7 @@ function AgendaPageContent({ item }: { item: CombinedManifestoItem }) {
                   <label className="text-sm font-medium text-muted-foreground">
                     {t('labels.reformNumberOf', { defaultValue: 'Reform Number' })}
                   </label>
-                  <p className="text-foreground font-medium">#{item.id} {t('labels.of27', { defaultValue: 'of 27' })}</p>
+                  <p className="text-foreground font-medium">#{item.id}</p>
                 </div>
                 {item.updatedOn && (
                   <div>
@@ -452,7 +457,7 @@ function AgendaPageContent({ item }: { item: CombinedManifestoItem }) {
                     </Button>
                   </Link>
                 )}
-                {Number.parseInt(item.id) < 27 && (
+                {Number.parseInt(item.id) < totalReforms && (
                   <Link href={`/agenda/${Number.parseInt(item.id) + 1}`}>
                     <Button variant="outline" size="sm" className="w-full justify-start bg-transparent">
                       {t('navigation.nextReform', { defaultValue: 'Next Reform' })}

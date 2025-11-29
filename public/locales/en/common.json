@@ -12,7 +12,7 @@
     "nepali": "Nepali",
     "signIn": "Sign In",
     "signOut": "Sign Out",
-    "reforms": "27 Reforms"
+    "reforms": "Reforms"
   },
   "hero": {
     "title": "NepalReforms",
@@ -34,7 +34,7 @@
   },
   "home": {
     "manifestoTitle": "Nepal Reform Manifesto",
-    "manifestoDescription": "Explore 27 comprehensive reform proposals for Nepal's democratic transformation. Each proposal includes detailed solutions, real-world evidence, implementation timelines, and performance targets based on international best practices.",
+    "manifestoDescription": "Explore comprehensive reform proposals for Nepal's democratic transformation. Each proposal includes detailed solutions, real-world evidence, implementation timelines, and performance targets based on international best practices.",
     "howToEngage": "How to Engage:",
     "engageSteps": {
       "read": "Read the Reform Agendas listed below.",
@@ -264,7 +264,7 @@
     "implementationTimeline": "Implementation Timeline",
     "reformNumber": "Reform #{{number}}",
     "reformNumberOf": "Reform Number",
-    "of27": "of 27",
+    "of27": "of 31",
     "implementation": "Implementation",
     "impact": "Impact"
   },
