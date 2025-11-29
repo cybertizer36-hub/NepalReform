@@ -73,13 +73,13 @@ export function Header() {
 
   const handleDownloadEnglish = () => {
     const englishUrl =
-      "https://nokrhvgrfcletinhsalt.supabase.co/storage/v1/object/sign/Manifestobucket/Nepal_Manifesto_What_Comes_After_the_Streets_Offline.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yZTMwMzU3Mi0zYTNmLTRjYmQtOTg1NC0yZjQyYWI4YmE4MTkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5pZmVzdG9idWNrZXQvTmVwYWxfTWFuaWZlc3RvX1doYXRfQ29tZXNfQWZ0ZXJfdGhlX1N0cmVldHNfT2ZmbGluZS5wZGYiLCJpYXQiOjE3NTc2MTQyODksImV4cCI6MTc4OTE1MDI4OX0.9jeGonZUV7CgaQe55oHg5JvUhrhPYQg-OIw2gigiVQg"
+      "https://nokrhvgrfcletinhsalt.supabase.co/storage/v1/object/sign/Manifestobucket/en-Nepal_Manifesto_What_Comes_After_the_Streets.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yZTMwMzU3Mi0zYTNmLTRjYmQtOTg1NC0yZjQyYWI4YmE4MTkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5pZmVzdG9idWNrZXQvZW4tTmVwYWxfTWFuaWZlc3RvX1doYXRfQ29tZXNfQWZ0ZXJfdGhlX1N0cmVldHMucGRmIiwiaWF0IjoxNzY0Mzk5OTU0LCJleHAiOjE3OTU5MzU5NTR9.DxYo8nlG-tSmgmYlJbttGbPiOiJrHmB9fP92JVCfErU"
     window.open(englishUrl, "_blank")
   }
 
   const handleDownloadNepali = () => {
-    const nepaliUrl =
-      "https://nokrhvgrfcletinhsalt.supabase.co/storage/v1/object/sign/Manifestobucket/Nepali_language_Manifesto.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yZTMwMzU3Mi0zYTNmLTRjYmQtOTg1NC0yZjQyYWI4YmE4MTkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5pZmVzdG9idWNrZXQvTmVwYWxpX2xhbmd1YWdlX01hbmlmZXN0by5wZGYiLCJpYXQiOjE3NTc2MTQzMTYsImV4cCI6MTc4OTE1MDMxNn0.7jJXfea5IKF9S709YBKssa_FWzkIg5u213gErQMojr4"
+    const nepaliUrl = 
+      "https://nokrhvgrfcletinhsalt.supabase.co/storage/v1/object/sign/Manifestobucket/ne-Nepal_Manifesto_What_Comes_After_the_Streets.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yZTMwMzU3Mi0zYTNmLTRjYmQtOTg1NC0yZjQyYWI4YmE4MTkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5pZmVzdG9idWNrZXQvbmUtTmVwYWxfTWFuaWZlc3RvX1doYXRfQ29tZXNfQWZ0ZXJfdGhlX1N0cmVldHMucGRmIiwiaWF0IjoxNzY0NDAwMDgwLCJleHAiOjE3OTU5MzYwODB9.vsr0YQXCuZJxdZeOlxwDhUtwAzMSvXML5p8E04mDolQ"
     window.open(nepaliUrl, "_blank")
   }
 
